@@ -1,0 +1,21 @@
+#app-toolbar {
+  position: fixed;
+  top: 0;
+  height: 64px;
+  z-index: 1000;
+}
+
+#app-container {
+  position: fixed;
+  bottom: 0;
+  height: calc(100% - 64px);
+  width: 100%;
+  overflow-y: auto;
+  background-image: url(../assets/background.png);
+  background-size: cover;
+
+  mat-card {
+    margin: 50px;
+    padding: 50px;
+  }
+}
