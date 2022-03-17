@@ -52,6 +52,7 @@ export class ProductComponent implements OnInit, AfterViewInit {
   private loadAllProducts(): void {
     this.productService.getAllProducts().subscribe((response) => {
       this.data = response;
+      this.dataSource.data = this.data;
       Log.info('My object', response)
       OpenSnackBar(this.snackBar, 'Loaded all Products.');
     });
