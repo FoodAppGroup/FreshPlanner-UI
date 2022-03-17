@@ -2,19 +2,21 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.0.
 
+## Dev Requirements
+
+* Download and Install [NodeJS](https://nodejs.org/) v16.14.1+
+* Install [Angular CLI](https://github.com/angular/angular-cli) v13.3.0: `npm install -g @angular/cli@13.3.0`
+
 ## Dependencies
 
-* Angular Material:
-  * https://material.angular.io/guide/getting-started
+* [Angular Material](https://material.angular.io/guide/getting-started):
   * `ng add @angular/material`
-* Flex Layout:
-  * https://github.com/angular/flex-layout
+* [Flex Layout](https://github.com/angular/flex-layout):
   * `npm i -s @angular/flex-layout @angular/cdk`
-  * Demo: https://tburleson-layouts-demos.firebaseapp.com/#/docs
-* NGRX Store:
-  * https://ngrx.io/guide/store & https://ngrx.io/guide/store-devtools
+  * Tool: [Demo](https://tburleson-layouts-demos.firebaseapp.com/#/docs)
+* [NGRX Store](https://ngrx.io/guide/store) with [DevTools](https://ngrx.io/guide/store-devtools):
   * `ng add @ngrx/store@latest` & `ng add @ngrx/store-devtools@latest`
-  * Browser Tool: https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd
+  * Tool: [Browser Plugin](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd)
 
 ## Angular Commands
 
