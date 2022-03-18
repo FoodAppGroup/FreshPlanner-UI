@@ -14,3 +14,12 @@ body {
     color: #5168e2;
   }
 }
+
+.placeholder-actions {
+  display: flex;
+
+  button {
+    min-width: 150px;
+    margin: 10px;
+  }
+}

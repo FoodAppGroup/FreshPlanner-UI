@@ -8,6 +8,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import {OpenSnackBar} from "../../utility/SnackBar";
 import {animate, state, style, transition, trigger} from "@angular/animations";
 import {Log} from "../../utility/Log";
+import {Location} from "@angular/common";
 
 @Component({
   selector: 'app-product',
@@ -32,7 +33,8 @@ export class ProductComponent implements OnInit, AfterViewInit {
   expandedElement: ProductModel | undefined;
 
   constructor(private productService: ProductService,
-              private snackBar: MatSnackBar) {
+              private snackBar: MatSnackBar,
+              private location: Location) {
   }
 
   ngOnInit(): void {
@@ -56,6 +58,10 @@ export class ProductComponent implements OnInit, AfterViewInit {
       Log.info('My object', response)
       OpenSnackBar(this.snackBar, 'Loaded all Products.');
     });
+  }
+
+  public navigateBack(): void {
+    this.location.back();
   }
 }
 

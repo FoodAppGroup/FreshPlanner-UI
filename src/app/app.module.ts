@@ -11,11 +11,31 @@ import {MaterialModule} from "./material-module";
 import {ProductComponent} from './components/product/product.component';
 import {FlexModule} from "@angular/flex-layout";
 import {HttpClientModule} from "@angular/common/http";
+import {LoginComponent} from './components/authentication/login/login.component';
+import {ProfileComponent} from './components/authentication/profile/profile.component';
+import {RegistrationComponent} from './components/authentication/registration/registration.component';
+import {DashboardComponent} from './components/dashboard/dashboard.component';
+import {StorageDialogComponent} from './components/storage/storage-dialog/storage-dialog.component';
+import {StorageComponent} from './components/storage/storage/storage.component';
+import {CartComponent} from './components/cart/cart/cart.component';
+import {CartDialogComponent} from './components/cart/cart-dialog/cart-dialog.component';
+import {RecipeComponent} from './components/recipe/recipe/recipe.component';
+import {RecipeDetailComponent} from './components/recipe/recipe-detail/recipe-detail.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ProductComponent
+    DashboardComponent,
+    LoginComponent,
+    ProfileComponent,
+    RegistrationComponent,
+    ProductComponent,
+    StorageComponent,
+    StorageDialogComponent,
+    CartComponent,
+    CartDialogComponent,
+    RecipeComponent,
+    RecipeDetailComponent
   ],
   imports: [
     BrowserModule,
