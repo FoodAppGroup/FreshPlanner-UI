@@ -1,6 +1,7 @@
 <p>src/app/components/storage/storage</p>
+<p *ngIf="storageModel">{{storageModel |json}}</p>
 
 <div class="placeholder-actions">
-  <button [routerLink]="'/' + AppRoute.PRODUCT" mat-raised-button>Product</button>
+  <button (click)="navigateToProduct(1)" mat-raised-button>Select Product</button>
   <button (click)="navigateBack()" mat-raised-button>Back</button>
 </div>

@@ -4,6 +4,8 @@ import {RecipeService} from "../../../services/recipe.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {OpenSnackBar} from "../../../utility/SnackBar";
 import {RecipeModel} from "../../../models/recipe/recipe.model";
+import {Router} from "@angular/router";
+import {AppRoute} from "../../../app-routing.module";
 
 @Component({
   selector: 'app-recipe-detail',
@@ -15,6 +17,7 @@ export class RecipeDetailComponent implements OnInit {
   recipeModel: RecipeModel | undefined;
 
   constructor(private location: Location,
+              private router: Router,
               private snackBar: MatSnackBar,
               private recipeService: RecipeService) {
   }
@@ -29,6 +32,11 @@ export class RecipeDetailComponent implements OnInit {
       this.recipeModel = response;
       OpenSnackBar(this.snackBar, 'Loaded Recipe: ' + this.recipeModel?.name);
     });
+  }
+
+  public navigateToProduct(productId: number): void {
+    // TODO use productId
+    this.router.navigate(['/' + AppRoute.PRODUCT]);
   }
 
   public navigateBack(): void {

@@ -9,6 +9,7 @@ import {RecipeSummaryModel} from "../models/recipe/recipe-summary.model";
 export class RecipeService {
 
   constructor() {
+    // TODO implement httpClient
   }
 
   private static mockRecipe(): RecipeModel {

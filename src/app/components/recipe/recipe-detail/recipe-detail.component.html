@@ -2,5 +2,6 @@
 <p *ngIf="recipeModel">{{recipeModel |json}}</p>
 
 <div class="placeholder-actions">
+  <button (click)="navigateToProduct(1)" mat-raised-button>Select Product</button>
   <button (click)="navigateBack()" mat-raised-button>Back</button>
 </div>

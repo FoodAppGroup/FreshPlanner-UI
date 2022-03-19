@@ -1,6 +1,7 @@
 <p>src/app/components/cart/cart</p>
+<p *ngIf="cartModel">{{cartModel |json}}</p>
 
 <div class="placeholder-actions">
-  <button [routerLink]="'/' + AppRoute.PRODUCT" mat-raised-button>Product</button>
+  <button (click)="navigateToProduct(1)" mat-raised-button>Product</button>
   <button (click)="navigateBack()" mat-raised-button>Back</button>
 </div>

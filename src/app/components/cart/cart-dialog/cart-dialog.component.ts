@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AppRoute} from "../../../app-routing.module";
+import {Router} from "@angular/router";
+import {CartService} from "../../../services/cart.service";
 
 @Component({
   selector: 'app-cart.dialog',
@@ -8,12 +10,24 @@ import {AppRoute} from "../../../app-routing.module";
 })
 export class CartDialogComponent implements OnInit {
 
-  AppRoute = AppRoute;
+  cartSelection: Map<number, string> | undefined;
 
-  constructor() {
+  constructor(private router: Router,
+              private cartService: CartService) {
   }
 
   ngOnInit(): void {
+    this.loadCartSelection();
   }
 
+  public selectCart(cartId: number): void {
+    // TODO use cartId
+    this.router.navigate(['/' + AppRoute.CART]);
+  }
+
+  private loadCartSelection(): void {
+    this.cartService.getCartSelection().subscribe((response) => {
+      this.cartSelection = response;
+    });
+  }
 }
