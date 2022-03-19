@@ -1,6 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {AppRoute} from "../../../app-routing.module";
 import {Location} from "@angular/common";
+import {RecipeService} from "../../../services/recipe.service";
+import {Router} from "@angular/router";
+import {RecipeSummaryModel} from "../../../models/recipe/recipe-summary.model";
 
 @Component({
   selector: 'app-recipe',
@@ -9,12 +12,26 @@ import {Location} from "@angular/common";
 })
 export class RecipeComponent implements OnInit {
 
-  AppRoute = AppRoute;
+  recipeSelection: RecipeSummaryModel[] | undefined;
 
-  constructor(private location: Location) {
+  constructor(private location: Location,
+              private router: Router,
+              private recipeService: RecipeService) {
   }
 
   ngOnInit(): void {
+    this.loadRecipeSelection()
+  }
+
+  public selectRecipe(recipeId: number): void {
+    // TODO use recipeId
+    this.router.navigate(['/' + AppRoute.RECIPE_DETAIL]);
+  }
+
+  private loadRecipeSelection(): void {
+    this.recipeService.getRecipeSelection().subscribe((response) => {
+      this.recipeSelection = response;
+    });
   }
 
   public navigateBack(): void {
