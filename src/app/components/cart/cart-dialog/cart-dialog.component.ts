@@ -20,9 +20,8 @@ export class CartDialogComponent implements OnInit {
     this.loadCartSelection();
   }
 
-  public selectCart(cartId: number): void {
-    // TODO use cartId
-    this.router.navigate(['/' + AppRoute.CART]);
+  public navigateToCart(cartId: number): void {
+    this.router.navigate(['/' + AppRoute.CART + '/' + cartId]);
   }
 
   private loadCartSelection(): void {

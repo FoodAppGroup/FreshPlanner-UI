@@ -2,10 +2,12 @@ import {Component, OnInit} from '@angular/core';
 import {Location} from "@angular/common";
 import {RecipeService} from "../../../services/recipe.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {OpenSnackBar} from "../../../utility/SnackBar";
+import {OpenSnackBar, OpenWarnSnackBar} from "../../../utility/SnackBar";
 import {RecipeModel} from "../../../models/recipe/recipe.model";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {AppRoute} from "../../../app-routing.module";
+import {GetIdFromRoute} from "../../../utility/RouteProcessor";
+import {Log} from "../../../utility/Log";
 
 @Component({
   selector: 'app-recipe-detail',
@@ -18,13 +20,18 @@ export class RecipeDetailComponent implements OnInit {
 
   constructor(private location: Location,
               private router: Router,
+              private route: ActivatedRoute,
               private snackBar: MatSnackBar,
               private recipeService: RecipeService) {
   }
 
   ngOnInit(): void {
-    let recipeId = 1; //TODO implement recipe selection
-    this.loadRecipe(recipeId);
+    try {
+      this.loadRecipe(GetIdFromRoute(this.route));
+    } catch (exception) {
+      Log.exception(exception);
+      OpenWarnSnackBar(this.snackBar, 'No identifier to load data.');
+    }
   }
 
   private loadRecipe(recipeId: number): void {
@@ -35,8 +42,7 @@ export class RecipeDetailComponent implements OnInit {
   }
 
   public navigateToProduct(productId: number): void {
-    // TODO use productId
-    this.router.navigate(['/' + AppRoute.PRODUCT]);
+    this.router.navigate(['/' + AppRoute.PRODUCT + '/' + productId]);
   }
 
   public navigateBack(): void {

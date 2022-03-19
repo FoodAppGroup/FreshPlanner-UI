@@ -29,10 +29,14 @@ const routes: Routes = [
   {path: AppRoute.LOGIN, component: LoginComponent},
   {path: AppRoute.REGISTRATION, component: RegistrationComponent},
   {path: AppRoute.PRODUCT, component: ProductComponent},
+  {path: AppRoute.PRODUCT + '/:id', component: ProductComponent},
   {path: AppRoute.CART, component: CartComponent},
+  {path: AppRoute.CART + '/:id', component: CartComponent},
   {path: AppRoute.STORAGE, component: StorageComponent},
+  {path: AppRoute.STORAGE + '/:id', component: StorageComponent},
   {path: AppRoute.RECIPE, component: RecipeComponent},
-  {path: AppRoute.RECIPE_DETAIL, component: RecipeDetailComponent}
+  {path: AppRoute.RECIPE_DETAIL, component: RecipeDetailComponent},
+  {path: AppRoute.RECIPE_DETAIL + '/:id', component: RecipeDetailComponent}
 ];
 
 @NgModule({

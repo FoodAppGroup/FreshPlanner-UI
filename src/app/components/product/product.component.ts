@@ -5,10 +5,12 @@ import {MatTableDataSource} from "@angular/material/table";
 import {ProductModel} from "../../models/product.model";
 import {ProductService} from "../../services/product.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {OpenSnackBar} from "../../utility/SnackBar";
+import {OpenSnackBar, OpenWarnSnackBar} from "../../utility/SnackBar";
 import {animate, state, style, transition, trigger} from "@angular/animations";
 import {Log} from "../../utility/Log";
 import {Location} from "@angular/common";
+import {ActivatedRoute} from "@angular/router";
+import {GetIdFromRoute} from "../../utility/RouteProcessor";
 
 @Component({
   selector: 'app-product',
@@ -34,12 +36,20 @@ export class ProductComponent implements OnInit, AfterViewInit {
 
   constructor(private productService: ProductService,
               private snackBar: MatSnackBar,
-              private location: Location) {
+              private location: Location,
+              private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
-    this.loadAllProducts();
-    this.dataSource.data = this.data;
+    try {
+      let productId = GetIdFromRoute(this.route);
+      this.loadAllProducts();
+      this.dataSource.data = this.data;
+    } catch (exception) {
+      Log.exception(exception);
+      OpenWarnSnackBar(this.snackBar, 'No identifier to load data.');
+    }
+
   }
 
   public ngAfterViewInit(): void {

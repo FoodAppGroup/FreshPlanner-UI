@@ -1,7 +1,7 @@
 <p mat-dialog-title>src/app/components/storage/storage-dialog</p>
 
 <div class="selection-column" fxLayout="column" fxLayoutAlign="start center">
-  <button (click)="selectStorage(item.key)" *ngFor="let item of storageSelection | keyvalue"
+  <button (click)="navigateToStorage(item.key)" *ngFor="let item of storageSelection | keyvalue"
           mat-dialog-close
           mat-raised-button>
     {{item.value}}

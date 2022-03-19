@@ -1,11 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {AppRoute} from "../../../app-routing.module";
 import {Location} from '@angular/common';
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {CartService} from "../../../services/cart.service";
-import {OpenSnackBar} from "../../../utility/SnackBar";
+import {OpenSnackBar, OpenWarnSnackBar} from "../../../utility/SnackBar";
 import {CartModel} from "../../../models/cart/cart.model";
+import {GetIdFromRoute} from "../../../utility/RouteProcessor";
+import {Log} from "../../../utility/Log";
 
 @Component({
   selector: 'app-cart',
@@ -19,18 +21,22 @@ export class CartComponent implements OnInit {
 
   constructor(private location: Location,
               private router: Router,
+              private route: ActivatedRoute,
               private snackBar: MatSnackBar,
               private cartService: CartService) {
   }
 
   ngOnInit(): void {
-    let cartId = 1; //TODO implement cart selection
-    this.loadCart(cartId);
+    try {
+      this.loadCart(GetIdFromRoute(this.route));
+    } catch (exception) {
+      Log.exception(exception);
+      OpenWarnSnackBar(this.snackBar, 'No identifier to load data.');
+    }
   }
 
   public navigateToProduct(productId: number): void {
-    // TODO use productId
-    this.router.navigate(['/' + AppRoute.PRODUCT]);
+    this.router.navigate(['/' + AppRoute.PRODUCT + '/' + productId]);
   }
 
   private loadCart(cartId: number): void {

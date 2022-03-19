@@ -20,9 +20,8 @@ export class StorageDialogComponent implements OnInit {
     this.loadStorageSelection();
   }
 
-  public selectStorage(storageId: number): void {
-    // TODO use storageId
-    this.router.navigate(['/' + AppRoute.STORAGE]);
+  public navigateToStorage(storageId: number): void {
+    this.router.navigate(['/' + AppRoute.STORAGE + '/' + storageId]);
   }
 
   private loadStorageSelection(): void {
