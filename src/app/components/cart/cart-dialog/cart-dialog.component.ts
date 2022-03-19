@@ -10,7 +10,7 @@ import {CartService} from "../../../services/cart.service";
 })
 export class CartDialogComponent implements OnInit {
 
-  cartSelection: Map<number, string> | undefined;
+  cartSelectionData: Map<number, string> | undefined;
 
   constructor(private router: Router,
               private cartService: CartService) {
@@ -26,7 +26,7 @@ export class CartDialogComponent implements OnInit {
 
   private loadCartSelection(): void {
     this.cartService.getCartSelection().subscribe((response) => {
-      this.cartSelection = response;
+      this.cartSelectionData = response;
     });
   }
 }

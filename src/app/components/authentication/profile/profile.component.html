@@ -1,5 +1,22 @@
 <p>app/components/authentication/profile</p>
 
-<div class="placeholder-actions">
+<div *ngIf="userInfoData" class="info-column" fxLayout="column" fxLayoutAlign="start center">
+  <mat-form-field appearance="outline">
+    <mat-label>Username</mat-label>
+    <input [(ngModel)]="userInfoData.username" [disabled]="editingDisabled" matInput>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Email</mat-label>
+    <input [(ngModel)]="userInfoData.email" [disabled]="editingDisabled" matInput>
+  </mat-form-field>
+
+  <table *ngIf="userInfoData.roles">
+    <th>Roles:</th>
+    <tr *ngFor="let role of userInfoData.roles">{{role}}</tr>
+  </table>
+</div>
+
+<div class="placeholder-actions" fxLayout="column" fxLayoutAlign="start center">
   <button (click)="navigateBack()" mat-raised-button>Back</button>
 </div>

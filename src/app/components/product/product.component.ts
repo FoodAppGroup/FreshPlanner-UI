@@ -2,7 +2,6 @@ import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
 import {MatTableDataSource} from "@angular/material/table";
-import {ProductModel} from "../../models/product.model";
 import {ProductService} from "../../services/product.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {OpenSnackBar, OpenWarnSnackBar} from "../../utility/SnackBar";
@@ -11,6 +10,7 @@ import {Log} from "../../utility/Log";
 import {Location} from "@angular/common";
 import {ActivatedRoute} from "@angular/router";
 import {GetIdFromRoute} from "../../utility/RouteProcessor";
+import {ProductModel} from "../../models/product/product.model";
 
 @Component({
   selector: 'app-product',
@@ -29,7 +29,7 @@ export class ProductComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
   @ViewChild(MatSort) sort: MatSort | undefined;
 
-  data: ProductModel[] = [];
+  productData: ProductModel[] = [];
   dataSource = new MatTableDataSource<ProductModel>();
   tableModel = new ProductTableModel();
   expandedElement: ProductModel | undefined;
@@ -44,7 +44,7 @@ export class ProductComponent implements OnInit, AfterViewInit {
     try {
       let productId = GetIdFromRoute(this.route);
       this.loadAllProducts();
-      this.dataSource.data = this.data;
+      this.dataSource.data = this.productData;
     } catch (exception) {
       Log.exception(exception);
       OpenWarnSnackBar(this.snackBar, 'No identifier to load data.');
@@ -63,8 +63,8 @@ export class ProductComponent implements OnInit, AfterViewInit {
 
   private loadAllProducts(): void {
     this.productService.getAllProducts().subscribe((response) => {
-      this.data = response;
-      this.dataSource.data = this.data;
+      this.productData = response;
+      this.dataSource.data = this.productData;
       Log.info('My object', response)
       OpenSnackBar(this.snackBar, 'Loaded all Products.');
     });

@@ -21,6 +21,7 @@ import {CartComponent} from './components/cart/cart/cart.component';
 import {CartDialogComponent} from './components/cart/cart-dialog/cart-dialog.component';
 import {RecipeComponent} from './components/recipe/recipe/recipe.component';
 import {RecipeDetailComponent} from './components/recipe/recipe-detail/recipe-detail.component';
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import {RecipeDetailComponent} from './components/recipe/recipe-detail/recipe-de
     HttpClientModule,
     StoreModule.forRoot({}, {}),
     StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}),
-    FlexModule
+    FlexModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

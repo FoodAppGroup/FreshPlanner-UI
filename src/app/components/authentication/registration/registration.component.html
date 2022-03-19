@@ -1,6 +1,31 @@
 <p>app/components/authentication/registration</p>
 
-<div class="placeholder-actions">
+<div class="input-column" fxLayout="column" fxLayoutAlign="start center">
+  <mat-form-field appearance="outline">
+    <mat-label>Enter your username</mat-label>
+    <input [(ngModel)]="registrationData.username" matInput minlength="{{usernameMinLength}}">
+    <mat-hint align="start">Minimum length</mat-hint>
+    <mat-hint align="end">{{registrationData.username.length}} / {{usernameMinLength}}</mat-hint>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Enter your email</mat-label>
+    <input [(ngModel)]="registrationData.email" matInput placeholder="user@email.com">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Enter your password</mat-label>
+    <input [(ngModel)]="registrationData.password" [type]="hidePassword ? 'password' : 'text'" matInput
+           minlength="{{passwordMinLength}}">
+    <button (click)="hidePassword = !hidePassword" mat-icon-button matSuffix>
+      <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+    </button>
+    <mat-hint align="start">Minimum length</mat-hint>
+    <mat-hint align="end">{{registrationData.password.length}} / {{passwordMinLength}}</mat-hint>
+  </mat-form-field>
+</div>
+
+<div class="placeholder-actions" fxLayout="row" fxLayoutAlign="center start">
   <button (click)="navigateBack()" mat-raised-button>Back</button>
   <button (click)="submitRegistration()" mat-raised-button>Submit</button>
 </div>

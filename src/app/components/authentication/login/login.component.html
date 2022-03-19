@@ -1,6 +1,22 @@
 <p>app/components/authentication/login</p>
 
-<div class="placeholder-actions">
+<div class="input-column" fxLayout="column" fxLayoutAlign="start center">
+  <mat-form-field appearance="outline">
+    <mat-label>Enter your username</mat-label>
+    <input [(ngModel)]="loginData.username" matInput>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Enter your password</mat-label>
+    <input [(ngModel)]="loginData.password" [type]="hidePassword ? 'password' : 'text'"
+           matInput>
+    <button (click)="hidePassword = !hidePassword" mat-icon-button matSuffix>
+      <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+    </button>
+  </mat-form-field>
+</div>
+
+<div class="placeholder-actions" fxLayout="row" fxLayoutAlign="center start">
   <button (click)="navigateBack()" mat-raised-button>Back</button>
   <button (click)="navigateToRegistration()" mat-raised-button>Registration</button>
   <button (click)="submitLogin()" mat-raised-button>Submit</button>

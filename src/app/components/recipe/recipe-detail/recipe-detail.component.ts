@@ -16,7 +16,7 @@ import {Log} from "../../../utility/Log";
 })
 export class RecipeDetailComponent implements OnInit {
 
-  recipeModel: RecipeModel | undefined;
+  recipeData: RecipeModel | undefined;
 
   constructor(private location: Location,
               private router: Router,
@@ -36,8 +36,8 @@ export class RecipeDetailComponent implements OnInit {
 
   private loadRecipe(recipeId: number): void {
     this.recipeService.getRecipe(recipeId).subscribe((response) => {
-      this.recipeModel = response;
-      OpenSnackBar(this.snackBar, 'Loaded Recipe: ' + this.recipeModel?.name);
+      this.recipeData = response;
+      OpenSnackBar(this.snackBar, 'Loaded Recipe: ' + this.recipeData?.name);
     });
   }
 

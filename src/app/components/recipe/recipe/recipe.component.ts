@@ -12,7 +12,7 @@ import {RecipeSummaryModel} from "../../../models/recipe/recipe-summary.model";
 })
 export class RecipeComponent implements OnInit {
 
-  recipeSelection: RecipeSummaryModel[] | undefined;
+  recipeSummaryData: RecipeSummaryModel[] | undefined;
 
   constructor(private location: Location,
               private router: Router,
@@ -29,7 +29,7 @@ export class RecipeComponent implements OnInit {
 
   private loadRecipeSelection(): void {
     this.recipeService.getRecipeSelection().subscribe((response) => {
-      this.recipeSelection = response;
+      this.recipeSummaryData = response;
     });
   }
 

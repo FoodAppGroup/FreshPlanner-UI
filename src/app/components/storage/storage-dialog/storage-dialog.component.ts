@@ -10,7 +10,7 @@ import {StorageService} from "../../../services/storage.service";
 })
 export class StorageDialogComponent implements OnInit {
 
-  storageSelection: Map<number, string> | undefined;
+  storageSelectionData: Map<number, string> | undefined;
 
   constructor(private router: Router,
               private storageService: StorageService) {
@@ -26,7 +26,7 @@ export class StorageDialogComponent implements OnInit {
 
   private loadStorageSelection(): void {
     this.storageService.getStorageSelection().subscribe((response) => {
-      this.storageSelection = response;
+      this.storageSelectionData = response;
     });
   }
 }

@@ -16,7 +16,7 @@ import {Log} from "../../../utility/Log";
 })
 export class StorageComponent implements OnInit {
 
-  storageModel: StorageModel | undefined;
+  storageData: StorageModel | undefined;
 
   constructor(private location: Location,
               private router: Router,
@@ -40,8 +40,8 @@ export class StorageComponent implements OnInit {
 
   private loadStorage(storageId: number): void {
     this.storageService.getStorage(storageId).subscribe((response) => {
-      this.storageModel = response;
-      OpenSnackBar(this.snackBar, 'Loaded Storage: ' + this.storageModel?.name);
+      this.storageData = response;
+      OpenSnackBar(this.snackBar, 'Loaded Storage: ' + this.storageData?.name);
     });
   }
 

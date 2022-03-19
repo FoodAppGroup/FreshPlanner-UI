@@ -16,8 +16,7 @@ import {Log} from "../../../utility/Log";
 })
 export class CartComponent implements OnInit {
 
-  AppRoute = AppRoute;
-  cartModel: CartModel | undefined;
+  cartData: CartModel | undefined;
 
   constructor(private location: Location,
               private router: Router,
@@ -41,8 +40,8 @@ export class CartComponent implements OnInit {
 
   private loadCart(cartId: number): void {
     this.cartService.getCart(cartId).subscribe((response) => {
-      this.cartModel = response;
-      OpenSnackBar(this.snackBar, 'Loaded Cart: ' + this.cartModel?.name);
+      this.cartData = response;
+      OpenSnackBar(this.snackBar, 'Loaded Cart: ' + this.cartData?.name);
     });
   }
 
