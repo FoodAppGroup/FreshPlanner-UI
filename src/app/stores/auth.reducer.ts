@@ -1,58 +1,44 @@
 import {createReducer, on} from '@ngrx/store';
 import {AuthAction} from './auth.action';
-import {JwtResponse} from "../models/jwt-response";
+import {UserAuthModel} from "../models/authentication/user-auth.model";
+import {SessionStore} from "./session.store";
 
-const STORAGE_KEY = 'jwt-data';
+const sessionKey = 'user-auth';
+const sessionStorage = new SessionStore<UserAuthModel>();
 
+/**
+ * State Interface the Store
+ */
 export interface AuthState {
-  hasJwt: boolean;
-  jwt?: JwtResponse;
+  authenticated: boolean;
+  userAuth: UserAuthModel | undefined;
 }
 
-const initialState: AuthState = {
-  hasJwt: isJwtInBrowser(),
-  jwt: getJwtFromBrowser()
-};
-
-export const authReducer = createReducer<AuthState>(
-  initialState,
-  on(AuthAction.setJwt, (state, action): AuthState => {
-    setJwtInBrowser(action.jwt);
+/**
+ * Reducer for the Store with explicit State. Defines logic of the Actions. Needs to be registered in the app.module.ts.
+ */
+export const AuthReducer = createReducer<AuthState>(
+  // Initial State
+  {
+    authenticated: sessionStorage.isPresent(sessionKey),
+    userAuth: sessionStorage.getObj(sessionKey)
+  },
+  // Action 1 (set)
+  on(AuthAction.set, (previousState, actionProps): AuthState => {
+    sessionStorage.setObj(sessionKey, actionProps.userAuth);
     return {
-      ...state,
-      hasJwt: true,
-      jwt: action.jwt
+      ...previousState,
+      authenticated: true,
+      userAuth: actionProps.userAuth
     };
   }),
-  on(AuthAction.deleteJwt, (state, action): AuthState => {
-    removeJwtInBrowser();
+  // Action 2 (reset)
+  on(AuthAction.reset, (previousState, actionProps): AuthState => {
+    sessionStorage.removeObj(sessionKey);
     return {
-      ...state,
-      hasJwt: false,
-      jwt: undefined
+      ...previousState,
+      authenticated: false,
+      userAuth: undefined
     };
   })
 );
-
-
-function isJwtInBrowser(): boolean {
-  return !!sessionStorage.getItem(STORAGE_KEY);
-}
-
-function getJwtFromBrowser(): JwtResponse | undefined {
-  if (isJwtInBrowser()) {
-    return JSON.parse(sessionStorage.getItem(STORAGE_KEY) as string);
-  } else {
-    return undefined;
-  }
-}
-
-function setJwtInBrowser(jwt: JwtResponse): void {
-  sessionStorage.setItem(STORAGE_KEY, JSON.stringify(jwt));
-}
-
-function removeJwtInBrowser(): void {
-  if (isJwtInBrowser()) {
-    sessionStorage.removeItem(STORAGE_KEY);
-  }
-}

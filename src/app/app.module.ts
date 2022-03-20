@@ -10,7 +10,7 @@ import {environment} from '../environments/environment';
 import {MaterialModule} from "./material-module";
 import {ProductComponent} from './components/product/product.component';
 import {FlexModule} from "@angular/flex-layout";
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {LoginComponent} from './components/authentication/login/login.component';
 import {ProfileComponent} from './components/authentication/profile/profile.component';
 import {RegistrationComponent} from './components/authentication/registration/registration.component';
@@ -22,6 +22,8 @@ import {CartDialogComponent} from './components/cart/cart-dialog/cart-dialog.com
 import {RecipeComponent} from './components/recipe/recipe/recipe.component';
 import {RecipeDetailComponent} from './components/recipe/recipe-detail/recipe-detail.component';
 import {FormsModule} from "@angular/forms";
+import {HttpAuthInterceptor} from "./interceptors/http-auth.interceptor";
+import {AuthReducer} from "./stores/auth.reducer";
 
 @NgModule({
   declarations: [
@@ -44,12 +46,14 @@ import {FormsModule} from "@angular/forms";
     MaterialModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    StoreModule.forRoot({}, {}),
+    StoreModule.forRoot({authStateReducer: AuthReducer}, {}),
     StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}),
     FlexModule,
     FormsModule
   ],
-  providers: [],
+  providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: HttpAuthInterceptor, multi: true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

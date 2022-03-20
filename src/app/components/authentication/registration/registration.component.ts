@@ -3,6 +3,12 @@ import {AppRoute} from "../../../app-routing.module";
 import {Location} from "@angular/common";
 import {Router} from "@angular/router";
 import {RegistrationModel} from "../../../models/authentication/registration.model";
+import {AuthenticationService} from "../../../services/authentication.service";
+import {MatSnackBar} from "@angular/material/snack-bar";
+import {OpenSnackBar} from "../../../utility/SnackBar";
+import {Store} from "@ngrx/store";
+import {AuthState} from "../../../stores/auth.reducer";
+import {AuthAction} from "../../../stores/auth.action";
 
 @Component({
   selector: 'app-registration',
@@ -21,14 +27,22 @@ export class RegistrationComponent implements OnInit {
   hidePassword: boolean = true;
 
   constructor(private location: Location,
-              private router: Router) {
+              private router: Router,
+              private snackBar: MatSnackBar,
+              private authService: AuthenticationService,
+              private authStore: Store<AuthState>) {
   }
 
   ngOnInit(): void {
   }
 
   public submitRegistration(): void {
-    this.router.navigate(['/' + AppRoute.DASHBOARD]);
+    this.authService.register(this.registrationData).subscribe((response) => {
+      this.authStore.dispatch(AuthAction.set({userAuth: response}));
+
+      OpenSnackBar(this.snackBar, 'Welcome ' + response.username);
+      this.router.navigate(['/' + AppRoute.DASHBOARD]);
+    });
   }
 
   public navigateBack(): void {

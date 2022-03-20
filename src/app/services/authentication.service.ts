@@ -1,53 +1,53 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Observable, of} from 'rxjs';
+import {Observable} from 'rxjs';
 import {environment} from "../../environments/environment";
 import {UserInfoModel} from "../models/authentication/user-info.model";
 import {LoginModel} from "../models/authentication/login.model";
 import {RegistrationModel} from "../models/authentication/registration.model";
 import {UserAuthModel} from "../models/authentication/user-auth.model";
 
-const API_AUTH_URL = environment.backendApiUrl + '/api/auth';
-const HTTP_OPTIONS = {
-  headers: new HttpHeaders({'Content-Type': 'application/json'})
-};
-
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
 
+  private controllerUrl = environment.backendApiUrl + '/auth';
+  private defaultHeaders = {
+    headers: new HttpHeaders({'Content-Type': 'application/json'})
+  };
+
   constructor(private httpClient: HttpClient) {
   }
 
-  private static mockUserInfo(): UserInfoModel {
-    return {
-      username: 'some user',
-      email: 'some@email.com',
-      roles: [
-        'role1',
-        'role2'
-      ]
-    }
-  }
-
-  // AUTHENTICATION endpoints ==============================================================================================================
+  // === POST ==========================================================================================================
 
   public login(authLogin: LoginModel): Observable<UserAuthModel> {
-    const url = API_AUTH_URL + '/login';
-    return this.httpClient.post<UserAuthModel>(url, authLogin, HTTP_OPTIONS);
+    const endpointUrl = this.controllerUrl + '/login';
+    return this.httpClient.post<UserAuthModel>(endpointUrl, authLogin, this.defaultHeaders);
   }
 
   public register(authRegistration: RegistrationModel): Observable<UserAuthModel> {
-    const url = API_AUTH_URL + '/register';
-    return this.httpClient.post<UserAuthModel>(url, authRegistration, HTTP_OPTIONS);
+    const endpointUrl = this.controllerUrl + '/register';
+    return this.httpClient.post<UserAuthModel>(endpointUrl, authRegistration, this.defaultHeaders);
   }
 
-  // GET endpoints =========================================================================================================================
+  // === GET ===========================================================================================================
 
-  public getUserInfo(username: string | undefined): Observable<UserInfoModel> {
-    const url = API_AUTH_URL + '/user/get?username=' + username;
-    // TODO return this.httpClient.get<UserInfoModel>(url, HTTP_OPTIONS);
-    return of(AuthenticationService.mockUserInfo());
+  public getUserInfo(): Observable<UserInfoModel> {
+    const endpointUrl = this.controllerUrl + '/info';
+    return this.httpClient.get<UserInfoModel>(endpointUrl, this.defaultHeaders);
+  }
+
+  public getAuthRoles(): Observable<string[]> {
+    const endpointUrl = this.controllerUrl + '/roles';
+    return this.httpClient.get<string[]>(endpointUrl, this.defaultHeaders);
+  }
+
+  // === DELETE ========================================================================================================
+
+  public deleteUser(): Observable<UserInfoModel> {
+    const endpointUrl = this.controllerUrl + '/delete';
+    return this.httpClient.delete<UserInfoModel>(endpointUrl, this.defaultHeaders);
   }
 }
