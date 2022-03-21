@@ -1,0 +1,66 @@
+<p>src/app/components/product/product-detail</p>
+
+<div *ngIf="productData" class="detail-column" fxLayout="column" fxLayoutAlign="start center">
+  <mat-form-field appearance="outline">
+    <mat-label>{{productData.id ? 'ID' : 'Generated ID'}}</mat-label>
+    <input [(ngModel)]="productData.id" disabled matInput>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Name</mat-label>
+    <input [(ngModel)]="productData.name" [disabled]="productCreationDisabled" matInput>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Category</mat-label>
+    <input [(ngModel)]="productData.category" [disabled]="productCreationDisabled" matInput>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Unit</mat-label>
+    <input [(ngModel)]="productData.unit" [disabled]="productCreationDisabled" matInput>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Package Size</mat-label>
+    <input [(ngModel)]="productData.packageSize" [disabled]="productCreationDisabled" matInput>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>kCal</mat-label>
+    <input [(ngModel)]="productData.kcal" [disabled]="productCreationDisabled" matInput>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Carbohydrates</mat-label>
+    <input [(ngModel)]="productData.carbohydrates" [disabled]="productCreationDisabled" matInput>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Protein</mat-label>
+    <input [(ngModel)]="productData.protein" [disabled]="productCreationDisabled" matInput>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Fat</mat-label>
+    <input [(ngModel)]="productData.fat" [disabled]="productCreationDisabled" matInput>
+  </mat-form-field>
+</div>
+
+<div class="placeholder-actions" fxLayout="row" fxLayoutAlign="center start">
+  <button (click)="navigateBack()" mat-raised-button>
+    Back
+  </button>
+  <button (click)="startProductCreation()" *ngIf="productCreationDisabled" mat-raised-button>
+    Create Product
+  </button>
+  <button (click)="cancelProductCreation()" *ngIf="!productCreationDisabled" mat-raised-button>
+    Cancel Creation
+  </button>
+  <button (click)="submitProductCreation()" *ngIf="!productCreationDisabled" mat-raised-button>
+    Submit new Product
+  </button>
+  <button (click)="deleteProduct()" *ngIf="productCreationDisabled" mat-raised-button>
+    Delete Product
+  </button>
+</div>

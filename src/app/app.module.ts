@@ -8,7 +8,7 @@ import {StoreModule} from '@ngrx/store';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {environment} from '../environments/environment';
 import {MaterialModule} from "./material-module";
-import {ProductComponent} from './components/product/product.component';
+import {ProductComponent} from './components/product/product/product.component';
 import {FlexModule} from "@angular/flex-layout";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {LoginComponent} from './components/authentication/login/login.component';
@@ -24,6 +24,7 @@ import {RecipeDetailComponent} from './components/recipe/recipe-detail/recipe-de
 import {FormsModule} from "@angular/forms";
 import {HttpAuthInterceptor} from "./interceptors/http-auth.interceptor";
 import {AuthReducer} from "./stores/auth.reducer";
+import {ProductDetailComponent} from './components/product/product-detail/product-detail.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import {AuthReducer} from "./stores/auth.reducer";
     CartComponent,
     CartDialogComponent,
     RecipeComponent,
-    RecipeDetailComponent
+    RecipeDetailComponent,
+    ProductDetailComponent
   ],
   imports: [
     BrowserModule,

@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {ProductComponent} from "./components/product/product.component";
+import {ProductComponent} from "./components/product/product/product.component";
 import {DashboardComponent} from "./components/dashboard/dashboard.component";
 import {ProfileComponent} from "./components/authentication/profile/profile.component";
 import {LoginComponent} from "./components/authentication/login/login.component";
@@ -9,6 +9,7 @@ import {CartComponent} from "./components/cart/cart/cart.component";
 import {StorageComponent} from "./components/storage/storage/storage.component";
 import {RecipeComponent} from "./components/recipe/recipe/recipe.component";
 import {RecipeDetailComponent} from "./components/recipe/recipe-detail/recipe-detail.component";
+import {ProductDetailComponent} from "./components/product/product-detail/product-detail.component";
 
 export enum AppRoute {
   DASHBOARD = 'dashboard',
@@ -16,6 +17,7 @@ export enum AppRoute {
   LOGIN = 'login',
   REGISTRATION = 'registration',
   PRODUCT = 'product',
+  PRODUCT_DETAIL = 'product-detail',
   CART = 'cart',
   STORAGE = 'storage',
   RECIPE = 'recipe',
@@ -29,7 +31,8 @@ const routes: Routes = [
   {path: AppRoute.LOGIN, component: LoginComponent},
   {path: AppRoute.REGISTRATION, component: RegistrationComponent},
   {path: AppRoute.PRODUCT, component: ProductComponent},
-  {path: AppRoute.PRODUCT + '/:id', component: ProductComponent},
+  {path: AppRoute.PRODUCT_DETAIL, component: ProductDetailComponent},
+  {path: AppRoute.PRODUCT_DETAIL + '/:id', component: ProductDetailComponent},
   {path: AppRoute.CART, component: CartComponent},
   {path: AppRoute.CART + '/:id', component: CartComponent},
   {path: AppRoute.STORAGE, component: StorageComponent},

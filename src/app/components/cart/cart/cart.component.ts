@@ -35,7 +35,7 @@ export class CartComponent implements OnInit {
   }
 
   public navigateToProduct(productId: number): void {
-    this.router.navigate(['/' + AppRoute.PRODUCT + '/' + productId]);
+    this.router.navigate(['/' + AppRoute.PRODUCT_DETAIL + '/' + productId]);
   }
 
   private loadCart(cartId: number): void {

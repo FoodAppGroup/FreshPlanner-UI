@@ -42,7 +42,7 @@ export class RecipeDetailComponent implements OnInit {
   }
 
   public navigateToProduct(productId: number): void {
-    this.router.navigate(['/' + AppRoute.PRODUCT + '/' + productId]);
+    this.router.navigate(['/' + AppRoute.PRODUCT_DETAIL + '/' + productId]);
   }
 
   public navigateBack(): void {

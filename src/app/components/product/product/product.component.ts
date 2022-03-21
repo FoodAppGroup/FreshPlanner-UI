@@ -2,15 +2,13 @@ import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
 import {MatTableDataSource} from "@angular/material/table";
-import {ProductService} from "../../services/product.service";
+import {ProductService} from "../../../services/product.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {OpenSnackBar, OpenWarnSnackBar} from "../../utility/SnackBar";
 import {animate, state, style, transition, trigger} from "@angular/animations";
-import {Log} from "../../utility/Log";
 import {Location} from "@angular/common";
-import {ActivatedRoute} from "@angular/router";
-import {GetIdFromRoute} from "../../utility/RouteProcessor";
-import {ProductModel} from "../../models/product/product.model";
+import {ProductSummaryModel} from "../../../models/product/product-summary.model";
+import {AppRoute} from "../../../app-routing.module";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-product',
@@ -29,27 +27,19 @@ export class ProductComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
   @ViewChild(MatSort) sort: MatSort | undefined;
 
-  productData: ProductModel[] = [];
-  dataSource = new MatTableDataSource<ProductModel>();
+  productData: ProductSummaryModel[] = [];
+  dataSource = new MatTableDataSource<ProductSummaryModel>();
   tableModel = new ProductTableModel();
-  expandedElement: ProductModel | undefined;
+  expandedElement: ProductSummaryModel | undefined;
 
   constructor(private productService: ProductService,
               private snackBar: MatSnackBar,
               private location: Location,
-              private route: ActivatedRoute) {
+              private router: Router) {
   }
 
   ngOnInit(): void {
-    try {
-      let productId = GetIdFromRoute(this.route);
-      this.loadAllProducts();
-      this.dataSource.data = this.productData;
-    } catch (exception) {
-      Log.exception(exception);
-      OpenWarnSnackBar(this.snackBar, 'No identifier to load data.');
-    }
-
+    this.loadAllProducts();
   }
 
   public ngAfterViewInit(): void {
@@ -65,9 +55,11 @@ export class ProductComponent implements OnInit, AfterViewInit {
     this.productService.getAllProducts().subscribe((response) => {
       this.productData = response;
       this.dataSource.data = this.productData;
-      Log.info('My object', response)
-      OpenSnackBar(this.snackBar, 'Loaded all Products.');
     });
+  }
+
+  public navigateToProduct(productId: number): void {
+    this.router.navigate(['/' + AppRoute.PRODUCT_DETAIL + '/' + productId]);
   }
 
   public navigateBack(): void {
