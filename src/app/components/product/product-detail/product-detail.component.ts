@@ -46,7 +46,7 @@ export class ProductDetailComponent implements OnInit {
 
   public submitProductCreation(): void {
     if (this.productData) {
-      this.productService.createProduct(this.productData).subscribe((response) => {
+      this.productService.addProduct(this.productData).subscribe((response) => {
         this.productData = response;
         this.productCreationDisabled = true;
         OpenSnackBar(this.snackBar, 'Created Product: ' + this.productData?.name);
@@ -58,7 +58,7 @@ export class ProductDetailComponent implements OnInit {
 
   public deleteProduct(): void {
     if (this.productData?.id) {
-      this.productService.deleteProduct(this.productData.id).subscribe((response) => {
+      this.productService.deleteProductById(this.productData.id).subscribe((response) => {
         this.productData = response;
         this.productCreationDisabled = false;
         OpenSnackBar(this.snackBar, 'Deleted Product: ' + this.productData?.name);

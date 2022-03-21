@@ -20,7 +20,7 @@ export class ProductService {
 
   // === POST ========================================================================================================
 
-  public createProduct(productModel: ProductModel): Observable<ProductModel> {
+  public addProduct(productModel: ProductModel): Observable<ProductModel> {
     const endpointUrl = this.controllerUrl + '/insert';
     return this.httpClient.post <ProductModel>(endpointUrl, productModel, this.defaultHeaders);
   }
@@ -38,9 +38,8 @@ export class ProductService {
 
   // === DELETE ======================================================================================================
 
-  public deleteProduct(productId: number): Observable<ProductModel> {
+  public deleteProductById(productId: number): Observable<ProductModel> {
     const endpointUrl = this.controllerUrl + '/delete/' + productId;
     return this.httpClient.delete <ProductModel>(endpointUrl, this.defaultHeaders);
   }
-
 }
