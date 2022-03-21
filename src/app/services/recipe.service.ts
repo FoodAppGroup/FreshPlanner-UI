@@ -1,70 +1,55 @@
 import {Injectable} from '@angular/core';
-import {Observable, of} from "rxjs";
-import {RecipeModel} from "../models/recipe/recipe.model";
+import {Observable} from "rxjs";
+import {RecipeItemModel, RecipeModel} from "../models/recipe/recipe.model";
 import {RecipeSummaryModel} from "../models/recipe/recipe-summary.model";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class RecipeService {
 
-  constructor() {
-    // TODO implement httpClient
+  private controllerUrl = environment.backendApiUrl + '/recipe';
+  private defaultHeaders = {
+    headers: new HttpHeaders({'Content-Type': 'application/json'})
+  };
+
+  constructor(private httpClient: HttpClient) {
   }
 
-  private static mockRecipe(): RecipeModel {
-    return {
-      id: 1,
-      name: 'Pasta',
-      category: 'Fast Food',
-      duration: 15,
-      description: 'Goes fast',
-      kcal: 500,
-      carbohydrates: 20,
-      protein: 30,
-      fat: 40,
-      items: [
-        {
-          productId: 1,
-          productName: 'Item 1',
-          count: 1,
-          unit: 'GRAM',
-          description: 'some description'
-        },
-        {
-          productId: 2,
-          productName: 'Item 2',
-          count: 2,
-          unit: 'GRAM',
-        },
-      ]
-    }
+  // === POST ========================================================================================================
+
+  public addRecipe(recipeModel: RecipeModel): Observable<RecipeModel> {
+    const endpointUrl = this.controllerUrl + '/insert';
+    return this.httpClient.post <RecipeModel>(endpointUrl, recipeModel, this.defaultHeaders);
   }
 
-  private static mockRecipeSelection(): RecipeSummaryModel[] {
-    return [
-      {
-        id: 1,
-        name: 'Pasta',
-        category: 'Fast Food',
-        duration: 15,
-        kcal: 500
-      },
-      {
-        id: 2,
-        name: 'Pizza',
-        category: 'Fast Food',
-        duration: 12,
-        kcal: 600
-      }
-    ]
+  public addRecipeItem(recipeId: number, recipeItemModel: RecipeItemModel): Observable<RecipeModel> {
+    const endpointUrl = this.controllerUrl + '/insert-item/' + recipeId;
+    return this.httpClient.post <RecipeModel>(endpointUrl, recipeItemModel, this.defaultHeaders);
   }
 
-  public getRecipe(recipeId: number): Observable<RecipeModel> {
-    return of(RecipeService.mockRecipe());
+  // === GET =========================================================================================================
+
+  public getAllRecipes(): Observable<RecipeSummaryModel[]> {
+    return this.httpClient.get<RecipeSummaryModel[]>(this.controllerUrl, this.defaultHeaders);
   }
 
-  public getRecipeSelection(): Observable<RecipeSummaryModel[]> {
-    return of(RecipeService.mockRecipeSelection());
+  public getRecipeById(recipeId: number): Observable<RecipeModel> {
+    const endpointUrl = this.controllerUrl + '/get/' + recipeId;
+    return this.httpClient.get<RecipeModel>(endpointUrl, this.defaultHeaders);
+  }
+
+  // === DELETE ======================================================================================================
+
+  public deleteRecipeItemById(recipeId: number): Observable<RecipeItemModel> {
+    const endpointUrl = this.controllerUrl + '/delete/' + recipeId;
+    return this.httpClient.delete <RecipeItemModel>(endpointUrl, this.defaultHeaders);
+  }
+
+  public deleteRecipeById(recipeId: number): Observable<RecipeModel> {
+    const endpointUrl = this.controllerUrl + '/delete/' + recipeId;
+    return this.httpClient.delete <RecipeModel>(endpointUrl, this.defaultHeaders);
   }
 }

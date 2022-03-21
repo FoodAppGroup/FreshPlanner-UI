@@ -1,0 +1,20 @@
+.detail-column {
+  margin: 25px;
+
+  mat-form-field {
+    margin: 0 5px;
+    min-width: 300px;
+  }
+
+  :disabled {
+    color: black;
+  }
+
+  table {
+    min-width: 300px;
+
+    th {
+      text-align: left;
+    }
+  }
+}

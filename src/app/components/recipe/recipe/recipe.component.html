@@ -1,7 +1,14 @@
 <p>src/app/components/recipe/recipe</p>
-<p *ngIf="recipeSummaryData">{{recipeSummaryData |json}}</p>
 
-<div class="placeholder-actions">
-  <button (click)="navigateToRecipeDetail(1)" mat-raised-button>Recipe Details</button>
+<div class="selection-column" fxLayout="column" fxLayoutAlign="start center">
+  <button (click)="navigateToRecipeDetail(recipe.id)" *ngFor="let recipe of recipeSummaryData" mat-raised-button>
+    {{recipe.name}} - {{recipe.category}} - {{recipe.duration}} min
+  </button>
+  <button (click)="navigateToRecipeDetail()" mat-raised-button>
+    ++ Create new Recipe ++
+  </button>
+</div>
+
+<div class="placeholder-actions" fxLayout="column" fxLayoutAlign="start center">
   <button (click)="navigateBack()" mat-raised-button>Back</button>
 </div>

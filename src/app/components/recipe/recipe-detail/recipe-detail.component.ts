@@ -7,7 +7,6 @@ import {RecipeModel} from "../../../models/recipe/recipe.model";
 import {ActivatedRoute, Router} from "@angular/router";
 import {AppRoute} from "../../../app-routing.module";
 import {GetIdFromRoute} from "../../../utility/RouteProcessor";
-import {Log} from "../../../utility/Log";
 
 @Component({
   selector: 'app-recipe-detail',
@@ -16,29 +15,54 @@ import {Log} from "../../../utility/Log";
 })
 export class RecipeDetailComponent implements OnInit {
 
-  recipeData: RecipeModel | undefined;
+  recipeData: RecipeModel;
+  recipeCreationDisabled: boolean;
 
   constructor(private location: Location,
               private router: Router,
               private route: ActivatedRoute,
               private snackBar: MatSnackBar,
               private recipeService: RecipeService) {
+    this.recipeData = this.initDefaultRecipeData();
+    this.recipeCreationDisabled = true;
   }
 
   ngOnInit(): void {
     try {
-      this.loadRecipe(GetIdFromRoute(this.route));
+      this.loadRecipeData(GetIdFromRoute(this.route));
     } catch (exception) {
-      Log.exception(exception);
-      OpenWarnSnackBar(this.snackBar, 'No identifier to load data.');
+      this.recipeCreationDisabled = false;
     }
   }
 
-  private loadRecipe(recipeId: number): void {
-    this.recipeService.getRecipe(recipeId).subscribe((response) => {
+  public startRecipeCreation(): void {
+    this.recipeCreationDisabled = false;
+    this.recipeData = this.initDefaultRecipeData();
+  }
+
+  public cancelRecipeCreation(): void {
+    this.recipeCreationDisabled = true;
+    this.loadRecipeData(GetIdFromRoute(this.route));
+  }
+
+  public submitRecipeCreation(): void {
+    this.recipeService.addRecipe(this.recipeData).subscribe((response) => {
       this.recipeData = response;
-      OpenSnackBar(this.snackBar, 'Loaded Recipe: ' + this.recipeData?.name);
+      this.recipeCreationDisabled = true;
+      OpenSnackBar(this.snackBar, 'Created Recipe: ' + this.recipeData.name);
     });
+  }
+
+  public deleteRecipe(): void {
+    if (this.recipeData.id) {
+      this.recipeService.deleteRecipeById(this.recipeData.id).subscribe((response) => {
+        this.recipeData = response;
+        this.recipeCreationDisabled = false;
+        OpenSnackBar(this.snackBar, 'Deleted Recipe: ' + this.recipeData.name);
+      });
+    } else {
+      OpenWarnSnackBar(this.snackBar, 'Recipe ID not available.');
+    }
   }
 
   public navigateToProduct(productId: number): void {
@@ -47,5 +71,22 @@ export class RecipeDetailComponent implements OnInit {
 
   public navigateBack(): void {
     this.location.back();
+  }
+
+  private initDefaultRecipeData(): RecipeModel {
+    return this.recipeData = {
+      id: undefined,
+      name: '',
+      category: '',
+      duration: 15,
+      description: '',
+      items: []
+    }
+  }
+
+  private loadRecipeData(recipeId: number): void {
+    this.recipeService.getRecipeById(recipeId).subscribe((response) => {
+      this.recipeData = response;
+    });
   }
 }

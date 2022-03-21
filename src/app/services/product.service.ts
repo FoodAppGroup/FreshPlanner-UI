@@ -28,7 +28,7 @@ export class ProductService {
   // === GET =========================================================================================================
 
   public getAllProducts(): Observable<ProductSummaryModel[]> {
-    return this.httpClient.get<ProductSummaryModel[]>(this.controllerUrl);
+    return this.httpClient.get<ProductSummaryModel[]>(this.controllerUrl, this.defaultHeaders);
   }
 
   public getProductById(productId: number): Observable<ProductModel> {

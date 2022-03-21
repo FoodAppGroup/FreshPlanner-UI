@@ -1,6 +1,6 @@
 <p>src/app/components/product/product-detail</p>
 
-<div *ngIf="productData" class="detail-column" fxLayout="column" fxLayoutAlign="start center">
+<div class="detail-column" fxLayout="column" fxLayoutAlign="start center">
   <mat-form-field appearance="outline">
     <mat-label>{{productData.id ? 'ID' : 'Generated ID'}}</mat-label>
     <input [(ngModel)]="productData.id" disabled matInput>

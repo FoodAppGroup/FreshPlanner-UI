@@ -1,7 +1,86 @@
 <p>src/app/components/recipe/recipe-details</p>
-<p *ngIf="recipeData">{{recipeData |json}}</p>
 
-<div class="placeholder-actions">
-  <button (click)="navigateToProduct(1)" mat-raised-button>Select Product</button>
-  <button (click)="navigateBack()" mat-raised-button>Back</button>
+<div class="detail-column" fxLayout="column" fxLayoutAlign="start center">
+  <mat-form-field appearance="outline">
+    <mat-label>{{recipeData.id ? 'ID' : 'Generated ID'}}</mat-label>
+    <input [(ngModel)]="recipeData.id" disabled matInput>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Name</mat-label>
+    <input [(ngModel)]="recipeData.name" [disabled]="recipeCreationDisabled" matInput>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Category</mat-label>
+    <input [(ngModel)]="recipeData.category" [disabled]="recipeCreationDisabled" matInput>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Duration</mat-label>
+    <input [(ngModel)]="recipeData.duration" [disabled]="recipeCreationDisabled" matInput>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Description</mat-label>
+    <textarea [(ngModel)]="recipeData.description" [disabled]="recipeCreationDisabled" matInput></textarea>
+  </mat-form-field>
+
+  <mat-form-field *ngIf="recipeCreationDisabled" appearance="outline">
+    <mat-label>kCal</mat-label>
+    <input [(ngModel)]="recipeData.kcal" disabled matInput>
+  </mat-form-field>
+
+  <mat-form-field *ngIf="recipeCreationDisabled" appearance="outline">
+    <mat-label>Carbohydrates</mat-label>
+    <input [(ngModel)]="recipeData.carbohydrates" disabled matInput>
+  </mat-form-field>
+
+  <mat-form-field *ngIf="recipeCreationDisabled" appearance="outline">
+    <mat-label>Protein</mat-label>
+    <input [(ngModel)]="recipeData.protein" disabled matInput>
+  </mat-form-field>
+
+  <mat-form-field *ngIf="recipeCreationDisabled" appearance="outline">
+    <mat-label>Fat</mat-label>
+    <input [(ngModel)]="recipeData.fat" disabled matInput>
+  </mat-form-field>
+
+  <table>
+    <th>Items:</th>
+    <tr *ngFor="let item of recipeData.items">
+      <td>
+        {{item |json}}
+      </td>
+      <td>
+        <button (click)="navigateToProduct(item.productId)" *ngIf="item.productId" mat-icon-button>
+          <mat-icon>open_in_new</mat-icon>
+        </button>
+        <!-- TODO implement delete recipe item -->
+      </td>
+    </tr>
+    <tr>
+      <button mat-raised-button>
+        Add new Item  <!-- TODO implement add recipe item with product selection dialog -->
+      </button>
+    </tr>
+  </table>
+</div>
+
+<div class="placeholder-actions" fxLayout="row" fxLayoutAlign="center start">
+  <button (click)="navigateBack()" mat-raised-button>
+    Back
+  </button>
+  <button (click)="startRecipeCreation()" *ngIf="recipeCreationDisabled" mat-raised-button>
+    Create Recipe
+  </button>
+  <button (click)="cancelRecipeCreation()" *ngIf="!recipeCreationDisabled" mat-raised-button>
+    Cancel Creation
+  </button>
+  <button (click)="submitRecipeCreation()" *ngIf="!recipeCreationDisabled" mat-raised-button>
+    Submit new Recipe
+  </button>
+  <button (click)="deleteRecipe()" *ngIf="recipeCreationDisabled" mat-raised-button>
+    Delete Recipe
+  </button>
 </div>

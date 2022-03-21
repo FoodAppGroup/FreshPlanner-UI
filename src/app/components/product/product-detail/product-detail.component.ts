@@ -4,7 +4,6 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {ProductService} from "../../../services/product.service";
 import {GetIdFromRoute} from "../../../utility/RouteProcessor";
-import {Log} from "../../../utility/Log";
 import {OpenSnackBar, OpenWarnSnackBar} from "../../../utility/SnackBar";
 import {ProductModel} from "../../../models/product/product.model";
 
@@ -15,28 +14,29 @@ import {ProductModel} from "../../../models/product/product.model";
 })
 export class ProductDetailComponent implements OnInit {
 
-  productData: ProductModel | undefined;
-  productCreationDisabled: boolean = true;
+  productData: ProductModel;
+  productCreationDisabled: boolean;
 
   constructor(private location: Location,
               private router: Router,
               private route: ActivatedRoute,
               private snackBar: MatSnackBar,
               private productService: ProductService) {
+    this.productData = this.initDefaultProductData();
+    this.productCreationDisabled = true;
   }
 
   ngOnInit(): void {
-    this.initDefaultProductData();
     try {
       this.loadProductData(GetIdFromRoute(this.route));
     } catch (exception) {
-      Log.exception(exception);
+      this.productCreationDisabled = false;
     }
   }
 
   public startProductCreation(): void {
     this.productCreationDisabled = false;
-    this.initDefaultProductData();
+    this.productData = this.initDefaultProductData();
   }
 
   public cancelProductCreation(): void {
@@ -45,26 +45,22 @@ export class ProductDetailComponent implements OnInit {
   }
 
   public submitProductCreation(): void {
-    if (this.productData) {
-      this.productService.addProduct(this.productData).subscribe((response) => {
-        this.productData = response;
-        this.productCreationDisabled = true;
-        OpenSnackBar(this.snackBar, 'Created Product: ' + this.productData?.name);
-      });
-    } else {
-      OpenWarnSnackBar(this.snackBar, 'Product Data not available.');
-    }
+    this.productService.addProduct(this.productData).subscribe((response) => {
+      this.productData = response;
+      this.productCreationDisabled = true;
+      OpenSnackBar(this.snackBar, 'Created Product: ' + this.productData.name);
+    });
   }
 
   public deleteProduct(): void {
-    if (this.productData?.id) {
+    if (this.productData.id) {
       this.productService.deleteProductById(this.productData.id).subscribe((response) => {
         this.productData = response;
         this.productCreationDisabled = false;
-        OpenSnackBar(this.snackBar, 'Deleted Product: ' + this.productData?.name);
+        OpenSnackBar(this.snackBar, 'Deleted Product: ' + this.productData.name);
       });
     } else {
-      OpenWarnSnackBar(this.snackBar, 'Product Data not available.');
+      OpenWarnSnackBar(this.snackBar, 'Product ID not available.');
     }
   }
 
@@ -72,8 +68,8 @@ export class ProductDetailComponent implements OnInit {
     this.location.back();
   }
 
-  private initDefaultProductData(): void {
-    this.productData = {
+  private initDefaultProductData(): ProductModel {
+    return this.productData = {
       id: undefined,
       name: '',
       category: '',
@@ -89,7 +85,6 @@ export class ProductDetailComponent implements OnInit {
   private loadProductData(productId: number): void {
     this.productService.getProductById(productId).subscribe((response) => {
       this.productData = response;
-      OpenSnackBar(this.snackBar, 'Loaded Product: ' + this.productData?.name);
     });
   }
 }
