@@ -32,6 +32,10 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatTableModule} from '@angular/material/table';
 import {ReactiveFormsModule} from '@angular/forms';
 
+/**
+ * File to import all available Material Modules.
+ * Naming of the file with '-' instead of '.' because of compiler.
+ */
 @NgModule({
   exports: [
     BrowserModule,
