@@ -20,6 +20,7 @@ yarn-error.log
 .settings/
 *.sublime-workspace
 *.iml
+bin/
 
 # Visual Studio Code
 .vscode/*
@@ -41,3 +42,57 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+### Maven ###
+**/HELP.md
+**/target
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+release.properties
+
+### STS ###
+.apt_generated
+.factorypath
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+**/.idea
+**/*.iws
+**/*.iml
+**/*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+**/nb-configuration.xml
+
+### Vim ###
+*.swp
+*.swo
+
+### patch ###
+*.orig
+*.rej
+
+### Local environment ###
+.env
+
+# Only exists if Bazel was run
+.sass-cache
+connect.lock
+coverage
+libpeerconnection.log
+typings
+chrome-profiler-events*.json
