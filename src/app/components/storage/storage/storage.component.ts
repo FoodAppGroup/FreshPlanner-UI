@@ -38,6 +38,17 @@ export class StorageComponent implements OnInit {
     this.router.navigate(['/' + AppRoute.PRODUCT_DETAIL + '/' + productId]);
   }
 
+  public deleteStorage(): void {
+    if (this.storageData?.id) {
+      this.storageService.deleteStorage(this.storageData.id).subscribe((response) => {
+        this.storageData = response;
+        OpenSnackBar(this.snackBar, 'Deleted Storage: ' + this.storageData.name);
+      });
+    } else {
+      OpenWarnSnackBar(this.snackBar, 'Storage ID not available.');
+    }
+  }
+
   private loadStorage(storageId: number): void {
     this.storageService.getStorageById(storageId).subscribe((response) => {
       this.storageData = response;

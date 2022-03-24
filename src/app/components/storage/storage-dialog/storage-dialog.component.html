@@ -1,11 +1,41 @@
 <p mat-dialog-title>src/app/components/storage/storage-dialog</p>
 
 <div class="selection-column" fxLayout="column" fxLayoutAlign="start center">
-  <button (click)="navigateToStorage(item.id)" *ngFor="let item of storageSelectionData"
-          mat-dialog-close
+  <button (click)="navigateToStorage(item.id)"
+          *ngFor="let item of storageSelectionData"
+          class="column-element"
           mat-raised-button>
     {{item.name}}
   </button>
+  <button *ngIf="storageSelectionData.length === 0"
+          class="column-element"
+          disabled
+          mat-raised-button>
+    No Storage available!
+  </button>
+
+  <button (click)="storageCreationEnabled = true"
+          *ngIf="!storageCreationEnabled"
+          class="column-element"
+          mat-raised-button>
+    ++ Add new Storage ++
+  </button>
+
+  <div *ngIf="storageCreationEnabled" class="column-element" fxLayout="row" fxLayoutAlign="center center">
+    <mat-form-field appearance="outline">
+      <mat-label>Name</mat-label>
+      <input [(ngModel)]="storageCreationData.name" matInput>
+      <button (click)="storageCreationData.name = ''" *ngIf="storageCreationData.name" mat-icon-button matSuffix>
+        <mat-icon>clear</mat-icon>
+      </button>
+    </mat-form-field>
+    <button (click)="submitStorageCreation()"
+            [disabled]="!storageCreationData.name || storageCreationData.name.length < 3"
+            id="submit-button"
+            mat-raised-button>
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
 </div>
 
 <div class="placeholder-actions" fxLayout="column" fxLayoutAlign="start center">
