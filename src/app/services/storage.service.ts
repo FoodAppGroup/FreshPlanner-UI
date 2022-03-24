@@ -1,53 +1,55 @@
 import {Injectable} from '@angular/core';
-import {Observable, of} from "rxjs";
-import {StorageModel} from "../models/storage/storage.model";
+import {Observable} from "rxjs";
+import {StorageItemModel, StorageModel} from "../models/storage/storage.model";
+import {environment} from "../../environments/environment";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {StorageSummaryModel} from "../models/storage/storage-summary.model";
 
 @Injectable({
   providedIn: 'root'
 })
 export class StorageService {
 
-  constructor() {
-    // TODO implement httpClient
+  private controllerUrl = environment.backendApiUrl + '/storage';
+  private defaultHeaders = {
+    headers: new HttpHeaders({'Content-Type': 'application/json'})
+  };
+
+  constructor(private httpClient: HttpClient) {
   }
 
-  private static mockStorageSelection(): Map<number, string> {
-    return new Map<number, string>([
-      [1, 'Home'],
-      [2, 'Work']
-    ]);
+  // === POST ========================================================================================================
+
+  public addStorage(storageModel: StorageSummaryModel): Observable<StorageModel> {
+    const endpointUrl = this.controllerUrl + '/insert';
+    return this.httpClient.post <StorageModel>(endpointUrl, storageModel, this.defaultHeaders);
   }
 
-  private static mockStorage(): StorageModel {
-    return {
-      id: 1,
-      name: 'Home',
-      users: [
-        'Florian',
-        'Felix'
-      ],
-      items: [
-        {
-          productId: 1,
-          productName: 'Item 1',
-          count: 1,
-          unit: 'GRAM',
-        },
-        {
-          productId: 2,
-          productName: 'Item 2',
-          count: 2,
-          unit: 'GRAM',
-        }
-      ]
-    }
+  public addStorageItem(storageId: number, storageItemModel: StorageItemModel): Observable<StorageModel> {
+    const endpointUrl = this.controllerUrl + '/insert-item/' + storageId;
+    return this.httpClient.post <StorageModel>(endpointUrl, storageItemModel, this.defaultHeaders);
   }
 
-  public getStorage(storageId: number): Observable<StorageModel> {
-    return of(StorageService.mockStorage());
+  // === GET =========================================================================================================
+
+  public getUserStorages(): Observable<StorageSummaryModel[]> {
+    return this.httpClient.get<StorageSummaryModel[]>(this.controllerUrl, this.defaultHeaders);
   }
 
-  public getStorageSelection(): Observable<Map<number, string>> {
-    return of(StorageService.mockStorageSelection());
+  public getStorageById(storageId: number): Observable<StorageModel> {
+    const endpointUrl = this.controllerUrl + '/get/' + storageId;
+    return this.httpClient.get<StorageModel>(endpointUrl, this.defaultHeaders);
+  }
+
+  // === DELETE ======================================================================================================
+
+  public deleteStorageItem(storageId: number, productId: number): Observable<StorageModel> {
+    const endpointUrl = this.controllerUrl + '/delete-item/' + storageId + '/' + productId;
+    return this.httpClient.delete<StorageModel>(endpointUrl, this.defaultHeaders);
+  }
+
+  public deleteStorage(storageId: number): Observable<StorageModel> {
+    const endpointUrl = this.controllerUrl + '/delete/' + storageId;
+    return this.httpClient.delete<StorageModel>(endpointUrl, this.defaultHeaders);
   }
 }

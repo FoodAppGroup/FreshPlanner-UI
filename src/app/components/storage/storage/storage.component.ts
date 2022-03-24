@@ -39,7 +39,7 @@ export class StorageComponent implements OnInit {
   }
 
   private loadStorage(storageId: number): void {
-    this.storageService.getStorage(storageId).subscribe((response) => {
+    this.storageService.getStorageById(storageId).subscribe((response) => {
       this.storageData = response;
       OpenSnackBar(this.snackBar, 'Loaded Storage: ' + this.storageData?.name);
     });

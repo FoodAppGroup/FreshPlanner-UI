@@ -20,7 +20,7 @@ export class AuthenticationService {
   constructor(private httpClient: HttpClient) {
   }
 
-  // === POST ==========================================================================================================
+  // === POST ========================================================================================================
 
   public login(authLogin: LoginModel): Observable<UserAuthModel> {
     const endpointUrl = this.controllerUrl + '/login';
@@ -32,7 +32,7 @@ export class AuthenticationService {
     return this.httpClient.post<UserAuthModel>(endpointUrl, authRegistration, this.defaultHeaders);
   }
 
-  // === GET ===========================================================================================================
+  // === GET =========================================================================================================
 
   public getUserInfo(): Observable<UserInfoModel> {
     const endpointUrl = this.controllerUrl + '/info';
@@ -44,7 +44,7 @@ export class AuthenticationService {
     return this.httpClient.get<string[]>(endpointUrl, this.defaultHeaders);
   }
 
-  // === DELETE ========================================================================================================
+  // === DELETE ======================================================================================================
 
   public deleteUser(): Observable<UserInfoModel> {
     const endpointUrl = this.controllerUrl + '/delete';
