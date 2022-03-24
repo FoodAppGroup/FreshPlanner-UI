@@ -1,19 +1,19 @@
 <p>app/components/dashboard</p>
 
 <div fxLayout="column" fxLayoutAlign="start center">
-  <div class="placeholder-actions">
+  <div fxLayout="row wrap" fxLayoutAlign="center start" class="placeholder-actions">
     <button [routerLink]="'/' + AppRoute.LOGIN" mat-raised-button>Login</button>
     <button [routerLink]="'/' + AppRoute.REGISTRATION" mat-raised-button>Registration</button>
     <button [routerLink]="'/' + AppRoute.PROFILE" mat-raised-button>Profile</button>
   </div>
 
-  <div class="placeholder-actions">
+  <div fxLayout="row wrap" fxLayoutAlign="center start" class="placeholder-actions">
     <button (click)="openCartDialog()" mat-raised-button>Cart</button>
     <button (click)="openStorageDialog()" mat-raised-button>Storage</button>
     <button [routerLink]="'/' + AppRoute.RECIPE" mat-raised-button>Recipes</button>
   </div>
 
-  <div class="placeholder-actions">
+  <div fxLayout="row wrap" fxLayoutAlign="center start" class="placeholder-actions">
     <button [routerLink]="'/' + AppRoute.PRODUCT" mat-raised-button>Products</button>
   </div>
 </div>
