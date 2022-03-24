@@ -3,6 +3,9 @@
   top: 0;
   height: 64px;
   z-index: 1000;
+  span{
+    cursor: pointer;
+  }
 }
 
 #app-container {
@@ -11,7 +14,7 @@
   height: calc(100% - 64px);
   width: 100%;
   overflow-y: auto;
-  background-image: url(../assets/background.png);
+  background-image: url(src/assets/background.jpg);
   background-size: cover;
 
   mat-card {
