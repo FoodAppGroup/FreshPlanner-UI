@@ -1,0 +1,43 @@
+:disabled {
+  color: black;
+}
+
+.root-column {
+  margin: 25px;
+
+  mat-expansion-panel {
+    padding: 10px;
+  }
+
+  #expansion-panel-body {
+    mat-form-field {
+      margin: 0 5px;
+      min-width: 300px;
+    }
+  }
+
+  mat-list-item {
+    min-width: 400px;
+
+    .product-link {
+      margin-left: 10px;
+    }
+
+    .spacer {
+      flex: 1 1 auto;
+    }
+
+    .counter {
+      margin-left: 5px;
+      min-width: 15px;
+      margin-right: 5px;
+      text-align: center;
+    }
+
+    .remove-icon {
+      margin-left: 20px;
+    }
+  }
+}
+
+

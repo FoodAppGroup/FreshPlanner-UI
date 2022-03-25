@@ -1,7 +1,94 @@
 <p>src/app/components/storage/storage</p>
-<p *ngIf="storageData">{{storageData |json}}</p>
+
+<div *ngIf="storageData" class="root-column" fxLayout="column" fxLayoutAlign="start center">
+  <mat-expansion-panel (closed)="infoPanelOpened = false" (opened)="infoPanelOpened = true">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Storage Information
+      </mat-panel-title>
+      <mat-panel-description>
+        {{storageData.name ? 'of ' + storageData.name : 'No name found!'}}
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <div fxLayout="column" fxLayoutAlign="start center" id="expansion-panel-body">
+      <mat-form-field appearance="outline">
+        <mat-label>{{storageData.id ? 'ID' : 'Generated ID'}}</mat-label>
+        <input [(ngModel)]="storageData.id" disabled matInput>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Name</mat-label>
+        <input [(ngModel)]="storageData.name" [disabled]="true" matInput>
+      </mat-form-field>
+
+      <mat-form-field *ngFor="let username of storageData?.users; let i = index" appearance="outline">
+        <mat-label>Owner {{i + 1}}</mat-label>
+        <input [value]="username" disabled matInput>
+        <button (click)="submitRemoveUser(username)" mat-icon-button matSuffix>
+          <mat-icon>delete_outline</mat-icon>
+        </button>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="example-full-width">
+        <mat-label>Add new Owner</mat-label>
+        <input [(ngModel)]="usernameInput"
+               [formControl]="usernameInputControl"
+               [matAutocomplete]="auto"
+               aria-label="Number"
+               matInput
+               placeholder="Pick one"
+               type="text">
+        <button (click)="submitAddUser(usernameInput)" mat-icon-button matSuffix>
+          <mat-icon>add_circle_outline</mat-icon>
+        </button>
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let option of usernameFilteredOptions | async" [value]="option">
+            {{option}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </div>
+  </mat-expansion-panel>
+
+  <mat-list>
+    <div *ngFor="let category of itemCategories; let i = index">
+
+      <mat-divider *ngIf="i !== 0"></mat-divider>
+      <div mat-subheader>{{category}}</div>
+
+      <mat-list-item *ngFor="let item of filterItemsByCategory(storageData.items, category)">
+        <mat-icon mat-list-icon>fastfood</mat-icon>
+
+        <div fxLayout="row" fxLayoutAlign="start center" mat-line>
+          <span>{{item.productName}}</span>
+          <button (click)="navigateToProduct(item.productId)" class="product-link" mat-icon-button>
+            <mat-icon>open_in_new</mat-icon>
+          </button>
+
+          <span class="spacer"></span>
+
+          <button mat-icon-button>
+            <mat-icon>remove_circle_outline</mat-icon>
+          </button>
+
+          <span class="counter">{{item.count}}</span>
+
+          <button mat-icon-button>
+            <mat-icon>add_circle_outline</mat-icon>
+          </button>
+
+          <button class="remove-icon" mat-icon-button>
+            <mat-icon>delete_outline</mat-icon>
+          </button>
+        </div>
+      </mat-list-item>
+    </div>
+  </mat-list>
+</div>
 
 <div class="placeholder-actions">
-  <button (click)="navigateToProduct(1)" mat-raised-button>Select Product</button>
+  <button mat-raised-button>Select Product</button>
   <button (click)="navigateBack()" mat-raised-button>Back</button>
+  <button (click)="deleteStorage()" mat-raised-button>Delete</button>
 </div>

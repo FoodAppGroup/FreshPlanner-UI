@@ -8,6 +8,7 @@ export interface StorageModel {
 export interface StorageItemModel {
   productId?: number;
   productName?: string;
+  category?: string;
   count?: number;
   unit?: string;
 }

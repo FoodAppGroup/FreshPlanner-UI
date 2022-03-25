@@ -47,8 +47,10 @@
   </mat-form-field>
 
   <table>
-    <th>Items:</th>
-    <tr *ngFor="let item of recipeData.items">
+    <tr *ngFor="let item of recipeData.items; let i = index">
+      <th>
+        <div *ngIf="i===0">Items</div>
+      </th>
       <td>
         {{item |json}}
       </td>
