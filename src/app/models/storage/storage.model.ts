@@ -9,6 +9,7 @@ export interface StorageItemModel {
   productId?: number;
   productName?: string;
   category?: string;
+  packageSize?: number;
   count?: number;
   unit?: string;
 }

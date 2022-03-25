@@ -44,6 +44,11 @@ export class AuthenticationService {
     return this.httpClient.get<string[]>(endpointUrl, this.defaultHeaders);
   }
 
+  public getUsers(): Observable<string[]> {
+    const endpointUrl = this.controllerUrl + '/users';
+    return this.httpClient.get<string[]>(endpointUrl, this.defaultHeaders);
+  }
+
   // === DELETE ======================================================================================================
 
   public deleteUser(): Observable<UserInfoModel> {
