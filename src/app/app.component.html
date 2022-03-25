@@ -1,9 +1,22 @@
 <mat-toolbar id="app-toolbar">
   <mat-toolbar-row>
-    <button mat-icon-button routerLink="/dashboard">
+    <button mat-icon-button routerLink="/{{AppRoute.DASHBOARD}}">
       <img alt="Profile Image" id="app-icon" src="../assets/app-icon.svg">
     </button>
-    <span routerLink="/dashboard">{{title}}</span>
+
+    <span class="title-span" routerLink="/{{AppRoute.DASHBOARD}}">FreshPlanner</span>
+
+    <span class="spacer"></span>
+
+    <button mat-icon-button (click)="matSelectNav.open()">
+      <mat-icon>person</mat-icon>
+    </button>
+    <mat-select #matSelectNav [(ngModel)]="openAuthNavigation" panelClass="nav-panel">
+      <mat-option style="font-size:small;" *ngIf="!isConnected" routerLink="/{{AppRoute.REGISTRATION}}">Register</mat-option>
+      <mat-option style="font-size:small;" *ngIf="!isConnected" routerLink="/{{AppRoute.LOGIN}}">Login</mat-option>
+      <mat-option style="font-size:small;" *ngIf="isConnected" routerLink="/{{AppRoute.PROFILE}}">Profile</mat-option>
+      <mat-option style="font-size:small;" *ngIf="isConnected" (click)="submitLogout()">Logout</mat-option>
+    </mat-select>
   </mat-toolbar-row>
 </mat-toolbar>
 

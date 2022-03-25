@@ -3,9 +3,20 @@
   top: 0;
   height: 64px;
   z-index: 1000;
+
   span{
     cursor: pointer;
   }
+  .spacer {
+    flex: 1 1 auto;
+  }
+  mat-select{
+    width: 15px;
+  }
+  //TODO fix positioning of dropdown.
+  //.nav-panel{
+  //  background-color: red;
+  //}
 }
 
 #app-container {
@@ -20,5 +31,8 @@
   mat-card {
     margin: 50px;
     padding: 50px;
+    //height: 100%;
+    //width: 100%;
+    //background-color: rgba(0,0,0,0.6);
   }
 }
