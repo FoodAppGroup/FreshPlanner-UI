@@ -31,8 +31,16 @@
   mat-card {
     margin: 50px;
     padding: 50px;
-    //height: 100%;
-    //width: 100%;
-    //background-color: rgba(0,0,0,0.6);
+    background-color: rgba(256,256,256,0.7);
+  }
+
+  @media (max-width: 400px) {
+    mat-card {
+      margin: 0px;
+      height: 100vh;
+      overflow-y: auto;
+      width: 100vw;
+      border-radius: 0;
+    }
   }
 }

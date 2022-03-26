@@ -1,0 +1,19 @@
+button {
+  min-height: 18vw;
+  .png-icon{
+    margin-top: 10px;
+    min-width: 30px;
+    width: 10vw;
+  }
+}
+@media (max-width: 400px) {
+  button {
+    min-height: 80vw;
+    min-width: 80vw;
+    .png-icon{
+      margin-top: 10px;
+      min-width: 70%;
+      width: 10vw;
+    }
+  }
+}
