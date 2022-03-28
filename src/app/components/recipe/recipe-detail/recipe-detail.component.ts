@@ -2,11 +2,11 @@ import {Component, OnInit} from '@angular/core';
 import {Location} from "@angular/common";
 import {RecipeService} from "../../../services/recipe.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {OpenSnackBar, OpenWarnSnackBar} from "../../../utility/SnackBar";
+import {OpenSnackBar, OpenWarnSnackBar} from "../../../utility/snackbar";
 import {RecipeModel} from "../../../models/recipe/recipe.model";
 import {ActivatedRoute, Router} from "@angular/router";
 import {AppRoute} from "../../../app-routing.module";
-import {GetIdFromRoute} from "../../../utility/RouteProcessor";
+import {GetIdFromRoute} from "../../../utility/route-processor";
 
 @Component({
   selector: 'app-recipe-detail',

@@ -4,10 +4,10 @@ import {Location} from '@angular/common';
 import {ActivatedRoute, Router} from "@angular/router";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {CartService} from "../../../services/cart.service";
-import {OpenSnackBar, OpenWarnSnackBar} from "../../../utility/SnackBar";
+import {OpenSnackBar, OpenWarnSnackBar} from "../../../utility/snackbar";
 import {CartModel} from "../../../models/cart/cart.model";
-import {GetIdFromRoute} from "../../../utility/RouteProcessor";
-import {Log} from "../../../utility/Log";
+import {GetIdFromRoute} from "../../../utility/route-processor";
+import {Log} from "../../../utility/log";
 
 @Component({
   selector: 'app-cart',

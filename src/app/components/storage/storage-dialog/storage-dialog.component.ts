@@ -3,7 +3,7 @@ import {AppRoute} from "../../../app-routing.module";
 import {Router} from "@angular/router";
 import {StorageService} from "../../../services/storage.service";
 import {StorageSummaryModel} from "../../../models/storage/storage-summary.model";
-import {OpenSnackBar} from "../../../utility/SnackBar";
+import {OpenSnackBar} from "../../../utility/snackbar";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {MatDialogRef} from "@angular/material/dialog";
 

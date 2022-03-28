@@ -2,14 +2,14 @@ import {Component, OnInit} from '@angular/core';
 import {Location} from "@angular/common";
 import {AppRoute} from "../../../app-routing.module";
 import {StorageItemModel, StorageModel} from "../../../models/storage/storage.model";
-import {OpenSnackBar, OpenWarnSnackBar} from "../../../utility/SnackBar";
+import {OpenSnackBar, OpenWarnSnackBar} from "../../../utility/snackbar";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {StorageService} from "../../../services/storage.service";
 import {ActivatedRoute, Router} from "@angular/router";
-import {GetIdFromRoute} from "../../../utility/RouteProcessor";
-import {Log} from "../../../utility/Log";
+import {GetIdFromRoute} from "../../../utility/route-processor";
+import {Log} from "../../../utility/log";
 import {AuthenticationService} from "../../../services/authentication.service";
-import {AutoComplete, ProductAutoComplete} from "../../../utility/AutoComplete";
+import {AutoComplete, ProductAutoComplete} from "../../../utility/autocomplete-data";
 import {ProductService} from "../../../services/product.service";
 import {ProductSummaryModel} from "../../../models/product/product-summary.model";
 

@@ -3,8 +3,8 @@ import {Location} from "@angular/common";
 import {ActivatedRoute, Router} from "@angular/router";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {ProductService} from "../../../services/product.service";
-import {GetIdFromRoute} from "../../../utility/RouteProcessor";
-import {OpenSnackBar, OpenWarnSnackBar} from "../../../utility/SnackBar";
+import {GetIdFromRoute} from "../../../utility/route-processor";
+import {OpenSnackBar, OpenWarnSnackBar} from "../../../utility/snackbar";
 import {ProductModel} from "../../../models/product/product.model";
 
 @Component({
