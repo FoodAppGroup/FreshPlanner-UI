@@ -93,7 +93,7 @@ export class ProductDetailComponent implements OnInit {
   public submitDeleteProduct(): void {
     if (this.productData.id) {
       this.productService.deleteProductById(this.productData.id).subscribe((response) => {
-        this.setValidatedProductData(this.productData);
+        this.setValidatedProductData(response);
         this.dbProductData = undefined;
         this.productData.id = undefined;
         this.enableCreation();
