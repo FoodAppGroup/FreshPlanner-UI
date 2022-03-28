@@ -82,7 +82,7 @@
   <button (click)="submitRecipeCreation()" *ngIf="!recipeCreationDisabled" mat-raised-button>
     Submit new Recipe
   </button>
-  <button (click)="deleteRecipe()" *ngIf="recipeCreationDisabled" mat-raised-button>
+  <button color="warn" (click)="deleteRecipe()" *ngIf="recipeCreationDisabled" mat-raised-button>
     Delete Recipe
   </button>
 </div>
