@@ -36,6 +36,28 @@ export class ProductService {
     return this.httpClient.get<ProductModel>(endpointUrl, this.defaultHeaders);
   }
 
+  public searchProducts(name: string): Observable<ProductModel[]> {
+    const endpointUrl = this.controllerUrl + '/search?name=' + name;
+    return this.httpClient.get<ProductModel[]>(endpointUrl, this.defaultHeaders);
+  }
+
+  public getCategories(): Observable<string[]> {
+    const endpointUrl = this.controllerUrl + '/categories';
+    return this.httpClient.get<string[]>(endpointUrl, this.defaultHeaders);
+  }
+
+  public getUnits(): Observable<string[]> {
+    const endpointUrl = this.controllerUrl + '/units';
+    return this.httpClient.get<string[]>(endpointUrl, this.defaultHeaders);
+  }
+
+  // === PUT =========================================================================================================
+
+  public updateProduct(productModel: ProductModel): Observable<ProductModel> {
+    const endpointUrl = this.controllerUrl + '/update';
+    return this.httpClient.put <ProductModel>(endpointUrl, productModel, this.defaultHeaders);
+  }
+
   // === DELETE ======================================================================================================
 
   public deleteProductById(productId: number): Observable<ProductModel> {

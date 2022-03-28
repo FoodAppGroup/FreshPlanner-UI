@@ -3,7 +3,7 @@ import {AppRoute} from "../../../app-routing.module";
 import {Location} from "@angular/common";
 import {Router} from "@angular/router";
 import {LoginModel} from "../../../models/authentication/login.model";
-import {OpenSnackBar} from "../../../utility/SnackBar";
+import {OpenSnackBar} from "../../../utility/snackbar";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {AuthenticationService} from "../../../services/authentication.service";
 import {Store} from "@ngrx/store";

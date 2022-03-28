@@ -5,7 +5,7 @@ import {Router} from "@angular/router";
 import {RegistrationModel} from "../../../models/authentication/registration.model";
 import {AuthenticationService} from "../../../services/authentication.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {OpenSnackBar} from "../../../utility/SnackBar";
+import {OpenSnackBar} from "../../../utility/snackbar";
 import {Store} from "@ngrx/store";
 import {AuthState} from "../../../stores/auth.reducer";
 import {AuthAction} from "../../../stores/auth.action";

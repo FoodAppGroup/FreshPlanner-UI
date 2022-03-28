@@ -1,5 +1,5 @@
 <div fxLayout="column" fxLayoutAlign="start center">
-  <div fxLayout="row wrap" fxLayoutAlign="center start" class="placeholder-actions">
+  <div class="footer-actions" fxLayout="row wrap" fxLayoutAlign="center start">
     <button (click)="openCartDialog()" mat-raised-button>
       <img class="png-icon" src="assets/einkaufen.png"><br>
       Cart
@@ -13,7 +13,7 @@
       Recipes</button>
   </div>
 
-  <div fxLayout="row wrap" fxLayoutAlign="center start" class="placeholder-actions">
+  <div class="footer-actions" fxLayout="row wrap" fxLayoutAlign="center start">
     <button [routerLink]="'/' + AppRoute.PRODUCT" mat-raised-button>
       <img class="png-icon" src="assets/lebensmittel.png"><br>
       Products
