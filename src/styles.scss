@@ -29,3 +29,9 @@ body {
     margin: 10px;
   }
 }
+
+.disabled-color{
+  :disabled{
+    color: rgba(255,255,255,0.9);
+  }
+}
