@@ -1,11 +1,22 @@
 <div fxLayout="column" fxLayoutAlign="start center">
   <div fxLayout="row wrap" fxLayoutAlign="center start" class="placeholder-actions">
-    <button (click)="openCartDialog()" mat-raised-button>Cart</button>
-    <button (click)="openStorageDialog()" mat-raised-button>Storage</button>
-    <button [routerLink]="'/' + AppRoute.RECIPE" mat-raised-button>Recipes</button>
+    <button (click)="openCartDialog()" mat-raised-button>
+      <img class="png-icon" src="assets/einkaufen.png"><br>
+      Cart
+    </button>
+    <button (click)="openStorageDialog()" mat-raised-button>
+      <img class="png-icon" src="assets/mini.png"><br>
+      Storage
+    </button>
+    <button [routerLink]="'/' + AppRoute.RECIPE" mat-raised-button>
+      <img class="png-icon" src="assets/rezept.png"><br>
+      Recipes</button>
   </div>
 
   <div fxLayout="row wrap" fxLayoutAlign="center start" class="placeholder-actions">
-    <button [routerLink]="'/' + AppRoute.PRODUCT" mat-raised-button>Products</button>
+    <button [routerLink]="'/' + AppRoute.PRODUCT" mat-raised-button>
+      <img class="png-icon" src="assets/lebensmittel.png"><br>
+      Products
+    </button>
   </div>
 </div>
