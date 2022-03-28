@@ -36,6 +36,11 @@ export class ProductService {
     return this.httpClient.get<ProductModel>(endpointUrl, this.defaultHeaders);
   }
 
+  public searchProducts(name: string): Observable<ProductModel[]> {
+    const endpointUrl = this.controllerUrl + '/search?name=' + name;
+    return this.httpClient.get<ProductModel[]>(endpointUrl, this.defaultHeaders);
+  }
+
   // === DELETE ======================================================================================================
 
   public deleteProductById(productId: number): Observable<ProductModel> {

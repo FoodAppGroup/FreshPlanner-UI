@@ -1,48 +1,185 @@
-<div fxLayout="column" fxLayoutAlign="start center">
-  <div class="mat-elevation-z8" id="product-table">
-    <table [dataSource]="dataSource" mat-table matSort>
+<!-- root column starts at the top and centers elements horizontally -->
+<div class="root-column" fxLayout="column" fxLayoutAlign="start center">
+
+  <!-- search input row with fully centered elements -->
+  <div class="search-input" fxLayout="row" fxLayoutAlign="center center">
+    <mat-form-field appearance="outline">
+      <mat-label>Enter partial product name</mat-label>
+      <input [(ngModel)]="searchInput" matInput>
+    </mat-form-field>
+
+    <button (click)="submitSearchProducts()" color="primary" mat-raised-button>
+      <mat-icon>search</mat-icon>
+    </button>
+  </div>
+
+  <!-- flex div with table and paginator -->
+  <div class="mat-elevation-z8 product-table">
+    <table [dataSource]="tableData.dataSource" mat-table matSort>
 
       <!-- ID Column -->
-      <ng-container matColumnDef="{{tableModel.columns.id.key}}">
-        <th *matHeaderCellDef [matTooltipShowDelay]="1000" mat-header-cell mat-sort-header
-            matTooltip="{{tableModel.columns.id.tooltip}}"
+      <ng-container matColumnDef="{{PRODUCT_COLUMN.ID}}">
+        <th *matHeaderCellDef [matTooltipShowDelay]="1000"
+            mat-header-cell
+            mat-sort-header
+            matTooltip="Database ID"
             matTooltipPosition="below">
-          {{tableModel.columns.id.label}}
+          ID
         </th>
-        <td *matCellDef="let row" mat-cell>
-          {{row.id}}
+        <td *matCellDef="let product" mat-cell>
+          {{product.id}}
         </td>
       </ng-container>
 
-      <!-- Name Column -->
-      <ng-container matColumnDef="{{tableModel.columns.name.key}}">
-        <th *matHeaderCellDef [matTooltipShowDelay]="1000" mat-header-cell mat-sort-header
-            matTooltip="{{tableModel.columns.name.tooltip}}"
+      <!-- NAME Column -->
+      <ng-container matColumnDef="{{PRODUCT_COLUMN.NAME}}">
+        <th *matHeaderCellDef [matTooltipShowDelay]="1000"
+            mat-header-cell
+            mat-sort-header
+            matTooltip="NAME"
             matTooltipPosition="below">
-          {{tableModel.columns.name.label}}
+          Name
         </th>
-        <td *matCellDef="let row" mat-cell>
-          {{row.name}}
+        <td *matCellDef="let product" mat-cell>
+          {{product.name}}
+        </td>
+      </ng-container>
+
+      <!-- CATEGORY Column -->
+      <ng-container matColumnDef="{{PRODUCT_COLUMN.CATEGORY}}">
+        <th *matHeaderCellDef [matTooltipShowDelay]="1000"
+            mat-header-cell
+            mat-sort-header
+            matTooltip="CATEGORY"
+            matTooltipPosition="below">
+          Category
+        </th>
+        <td *matCellDef="let product" mat-cell>
+          {{product.category}}
+        </td>
+      </ng-container>
+
+      <!-- PACKAGE_SIZE Column -->
+      <ng-container matColumnDef="{{PRODUCT_COLUMN.PACKAGE_SIZE}}">
+        <th *matHeaderCellDef [matTooltipShowDelay]="1000"
+            mat-header-cell
+            mat-sort-header
+            matTooltip="PACKAGE_SIZE"
+            matTooltipPosition="below">
+          Package
+        </th>
+        <td *matCellDef="let product" mat-cell>
+          {{product.packageSize}}
+        </td>
+      </ng-container>
+
+      <!-- UNIT Column -->
+      <ng-container matColumnDef="{{PRODUCT_COLUMN.UNIT}}">
+        <th *matHeaderCellDef [matTooltipShowDelay]="1000"
+            mat-header-cell
+            mat-sort-header
+            matTooltip="UNIT"
+            matTooltipPosition="below">
+          Unit
+        </th>
+        <td *matCellDef="let product" mat-cell>
+          {{product.unit}}
+        </td>
+      </ng-container>
+
+      <!-- KCAL Column -->
+      <ng-container matColumnDef="{{PRODUCT_COLUMN.KCAL}}">
+        <th *matHeaderCellDef [matTooltipShowDelay]="1000"
+            mat-header-cell
+            mat-sort-header
+            matTooltip="Kcal  per 100g"
+            matTooltipPosition="below">
+          Kcal
+        </th>
+        <td *matCellDef="let product" mat-cell>
+          {{product.kcal}}
+        </td>
+      </ng-container>
+
+      <!-- CARBOHYDRATES Column -->
+      <ng-container matColumnDef="{{PRODUCT_COLUMN.CARBOHYDRATES}}">
+        <th *matHeaderCellDef [matTooltipShowDelay]="1000"
+            mat-header-cell
+            mat-sort-header
+            matTooltip="Carbohydrates per 100g"
+            matTooltipPosition="below">
+          Carbo
+        </th>
+        <td *matCellDef="let product" mat-cell>
+          {{product.carbohydrates}}
+        </td>
+      </ng-container>
+
+      <!-- PROTEIN Column -->
+      <ng-container matColumnDef="{{PRODUCT_COLUMN.PROTEIN}}">
+        <th *matHeaderCellDef [matTooltipShowDelay]="1000"
+            mat-header-cell
+            mat-sort-header
+            matTooltip="Protein per 100g"
+            matTooltipPosition="below">
+          Protein
+        </th>
+        <td *matCellDef="let product" mat-cell>
+          {{product.protein}}
+        </td>
+      </ng-container>
+
+      <!-- FAT Column -->
+      <ng-container matColumnDef="{{PRODUCT_COLUMN.FAT}}">
+        <th *matHeaderCellDef [matTooltipShowDelay]="1000"
+            mat-header-cell
+            mat-sort-header
+            matTooltip="Fat per 100g"
+            matTooltipPosition="below">
+          Fat
+        </th>
+        <td *matCellDef="let product" mat-cell>
+          {{product.fat}}
+        </td>
+      </ng-container>
+
+      <!-- ACTIONS Column -->
+      <ng-container matColumnDef="{{PRODUCT_COLUMN.ACTIONS}}">
+        <th *matHeaderCellDef [matTooltipShowDelay]="1000"
+            mat-header-cell
+            mat-sort-header
+            matTooltip="Actions"
+            matTooltipPosition="below">
+        </th>
+        <td *matCellDef="let product" mat-cell>
+          <button (click)="navigateToProduct(product.id)" mat-icon-button>
+            <mat-icon>open_in_new</mat-icon>
+          </button>
         </td>
       </ng-container>
 
       <!-- General Row Definition -->
-      <tr *matHeaderRowDef="tableModel.displayedColumns" mat-header-row></tr>
-      <tr *matRowDef="let row; columns: tableModel.displayedColumns;" mat-row></tr>
+      <tr *matHeaderRowDef="tableData.displayedColumns" mat-header-row></tr>
+      <tr *matRowDef="let row; columns: tableData.displayedColumns;" mat-row></tr>
 
       <!-- Row shown when there is no matching data. -->
       <tr *matNoDataRow class="mat-row">
-        <td class="mat-cell" colspan="4">
-          No data available.
+        <td class="mat-cell" colspan="9">
+          {{doneFirstSearch ? 'No results for search input.' : 'Execute search for data. Leave input empty for all products.'}}
         </td>
       </tr>
     </table>
 
-    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="10"></mat-paginator>
+    <mat-paginator [pageSizeOptions]="tableData.pageSizeOptions" [pageSize]="tableData.defaultPageSize"></mat-paginator>
   </div>
 
-  <div class="placeholder-actions">
-    <button (click)="navigateBack()" mat-raised-button>Back</button>
-    <button (click)="navigateToProduct(1)" mat-raised-button>Product 1</button>
+  <!-- footer with actions, elements start at the top and centers elements horizontally -->
+  <div class="footer-actions" fxLayout="row wrap" fxLayoutAlign="center start">
+    <button (click)="navigateBack()" mat-raised-button>
+      Back
+    </button>
+    <button (click)="navigateToProduct('new')" color="primary" mat-raised-button>
+      Add Product
+    </button>
   </div>
 </div>

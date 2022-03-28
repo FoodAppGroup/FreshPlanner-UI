@@ -1,14 +1,14 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
-import {MatTableDataSource} from "@angular/material/table";
 import {ProductService} from "../../../services/product.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {animate, state, style, transition, trigger} from "@angular/animations";
 import {Location} from "@angular/common";
-import {ProductSummaryModel} from "../../../models/product/product-summary.model";
 import {AppRoute} from "../../../app-routing.module";
 import {Router} from "@angular/router";
+import {TableData} from "../../../utility/table-data";
+import {ProductModel} from "../../../models/product/product.model";
 
 @Component({
   selector: 'app-product',
@@ -24,13 +24,25 @@ import {Router} from "@angular/router";
 })
 export class ProductComponent implements OnInit, AfterViewInit {
 
+  PRODUCT_COLUMN = PRODUCT_COLUMN;
+
   @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
   @ViewChild(MatSort) sort: MatSort | undefined;
 
-  productData: ProductSummaryModel[] = [];
-  dataSource = new MatTableDataSource<ProductSummaryModel>();
-  tableModel = new ProductTableModel();
-  expandedElement: ProductSummaryModel | undefined;
+  searchInput = '';
+  doneFirstSearch = false;
+  tableData = new TableData<ProductModel>([
+    PRODUCT_COLUMN.ID,
+    PRODUCT_COLUMN.NAME,
+    PRODUCT_COLUMN.CATEGORY,
+    PRODUCT_COLUMN.PACKAGE_SIZE,
+    PRODUCT_COLUMN.UNIT,
+    PRODUCT_COLUMN.KCAL,
+    PRODUCT_COLUMN.CARBOHYDRATES,
+    PRODUCT_COLUMN.PROTEIN,
+    PRODUCT_COLUMN.FAT,
+    PRODUCT_COLUMN.ACTIONS
+  ]);
 
   constructor(private productService: ProductService,
               private snackBar: MatSnackBar,
@@ -39,26 +51,20 @@ export class ProductComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.loadAllProducts();
   }
 
-  public ngAfterViewInit(): void {
-    if (this.sort) {
-      this.dataSource.sort = this.sort;
-    }
-    if (this.paginator) {
-      this.dataSource.paginator = this.paginator;
-    }
+  ngAfterViewInit(): void {
+    this.tableData.afterViewInit(this.paginator, this.sort);
   }
 
-  private loadAllProducts(): void {
-    this.productService.getAllProducts().subscribe((response) => {
-      this.productData = response;
-      this.dataSource.data = this.productData;
+  public submitSearchProducts() {
+    this.productService.searchProducts(this.searchInput).subscribe((response) => {
+      this.tableData.setData(response);
+      this.doneFirstSearch = true;
     });
   }
 
-  public navigateToProduct(productId: number): void {
+  public navigateToProduct(productId: number | string): void {
     this.router.navigate(['/' + AppRoute.PRODUCT_DETAIL + '/' + productId]);
   }
 
@@ -69,24 +75,13 @@ export class ProductComponent implements OnInit, AfterViewInit {
 
 enum PRODUCT_COLUMN {
   ID = 'id',
-  NAME = 'name'
-}
-
-class ProductTableModel {
-  displayedColumns = [
-    PRODUCT_COLUMN.ID,
-    PRODUCT_COLUMN.NAME
-  ];
-  columns = {
-    id: {
-      key: PRODUCT_COLUMN.ID,
-      label: 'ID',
-      tooltip: 'Product ID'
-    },
-    name: {
-      key: PRODUCT_COLUMN.NAME,
-      label: 'Name',
-      tooltip: 'Product Name'
-    }
-  };
+  NAME = 'name',
+  CATEGORY = 'category',
+  UNIT = 'unit',
+  PACKAGE_SIZE = 'packageSize',
+  KCAL = 'kcal',
+  CARBOHYDRATES = 'carbohydrates',
+  PROTEIN = 'protein',
+  FAT = 'fat',
+  ACTIONS = 'actions'
 }

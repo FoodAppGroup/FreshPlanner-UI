@@ -5,8 +5,8 @@ import {ProductSummaryModel} from "../models/product/product-summary.model";
 export class AutoComplete {
   input: string = '';
   options: string[] = [];
-  inputControl = new FormControl();
-  filteredOptions: Observable<string[]> = this.inputControl.valueChanges.pipe(
+  readonly inputControl = new FormControl();
+  readonly filteredOptions: Observable<string[]> = this.inputControl.valueChanges.pipe(
     startWith(''),
     map(value => this.options.filter(option => option.toLowerCase().includes(value.toLowerCase()))),
   );
@@ -20,8 +20,8 @@ export class AutoComplete {
 export class ProductAutoComplete {
   input: string = '';
   options: ProductSummaryModel[] = [];
-  inputControl = new FormControl();
-  filteredOptions: Observable<ProductSummaryModel[]> = this.inputControl.valueChanges.pipe(
+  readonly inputControl = new FormControl();
+  readonly filteredOptions: Observable<ProductSummaryModel[]> = this.inputControl.valueChanges.pipe(
     startWith(''),
     map(value => this.options.filter((option) => ProductSummaryModel.shortString(option).toLowerCase().includes(value.toLowerCase())))
   );
