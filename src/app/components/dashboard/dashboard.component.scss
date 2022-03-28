@@ -1,6 +1,7 @@
 button {
   min-height: 18vw;
   .png-icon{
+    filter: grayscale(1) invert(1);
     margin-top: 10px;
     min-width: 30px;
     width: 10vw;
@@ -8,8 +9,8 @@ button {
 }
 @media (max-width: 400px) {
   button {
-    min-height: 80vw;
-    min-width: 80vw;
+    min-height: 50vw;
+    min-width: 50vw;
     .png-icon{
       margin-top: 10px;
       min-width: 70%;

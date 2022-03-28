@@ -1,0 +1,142 @@
+
+
+.mat-primary .mat-option.mat-selected:not(.mat-option-disabled) {
+  color: #F8B207
+}
+
+.mat-primary .mat-pseudo-checkbox-checked, .mat-primary .mat-pseudo-checkbox-indeterminate {
+  background: #F8B207
+}
+
+.mat-badge-content {
+  color: #fff;
+  background: #F8B207
+}
+
+.mat-button.mat-primary, .mat-icon-button.mat-primary, .mat-stroked-button.mat-primary {
+  color: #F8B207
+}
+
+.mat-button.mat-primary .mat-button-focus-overlay, .mat-icon-button.mat-primary .mat-button-focus-overlay, .mat-stroked-button.mat-primary .mat-button-focus-overlay {
+  background-color: #F8B207
+}
+
+.mat-flat-button.mat-primary, .mat-raised-button.mat-primary, .mat-fab.mat-primary, .mat-mini-fab.mat-primary {
+  background-color: #F8B207
+}
+
+.mat-checkbox-indeterminate.mat-primary .mat-checkbox-background, .mat-checkbox-checked.mat-primary .mat-checkbox-background {
+  background-color: #F8B207
+}
+
+.mat-checkbox-checked:not(.mat-checkbox-disabled).mat-primary .mat-ripple-element, .mat-checkbox:active:not(.mat-checkbox-disabled).mat-primary .mat-ripple-element {
+  background: #F8B207
+}
+
+.mat-chip.mat-standard-chip.mat-chip-selected.mat-primary {
+  background-color: #F8B207;
+  color: #fff
+}
+
+.mat-calendar-body-selected {
+  background-color: #F8B207;
+  color: #fff
+}
+
+.mat-datepicker-toggle-active {
+  color: #F8B207
+}
+
+.mat-form-field.mat-focused .mat-form-field-label {
+  color: #F8B207
+}
+
+.mat-form-field.mat-focused .mat-form-field-ripple {
+  background-color: #F8B207
+}
+
+.mat-form-field-type-mat-native-select.mat-focused:not(.mat-form-field-invalid) .mat-form-field-infix::after {
+  color: #F8B207
+}
+
+.mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+  color: #F8B207
+}
+
+.mat-icon.mat-primary {
+  color: #F8B207
+}
+
+.mat-input-element {
+  caret-color: #F8B207
+}
+
+.mat-progress-bar-fill::after {
+  background-color: #F8B207
+}
+
+.mat-progress-spinner circle, .mat-spinner circle {
+  stroke: #F8B207
+}
+
+.mat-radio-button.mat-primary.mat-radio-checked .mat-radio-outer-circle {
+  border-color: #F8B207
+}
+
+.mat-radio-button.mat-primary .mat-radio-inner-circle, .mat-radio-button.mat-primary .mat-radio-ripple .mat-ripple-element:not(.mat-radio-persistent-ripple), .mat-radio-button.mat-primary.mat-radio-checked .mat-radio-persistent-ripple, .mat-radio-button.mat-primary:active .mat-radio-persistent-ripple {
+  background-color: #F8B207
+}
+
+.mat-form-field.mat-focused.mat-primary .mat-select-arrow {
+  color: #F8B207
+}
+
+.mat-slide-toggle.mat-primary.mat-checked .mat-slide-toggle-thumb {
+  background-color: #F8B207
+}
+
+.mat-slide-toggle.mat-primary.mat-checked .mat-ripple-element {
+  background-color: #F8B207
+}
+
+.mat-slider.mat-primary .mat-slider-track-fill, .mat-slider.mat-primary .mat-slider-thumb, .mat-slider.mat-primary .mat-slider-thumb-label {
+  background-color: #F8B207
+}
+
+.mat-step-header .mat-step-icon-selected, .mat-step-header .mat-step-icon-state-done, .mat-step-header .mat-step-icon-state-edit {
+  background-color: #F8B207;
+  color: #fff
+}
+
+.mat-tab-group.mat-primary .mat-ink-bar, .mat-tab-nav-bar.mat-primary .mat-ink-bar {
+  background-color: #F8B207
+}
+
+.mat-tab-group.mat-background-primary > .mat-tab-header, .mat-tab-group.mat-background-primary > .mat-tab-link-container, .mat-tab-group.mat-background-primary > .mat-tab-header-pagination, .mat-tab-nav-bar.mat-background-primary > .mat-tab-header, .mat-tab-nav-bar.mat-background-primary > .mat-tab-link-container, .mat-tab-nav-bar.mat-background-primary > .mat-tab-header-pagination {
+  background-color: #F8B207
+}
+
+.mat-toolbar.mat-primary {
+  background: #F8B207;
+  color: #fff
+}
+
+.cdk-keyboard-focused .mat-calendar-body-active > .mat-calendar-body-cell-content:not(.mat-calendar-body-selected):not(.mat-calendar-body-comparison-identical), .cdk-program-focused .mat-calendar-body-active > .mat-calendar-body-cell-content:not(.mat-calendar-body-selected):not(.mat-calendar-body-comparison-identical) {
+  background-color: rgb(248, 178, 7, .3)
+}
+
+@media (hover: hover) {
+  .mat-calendar-body-cell:not(.mat-calendar-body-disabled):hover > .mat-calendar-body-cell-content:not(.mat-calendar-body-selected):not(.mat-calendar-body-comparison-identical) {
+    background-color: rgb(248, 178, 7, .3)
+  }
+}
+
+.mat-calendar-body-disabled > .mat-calendar-body-selected {
+  background-color: rgb(248, 178, 7, .4)
+}
+
+.mat-dialog-container {
+  box-shadow: 0px 11px 15px -7px rgba(0, 0, 0, 0.2), 0px 24px 38px 3px rgba(0, 0, 0, 0.14), 0px 9px 46px 8px rgba(0, 0, 0, 0.12);
+  background: #303030;
+  color: #fff
+}
