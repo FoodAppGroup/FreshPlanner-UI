@@ -60,7 +60,7 @@ export class ProductService {
 
   // === DELETE ======================================================================================================
 
-  public deleteProductById(productId: number): Observable<ProductModel> {
+  public deleteProduct(productId: number): Observable<ProductModel> {
     const endpointUrl = this.controllerUrl + '/delete/' + productId;
     return this.httpClient.delete <ProductModel>(endpointUrl, this.defaultHeaders);
   }

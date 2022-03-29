@@ -75,6 +75,7 @@ export class ProductDetailComponent implements OnInit {
     this.productService.addProduct(this.productData).subscribe((response) => {
       this.setValidatedProductData(response);
       this.disableChanges();
+      this.loadCategoryOptions();
       this.router.navigate(['/' + AppRoute.PRODUCT_DETAIL + '/' + response.id]);
       OpenSnackBar(this.snackBar, 'Created Product: ' + this.productData.name);
     });
@@ -86,13 +87,14 @@ export class ProductDetailComponent implements OnInit {
     this.productService.updateProduct(this.productData).subscribe((response) => {
       this.setValidatedProductData(response);
       this.disableChanges();
+      this.loadCategoryOptions();
       OpenSnackBar(this.snackBar, 'Updated Product: ' + this.productData.name);
     });
   }
 
   public submitDeleteProduct(): void {
     if (this.productData.id) {
-      this.productService.deleteProductById(this.productData.id).subscribe((response) => {
+      this.productService.deleteProduct(this.productData.id).subscribe((response) => {
         this.setValidatedProductData(response);
         this.dbProductData = undefined;
         this.productData.id = undefined;
