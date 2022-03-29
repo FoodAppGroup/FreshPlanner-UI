@@ -22,12 +22,12 @@ export class RecipeService {
 
   public addRecipe(recipeModel: RecipeModel): Observable<RecipeModel> {
     const endpointUrl = this.controllerUrl + '/insert';
-    return this.httpClient.post <RecipeModel>(endpointUrl, recipeModel, this.defaultHeaders);
+    return this.httpClient.post<RecipeModel>(endpointUrl, recipeModel, this.defaultHeaders);
   }
 
   public addRecipeItem(recipeId: number, recipeItemModel: RecipeItemModel): Observable<RecipeModel> {
     const endpointUrl = this.controllerUrl + '/insert-item/' + recipeId;
-    return this.httpClient.post <RecipeModel>(endpointUrl, recipeItemModel, this.defaultHeaders);
+    return this.httpClient.post<RecipeModel>(endpointUrl, recipeItemModel, this.defaultHeaders);
   }
 
   // === GET =========================================================================================================
@@ -41,14 +41,41 @@ export class RecipeService {
     return this.httpClient.get<RecipeModel>(endpointUrl, this.defaultHeaders);
   }
 
+  public searchRecipesByName(name: string): Observable<RecipeSummaryModel[]> {
+    const endpointUrl = this.controllerUrl + '/search-name?name=' + name;
+    return this.httpClient.get<RecipeSummaryModel[]>(endpointUrl, this.defaultHeaders);
+  }
+
+  public searchRecipesByCategory(category: string): Observable<RecipeSummaryModel[]> {
+    const endpointUrl = this.controllerUrl + '/search-category?category=' + category;
+    return this.httpClient.get<RecipeSummaryModel[]>(endpointUrl, this.defaultHeaders);
+  }
+
+  public getCategories(): Observable<string[]> {
+    const endpointUrl = this.controllerUrl + '/categories';
+    return this.httpClient.get<string[]>(endpointUrl, this.defaultHeaders);
+  }
+
+  // === PUT =========================================================================================================
+
+  public updateRecipeItem(recipeId: number, recipeItemModel: RecipeItemModel): Observable<RecipeModel> {
+    const endpointUrl = this.controllerUrl + '/update-item/' + recipeId;
+    return this.httpClient.put<RecipeModel>(endpointUrl, recipeItemModel, this.defaultHeaders);
+  }
+
+  public updateRecipe(recipeModel: RecipeModel): Observable<RecipeModel> {
+    const endpointUrl = this.controllerUrl + '/update';
+    return this.httpClient.put<RecipeModel>(endpointUrl, recipeModel, this.defaultHeaders);
+  }
+
   // === DELETE ======================================================================================================
 
-  public deleteRecipeItemById(recipeId: number, productId: number): Observable<RecipeModel> {
+  public deleteRecipeItem(recipeId: number, productId: number): Observable<RecipeModel> {
     const endpointUrl = this.controllerUrl + '/delete-item/' + recipeId + '/' + productId;
     return this.httpClient.delete <RecipeModel>(endpointUrl, this.defaultHeaders);
   }
 
-  public deleteRecipeById(recipeId: number): Observable<RecipeModel> {
+  public deleteRecipe(recipeId: number): Observable<RecipeModel> {
     const endpointUrl = this.controllerUrl + '/delete/' + recipeId;
     return this.httpClient.delete <RecipeModel>(endpointUrl, this.defaultHeaders);
   }

@@ -55,7 +55,7 @@ export class RecipeDetailComponent implements OnInit {
 
   public deleteRecipe(): void {
     if (this.recipeData.id) {
-      this.recipeService.deleteRecipeById(this.recipeData.id).subscribe((response) => {
+      this.recipeService.deleteRecipe(this.recipeData.id).subscribe((response) => {
         this.recipeData = response;
         this.recipeCreationDisabled = false;
         OpenSnackBar(this.snackBar, 'Deleted Recipe: ' + this.recipeData.name);

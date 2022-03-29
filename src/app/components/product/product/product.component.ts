@@ -58,7 +58,7 @@ export class ProductComponent implements OnInit, AfterViewInit {
   }
 
   public submitSearchProducts() {
-    this.productService.searchProducts(this.searchInput).subscribe((response) => {
+    this.productService.searchProductsByName(this.searchInput).subscribe((response) => {
       this.tableData.setData(response);
       this.doneFirstSearch = true;
     });

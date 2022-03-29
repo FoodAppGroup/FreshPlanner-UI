@@ -22,7 +22,7 @@ export class ProductService {
 
   public addProduct(productModel: ProductModel): Observable<ProductModel> {
     const endpointUrl = this.controllerUrl + '/insert';
-    return this.httpClient.post <ProductModel>(endpointUrl, productModel, this.defaultHeaders);
+    return this.httpClient.post<ProductModel>(endpointUrl, productModel, this.defaultHeaders);
   }
 
   // === GET =========================================================================================================
@@ -36,8 +36,13 @@ export class ProductService {
     return this.httpClient.get<ProductModel>(endpointUrl, this.defaultHeaders);
   }
 
-  public searchProducts(name: string): Observable<ProductModel[]> {
-    const endpointUrl = this.controllerUrl + '/search?name=' + name;
+  public searchProductsByName(name: string): Observable<ProductModel[]> {
+    const endpointUrl = this.controllerUrl + '/search-name?name=' + name;
+    return this.httpClient.get<ProductModel[]>(endpointUrl, this.defaultHeaders);
+  }
+
+  public searchProductsByCategory(category: string): Observable<ProductModel[]> {
+    const endpointUrl = this.controllerUrl + '/search-category?category=' + category;
     return this.httpClient.get<ProductModel[]>(endpointUrl, this.defaultHeaders);
   }
 
@@ -55,13 +60,13 @@ export class ProductService {
 
   public updateProduct(productModel: ProductModel): Observable<ProductModel> {
     const endpointUrl = this.controllerUrl + '/update';
-    return this.httpClient.put <ProductModel>(endpointUrl, productModel, this.defaultHeaders);
+    return this.httpClient.put<ProductModel>(endpointUrl, productModel, this.defaultHeaders);
   }
 
   // === DELETE ======================================================================================================
 
   public deleteProduct(productId: number): Observable<ProductModel> {
     const endpointUrl = this.controllerUrl + '/delete/' + productId;
-    return this.httpClient.delete <ProductModel>(endpointUrl, this.defaultHeaders);
+    return this.httpClient.delete<ProductModel>(endpointUrl, this.defaultHeaders);
   }
 }
