@@ -28,12 +28,12 @@ jobs:
           cache: 'npm'
 
       - name: Print Environment
-      - run: |
+        run: |
           echo "Node.js Version $(node -v)"
           echo "NPM Version $(npm -v)"
 
       - name: Build Project
-      - run: |
+        run: |
           npm install
           npm run build --prod
 
