@@ -1,5 +1,5 @@
 FROM node:16.14-alpine as builder
-MAINTAINER Felix Steinke <steinke.felix@yahoo.de>
+MAINTAINER Felix Steinke <https://github.com/felixsteinke>
 
 WORKDIR /app
 COPY ./ .
@@ -8,7 +8,7 @@ RUN npm install
 RUN npm run build --prod
 
 FROM nginx:1.21-alpine as runner
-MAINTAINER Felix Steinke <steinke.felix@yahoo.com>
+MAINTAINER Felix Steinke <https://github.com/felixsteinke>
 
 COPY nginx.conf /etc/nginx/nginx.conf
 COPY --from=builder /app/dist/fresh-planner-ui /usr/share/nginx/html

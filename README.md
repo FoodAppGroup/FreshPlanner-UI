@@ -5,10 +5,51 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.0.
 
+The application starts on [http://localhost:4200](http://localhost:4200).
+
+### Purpose
+
+This project has the purpose to get involved with __Angular__ (TypeScript, NPM), __Docker__ and __GitHub__ (Actions,
+Packages, Projects).
+
+### Description
+
+The application is an __Angular Web UI__ to provide a user interface for the underlying backend. The UI acts like a REST
+Client and supports mobile and desktop browsers.
+
+## Architecture
+
+### Overview
+
+```
+                Browser
+                   |
+                Routing
+                   |
+     Stores --> Components  ----
+                   |           |
+Interceptor --> Services --> Models
+                   |
+                REST API
+```
+
+### Explanation
+
+* Browser = `localhost:4200`
+* Routing = [routing module](src/app/app-routing.module.ts)
+* Components = [component-package](src/app/components)
+* Stores = [store-package](src/app/stores)
+* Services = [service-package](src/app/services)
+* Models = [model-package](src/app/models)
+* Interceptor = [interceptor-package](src/app/interceptors)
+* REST API = `localhost:8080`
+
 ## Dev Requirements
 
 * Download and Install [NodeJS](https://nodejs.org/) v16.14.1+
 * Install [Angular CLI](https://github.com/angular/angular-cli) v13.3.0: `npm install -g @angular/cli@13.3.0`
+* Download and Install [Docker](https://docs.docker.com/desktop/windows/install/)
+  * Build Image: `docker build -t fresh-planner-ui .`
 
 ## Dependencies
 
@@ -20,6 +61,28 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 * [NGRX Store](https://ngrx.io/guide/store) with [DevTools](https://ngrx.io/guide/store-devtools):
   * `ng add @ngrx/store@latest` & `ng add @ngrx/store-devtools@latest`
   * Tool: [Browser Plugin](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd)
+
+## GitHub Workflows
+
+### [Continuous Integration](.github/workflows/ci.yml)
+
+* __Trigger:__ all pushes
+* Executes `npm install` & `npm run build --prod`
+* No tests yet
+
+### [Docker Image for GitHub](.github/workflows/docker-image.yml)
+
+* __Trigger:__ manual or on published release
+* Executes `docker build`
+* Execute `docker push` to GitHub Packages
+
+## [Docker Image](Dockerfile)
+
+* Divided into __Builder__ and __Runner__
+* Image with [Nginx Alpine](https://hub.docker.com/_/nginx) and the distribution
+* Exposes `Port 4200`
+* Uses by default __API__ at `Port 8080`
+* Detailed configuration: [environment.prod](src/environments/environment.prod.ts)
 
 ## Angular Commands
 
