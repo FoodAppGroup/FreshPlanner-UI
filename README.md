@@ -1,3 +1,6 @@
+[![Continuous-Integration](https://github.com/home-planner-group/fresh-planner-ui/actions/workflows/ci.yml/badge.svg)](https://github.com/home-planner-group/fresh-planner-ui/actions/workflows/ci.yml)
+[![Docker-Image](https://github.com/home-planner-group/fresh-planner-ui/actions/workflows/docker-image.yml/badge.svg)](https://github.com/home-planner-group/fresh-planner-ui/actions/workflows/docker-image.yml)
+
 # FreshPlanner UI
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.0.
