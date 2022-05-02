@@ -8,8 +8,9 @@ import {RegistrationComponent} from "./components/authentication/registration/re
 import {CartComponent} from "./components/cart/cart/cart.component";
 import {StorageComponent} from "./components/storage/storage/storage.component";
 import {RecipeComponent} from "./components/recipe/recipe/recipe.component";
-import {RecipeDetailComponent} from "./components/recipe/recipe-detail/recipe-detail.component";
+import {RecipeDisplayComponent} from "./components/recipe/recipe-display/recipe-display.component";
 import {ProductDetailComponent} from "./components/product/product-detail/product-detail.component";
+import {RecipeEditingComponent} from "./components/recipe/recipe-editing/recipe-editing.component";
 
 export enum AppRoute {
   DASHBOARD = 'dashboard',
@@ -21,7 +22,8 @@ export enum AppRoute {
   CART = 'cart',
   STORAGE = 'storage',
   RECIPE = 'recipe',
-  RECIPE_DETAIL = 'recipe-detail'
+  RECIPE_DISPLAY = 'recipe-view',
+  RECIPE_EDITING = 'recipe-edit'
 }
 
 const routes: Routes = [
@@ -38,8 +40,10 @@ const routes: Routes = [
   {path: AppRoute.STORAGE, component: StorageComponent},
   {path: AppRoute.STORAGE + '/:id', component: StorageComponent},
   {path: AppRoute.RECIPE, component: RecipeComponent},
-  {path: AppRoute.RECIPE_DETAIL, component: RecipeDetailComponent},
-  {path: AppRoute.RECIPE_DETAIL + '/:id', component: RecipeDetailComponent}
+  {path: AppRoute.RECIPE_DISPLAY, component: RecipeDisplayComponent},
+  {path: AppRoute.RECIPE_DISPLAY + '/:id', component: RecipeDisplayComponent},
+  {path: AppRoute.RECIPE_EDITING, component: RecipeEditingComponent},
+  {path: AppRoute.RECIPE_EDITING + '/:id', component: RecipeEditingComponent}
 ];
 
 @NgModule({

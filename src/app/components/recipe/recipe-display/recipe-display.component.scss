@@ -1,0 +1,34 @@
+.div-header {
+  min-width: 300px;
+  margin-bottom: 30px;
+
+  .div-title {
+    width: 100%;
+
+    h2 {
+      margin: 0;
+    }
+
+    mat-icon {
+      margin-left: 24px;
+      margin-right: 8px;
+    }
+  }
+
+  h3 {
+    margin: 0;
+  }
+}
+
+.div-items {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+mat-expansion-panel {
+  min-width: 300px;
+
+  mat-panel-title {
+    width: 50%;
+  }
+}

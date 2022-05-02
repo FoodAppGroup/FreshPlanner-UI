@@ -24,7 +24,7 @@ export class RecipeComponent implements OnInit {
   }
 
   public navigateToRecipeDetail(recipeId?: number): void {
-    this.router.navigate(['/' + AppRoute.RECIPE_DETAIL + '/' + recipeId]);
+    this.router.navigate(['/' + AppRoute.RECIPE_DISPLAY + '/' + recipeId]);
   }
 
   private loadRecipeSelection(): void {

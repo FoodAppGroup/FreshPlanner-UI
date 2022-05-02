@@ -75,7 +75,7 @@ export class RecipeService {
     return this.httpClient.delete <RecipeModel>(endpointUrl, this.defaultHeaders);
   }
 
-  public deleteRecipe(recipeId: number): Observable<RecipeModel> {
+  public deleteRecipe(recipeId: number | undefined): Observable<RecipeModel> {
     const endpointUrl = this.controllerUrl + '/delete/' + recipeId;
     return this.httpClient.delete <RecipeModel>(endpointUrl, this.defaultHeaders);
   }

@@ -21,7 +21,7 @@ body {
   }
 }
 
-.footer-actions {
+.div-actions {
   margin-top: 30px;
 
   button {
@@ -30,8 +30,12 @@ body {
   }
 }
 
-.disabled-color{
-  :disabled{
-    color: rgba(255,255,255,0.9);
+.disabled-color {
+  :disabled {
+    color: rgba(255, 255, 255, 0.9);
   }
+}
+
+.spacer {
+  flex: 1 1 auto;
 }

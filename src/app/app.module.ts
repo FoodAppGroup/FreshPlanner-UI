@@ -20,11 +20,12 @@ import {StorageComponent} from './components/storage/storage/storage.component';
 import {CartComponent} from './components/cart/cart/cart.component';
 import {CartDialogComponent} from './components/cart/cart-dialog/cart-dialog.component';
 import {RecipeComponent} from './components/recipe/recipe/recipe.component';
-import {RecipeDetailComponent} from './components/recipe/recipe-detail/recipe-detail.component';
+import {RecipeDisplayComponent} from './components/recipe/recipe-display/recipe-display.component';
 import {FormsModule} from "@angular/forms";
 import {HttpAuthInterceptor} from "./interceptors/http-auth.interceptor";
 import {AuthReducer} from "./stores/auth.reducer";
 import {ProductDetailComponent} from './components/product/product-detail/product-detail.component';
+import {RecipeEditingComponent} from './components/recipe/recipe-editing/recipe-editing.component';
 
 @NgModule({
   declarations: [
@@ -39,8 +40,9 @@ import {ProductDetailComponent} from './components/product/product-detail/produc
     CartComponent,
     CartDialogComponent,
     RecipeComponent,
-    RecipeDetailComponent,
-    ProductDetailComponent
+    RecipeDisplayComponent,
+    ProductDetailComponent,
+    RecipeEditingComponent
   ],
   imports: [
     BrowserModule,
