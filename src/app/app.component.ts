@@ -1,8 +1,7 @@
 import {Component} from '@angular/core';
 import {AppRoute} from "./app-routing.module";
-import {AuthAction} from "./stores/auth.action";
+import {AuthAction, AuthState} from "./stores/auth.reducer";
 import {Store} from "@ngrx/store";
-import {AuthState} from "./stores/auth.reducer";
 import {Router} from "@angular/router";
 
 @Component({

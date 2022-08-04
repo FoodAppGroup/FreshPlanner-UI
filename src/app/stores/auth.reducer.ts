@@ -1,5 +1,4 @@
-import {createReducer, on} from '@ngrx/store';
-import {AuthAction} from './auth.action';
+import {createAction, createFeatureSelector, createReducer, createSelector, on, props} from '@ngrx/store';
 import {UserAuthModel} from "../models/authentication/user-auth.model";
 import {SessionStore} from "./session.store";
 
@@ -7,11 +6,39 @@ const sessionKey = 'user-auth';
 const sessionStorage = new SessionStore<UserAuthModel>();
 
 /**
- * State Interface the Store
+ * State Interface of the Store
  */
 export interface AuthState {
   authenticated: boolean;
   userAuth: UserAuthModel | undefined;
+}
+
+/**
+ * Available Actions for the Reducer.
+ */
+export class AuthAction {
+  /**
+   * Actions to set data into the Reducer.
+   * <p>Usage:</p>
+   *  constructor(private authStore: Store<AuthState>) {
+   *     this.authStore.dispatch(AuthReducer.set({userAuth: data}));
+   *   }
+   */
+  public static set = createAction('[AUTH] Set', props<{ userAuth: UserAuthModel }>());
+  public static reset = createAction('[AUTH] Reset');
+  /**
+   * Feature Selector to create GetActions. 'featureName' is important for the registration in app.module.ts.
+   */
+  private static featureSelector = createFeatureSelector<AuthState>('authStateReducer');
+  /**
+   * Actions to get data from the reducer.
+   * <p>Usage:</p>
+   *  constructor(private store: Store<State>) {
+   *     this.store.select(AuthReducer.get).subscribe((data) => this.userAuth = data);
+   *   }
+   */
+  public static isPresent = createSelector(AuthAction.featureSelector, (state) => state?.authenticated);
+  public static get = createSelector(AuthAction.featureSelector, (state) => state?.userAuth);
 }
 
 /**
@@ -33,7 +60,7 @@ export const AuthReducer = createReducer<AuthState>(
     };
   }),
   // Action 2 (reset)
-  on(AuthAction.reset, (previousState, actionProps): AuthState => {
+  on(AuthAction.reset, (previousState): AuthState => {
     sessionStorage.removeObj(sessionKey);
     return {
       ...previousState,

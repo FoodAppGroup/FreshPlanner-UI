@@ -3,8 +3,7 @@ import {Injectable} from '@angular/core';
 
 import {Observable} from 'rxjs';
 import {Store} from '@ngrx/store';
-import {AuthState} from "../stores/auth.reducer";
-import {AuthAction} from "../stores/auth.action";
+import {AuthAction, AuthState} from "../stores/auth.reducer";
 import {UserAuthModel} from "../models/authentication/user-auth.model";
 
 /**

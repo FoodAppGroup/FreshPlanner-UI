@@ -1,12 +1,19 @@
-<div fxLayout="column" fxLayoutAlign="start center">
+<div fxLayout="column" fxLayoutAlign="start center" id="recipe-display-root">
 
   <div fxLayout="column" fxLayoutAlign="center start" id="recipe-headline">
-    <div class="div-title" fxLayout="row" fxLayoutAlign="start center">
+    <div fxLayout="row" fxLayoutAlign="start center" id="recipe-title">
       <h2>{{recipeData.name}}</h2>
+
+      <button (click)="navigateToRecipeEditing(recipeData.id)" color="primary" id="edit-recipe-btn" mat-mini-fab>
+        <mat-icon>edit</mat-icon>
+      </button>
+
       <span class="spacer"></span>
-      <mat-icon>access_time</mat-icon>
+
+      <mat-icon id="duration-icon">access_time</mat-icon>
       <div>{{recipeData.duration}} Minutes</div>
     </div>
+
     <h3>{{recipeData.category}}</h3>
   </div>
 
@@ -32,7 +39,7 @@
           <p *ngIf="item.description">{{item.description}}</p>
           <mat-divider inset></mat-divider>
           <div class="expansion-panel-actions" fxLayout="row wrap" fxLayoutAlign="center start">
-            <button (click)="navigateToProduct(item.productId)" *ngIf="item.productId" mat-button>
+            <button (click)="navigateToProduct(item.productId)" *ngIf="item.productId" mat-raised-button>
               Product Information
             </button>
           </div>
@@ -84,10 +91,7 @@
   <button (click)="navigateBack()" mat-raised-button>
     Back
   </button>
-  <button (click)="navigateToRecipeEditing()" mat-raised-button>
-    Create Recipe
-  </button>
-  <button (click)="navigateToRecipeEditing(recipeData.id)" mat-raised-button>
-    Update Recipe
+  <button (click)="navigateToRecipeEditing()" color="primary" mat-raised-button>
+    Create New Recipe
   </button>
 </div>

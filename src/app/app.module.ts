@@ -26,6 +26,7 @@ import {HttpAuthInterceptor} from "./interceptors/http-auth.interceptor";
 import {AuthReducer} from "./stores/auth.reducer";
 import {ProductDetailComponent} from './components/product/product-detail/product-detail.component';
 import {RecipeEditingComponent} from './components/recipe/recipe-editing/recipe-editing.component';
+import {RecipeReducer} from "./stores/recipe.reducer";
 
 @NgModule({
   declarations: [
@@ -50,7 +51,7 @@ import {RecipeEditingComponent} from './components/recipe/recipe-editing/recipe-
     MaterialModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    StoreModule.forRoot({authStateReducer: AuthReducer}, {}),
+    StoreModule.forRoot({authStateReducer: AuthReducer, recipeStateReducer: RecipeReducer}, {}),
     StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}),
     FlexModule,
     FormsModule
