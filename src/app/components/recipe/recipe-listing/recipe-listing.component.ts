@@ -7,10 +7,10 @@ import {RecipeSummaryModel} from "../../../models/recipe/recipe-summary.model";
 
 @Component({
   selector: 'app-recipe',
-  templateUrl: './recipe.component.html',
-  styleUrls: ['./recipe.component.scss']
+  templateUrl: './recipe-listing.component.html',
+  styleUrls: ['./recipe-listing.component.scss']
 })
-export class RecipeComponent implements OnInit {
+export class RecipeListingComponent implements OnInit {
 
   recipeSummaryData: RecipeSummaryModel[] | undefined;
 

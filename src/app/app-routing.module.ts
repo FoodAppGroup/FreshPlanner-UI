@@ -7,7 +7,7 @@ import {LoginComponent} from "./components/authentication/login/login.component"
 import {RegistrationComponent} from "./components/authentication/registration/registration.component";
 import {CartComponent} from "./components/cart/cart/cart.component";
 import {StorageComponent} from "./components/storage/storage/storage.component";
-import {RecipeComponent} from "./components/recipe/recipe/recipe.component";
+import {RecipeListingComponent} from "./components/recipe/recipe-listing/recipe-listing.component";
 import {RecipeDisplayComponent} from "./components/recipe/recipe-display/recipe-display.component";
 import {ProductDetailComponent} from "./components/product/product-detail/product-detail.component";
 import {RecipeEditingComponent} from "./components/recipe/recipe-editing/recipe-editing.component";
@@ -39,7 +39,7 @@ const routes: Routes = [
   {path: AppRoute.CART + '/:id', component: CartComponent},
   {path: AppRoute.STORAGE, component: StorageComponent},
   {path: AppRoute.STORAGE + '/:id', component: StorageComponent},
-  {path: AppRoute.RECIPE, component: RecipeComponent},
+  {path: AppRoute.RECIPE, component: RecipeListingComponent},
   {path: AppRoute.RECIPE_DISPLAY, component: RecipeDisplayComponent},
   {path: AppRoute.RECIPE_DISPLAY + '/:id', component: RecipeDisplayComponent},
   {path: AppRoute.RECIPE_EDITING, component: RecipeEditingComponent},

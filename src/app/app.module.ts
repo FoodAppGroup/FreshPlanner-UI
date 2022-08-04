@@ -19,7 +19,7 @@ import {StorageDialogComponent} from './components/storage/storage-dialog/storag
 import {StorageComponent} from './components/storage/storage/storage.component';
 import {CartComponent} from './components/cart/cart/cart.component';
 import {CartDialogComponent} from './components/cart/cart-dialog/cart-dialog.component';
-import {RecipeComponent} from './components/recipe/recipe/recipe.component';
+import {RecipeListingComponent} from './components/recipe/recipe-listing/recipe-listing.component';
 import {RecipeDisplayComponent} from './components/recipe/recipe-display/recipe-display.component';
 import {FormsModule} from "@angular/forms";
 import {HttpAuthInterceptor} from "./interceptors/http-auth.interceptor";
@@ -39,7 +39,7 @@ import {RecipeEditingComponent} from './components/recipe/recipe-editing/recipe-
     StorageDialogComponent,
     CartComponent,
     CartDialogComponent,
-    RecipeComponent,
+    RecipeListingComponent,
     RecipeDisplayComponent,
     ProductDetailComponent,
     RecipeEditingComponent
