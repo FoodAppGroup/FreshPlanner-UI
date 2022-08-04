@@ -8,12 +8,12 @@ export interface RecipeModel {
   carbohydrates?: number;
   protein?: number;
   fat?: number;
-  items?: RecipeItemModel[];
+  items: RecipeItemModel[];
 }
 
 export interface RecipeItemModel {
   productId?: number;
-  productName?: string;
+  productName: string;
   count?: number;
   unit?: string;
   description?: string;

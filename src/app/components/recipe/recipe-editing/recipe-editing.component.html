@@ -1,77 +1,124 @@
-<div class="detail-column" fxLayout="column" fxLayoutAlign="start center">
-  <mat-form-field appearance="outline">
-    <mat-label>{{recipeData.id ? 'ID' : 'Generated ID'}}</mat-label>
-    <input [(ngModel)]="recipeData.id" disabled matInput>
-  </mat-form-field>
+<div fxLayout="column" fxLayoutAlign="start center">
 
-  <mat-form-field appearance="outline">
-    <mat-label>Name</mat-label>
-    <input [(ngModel)]="recipeData.name" matInput>
-  </mat-form-field>
+  <div fxLayout="column" fxLayoutAlign="center start" id="recipe-edit-headline">
+    <div fxLayout="row" fxLayoutAlign="start center" id="recipe-edit-title">
 
-  <mat-form-field appearance="outline">
-    <mat-label>Category</mat-label>
-    <input [(ngModel)]="recipeData.category" matInput>
-  </mat-form-field>
+      <mat-form-field appearance="outline" id="recipe-edit-name">
+        <mat-label>Name</mat-label>
+        <input [(ngModel)]="recipeData.name" matInput>
+      </mat-form-field>
 
-  <mat-form-field appearance="outline">
-    <mat-label>Duration</mat-label>
-    <input [(ngModel)]="recipeData.duration" matInput>
-  </mat-form-field>
+      <span class="spacer"></span>
 
-  <mat-form-field appearance="outline">
+      <mat-icon>access_time</mat-icon>
+      <mat-form-field appearance="outline" id="recipe-edit-duration">
+        <mat-label>Duration</mat-label>
+        <input [(ngModel)]="recipeData.duration" matInput>
+      </mat-form-field>
+      <div>Minutes</div>
+    </div>
+
+    <mat-form-field appearance="outline" id="recipe-edit-category">
+      <mat-label>Category</mat-label>
+      <input [(ngModel)]="recipeData.category" matInput>
+    </mat-form-field>
+  </div>
+
+  <mat-form-field appearance="outline" id="recipe-edit-description">
     <mat-label>Description</mat-label>
     <textarea [(ngModel)]="recipeData.description" matInput></textarea>
   </mat-form-field>
 
-  <mat-form-field appearance="outline">
-    <mat-label>kCal</mat-label>
-    <input [(ngModel)]="recipeData.kcal" disabled matInput>
-  </mat-form-field>
+  <div id="edit-recipe-items">
+    <h2>Recipe Items</h2>
 
-  <mat-form-field appearance="outline">
-    <mat-label>Carbohydrates</mat-label>
-    <input [(ngModel)]="recipeData.carbohydrates" disabled matInput>
-  </mat-form-field>
+    <mat-expansion-panel id="new-item-panel">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>add</mat-icon>
+          Add new Item
+        </mat-panel-title>
 
-  <mat-form-field appearance="outline">
-    <mat-label>Protein</mat-label>
-    <input [(ngModel)]="recipeData.protein" disabled matInput>
-  </mat-form-field>
+        <mat-panel-description></mat-panel-description>
+      </mat-expansion-panel-header>
 
-  <mat-form-field appearance="outline">
-    <mat-label>Fat</mat-label>
-    <input [(ngModel)]="recipeData.fat" disabled matInput>
-  </mat-form-field>
+      <div fxLayout="column" fxLayoutAlign="start center">
+        <div class="edit-item-panel-row" fxLayout="row" fxLayoutAlign="center start">
+          <mat-form-field appearance="outline" class="edit-item-product">
+            <mat-label>Search for Product</mat-label>
+            <input [(ngModel)]="recipeItemData.productName" matInput>
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="edit-item-count">
+            <mat-label>Item Count</mat-label>
+            <input [(ngModel)]="recipeItemData.count" matInput type="number">
+          </mat-form-field>
+        </div>
 
-  <table>
-    <tr *ngFor="let item of recipeData.items; let i = index">
-      <th>
-        <div *ngIf="i===0">Items</div>
-      </th>
-      <td>
-        {{item |json}}
-      </td>
-      <td>
-        <button (click)="navigateToProduct(item.productId)" *ngIf="item.productId" mat-icon-button>
-          <mat-icon>open_in_new</mat-icon>
-        </button>
-        <!-- TODO implement delete recipe item -->
-      </td>
-    </tr>
-    <tr>
-      <button mat-raised-button>
-        Add new Item  <!-- TODO implement add recipe item with product selection dialog -->
-      </button>
-    </tr>
-  </table>
+        <mat-form-field appearance="outline" class="edit-item-panel-row">
+          <mat-label>Item Description</mat-label>
+          <textarea [(ngModel)]="recipeItemData.description" matInput></textarea>
+        </mat-form-field>
+
+        <mat-divider inset></mat-divider>
+
+        <div class="expansion-panel-actions" fxLayout="row wrap" fxLayoutAlign="center start">
+          <button (click)="addItemToRecipe()" color="primary" mat-raised-button>
+            Add Item to Recipe
+          </button>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <mat-accordion>
+      <mat-expansion-panel *ngFor="let item of recipeData.items; let i = index">
+
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <mat-icon>fastfood</mat-icon>
+            {{item.productName}}
+          </mat-panel-title>
+
+          <mat-panel-description>{{item.count}} {{item.unit}}</mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <div fxLayout="column" fxLayoutAlign="start center">
+          <div class="edit-item-panel-row" fxLayout="row" fxLayoutAlign="center start">
+            <mat-form-field appearance="outline" class="edit-item-product">
+              <mat-label>Product Name</mat-label>
+              <input [(ngModel)]="item.productName" disabled matInput>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="edit-item-count">
+              <mat-label>Item Count</mat-label>
+              <input [(ngModel)]="item.count" matInput type="number">
+            </mat-form-field>
+          </div>
+
+          <mat-form-field appearance="outline" class="edit-item-panel-row">
+            <mat-label>Item Description</mat-label>
+            <textarea [(ngModel)]="item.description" matInput></textarea>
+          </mat-form-field>
+
+          <mat-divider inset></mat-divider>
+
+          <div class="expansion-panel-actions" fxLayout="row wrap" fxLayoutAlign="center start">
+            <button (click)="navigateToProduct(item.productId)" *ngIf="item.productId" mat-button>
+              Product Information
+            </button>
+            <button (click)="removeItemFromRecipe(item)" color="warn" mat-raised-button>
+              Delete Item from Recipe
+            </button>
+          </div>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
 </div>
 
-<div class="div-actions" fxLayout="row" fxLayoutAlign="center start">
+<div class="div-actions" fxLayout="row wrap" fxLayoutAlign="center start">
   <button (click)="navigateBack()" mat-raised-button>
     Cancel
   </button>
-  <button (click)="submitCreate()" mat-raised-button>
+  <button (click)="submitCreate()" color="primary" mat-raised-button>
     Submit Recipe
   </button>
   <button (click)="submitDelete()" color="warn" mat-raised-button>

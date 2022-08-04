@@ -16,7 +16,9 @@ import {ParseErrorResponse} from "../../../utility/error-functions";
 })
 export class RecipeDisplayComponent implements OnInit {
 
-  recipeData: RecipeModel = {};
+  recipeData: RecipeModel = {
+    items: []
+  };
 
   constructor(private location: Location,
               private router: Router,

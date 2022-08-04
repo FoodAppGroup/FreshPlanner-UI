@@ -1,16 +1,111 @@
-.detail-column {
-  margin: 25px;
+#recipe-edit-headline {
+  width: 100%;
+  min-width: 300px;
+  margin-bottom: 30px;
 
-  mat-form-field {
-    margin: 0 5px;
-    min-width: 300px;
+  #recipe-edit-title {
+    width: 100%;
+
+    #recipe-edit-name {
+      width: 250px;
+
+      input {
+        font: 500 20px/32px Roboto, "Helvetica Neue", sans-serif;
+      }
+
+      ::ng-deep.mat-form-field-infix {
+        padding: 4px 0 8px 0 !important;
+      }
+    }
+
+    mat-icon {
+      margin-left: 24px;
+      margin-right: 8px;
+    }
+
+    #recipe-edit-duration {
+      width: 64px;
+      padding: 0;
+      margin-right: 10px;
+
+      input {
+        text-align: center;
+      }
+
+      ::ng-deep.mat-form-field-infix {
+        padding: 8px 0 8px 0 !important;
+      }
+    }
   }
 
-  table {
-    min-width: 300px;
+  #recipe-edit-category {
+    width: 250px;
 
-    th {
-      text-align: left;
+    input {
+      font: 400 16px/28px Roboto, "Helvetica Neue", sans-serif;
     }
+  }
+
+  #recipe-edit-category {
+    width: 250px;
+
+    input {
+      font: 400 16px/28px Roboto, "Helvetica Neue", sans-serif;
+    }
+
+    ::ng-deep.mat-form-field-infix {
+      padding: 8px 0 8px 0 !important;
+    }
+  }
+}
+
+#recipe-edit-description {
+  width: 100%;
+  margin: 30px;
+
+  textarea {
+    min-height: 120px;
+  }
+}
+
+#edit-recipe-items {
+  width: 100%;
+  margin: 30px;
+
+  #new-item-panel {
+    margin-bottom: 30px;
+  }
+
+  .edit-item-panel-row {
+    width: 100%;
+
+    .edit-item-product {
+      width: 100%;
+      margin-right: 10px;
+    }
+
+    .edit-item-count {
+      width: 110px;
+
+      input {
+        text-align: center;
+      }
+    }
+  }
+}
+
+mat-expansion-panel {
+  min-width: 300px;
+
+  mat-panel-title {
+    mat-icon {
+      margin-right: 25px;
+    }
+
+    width: 50%;
+  }
+
+  mat-divider {
+    height: 10px;
   }
 }

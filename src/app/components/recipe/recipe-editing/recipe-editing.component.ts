@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {RecipeModel} from "../../../models/recipe/recipe.model";
+import {RecipeItemModel, RecipeModel} from "../../../models/recipe/recipe.model";
 import {Location} from "@angular/common";
 import {ActivatedRoute, Router} from "@angular/router";
 import {MatSnackBar} from "@angular/material/snack-bar";
@@ -16,6 +16,9 @@ import {ParseErrorResponse} from "../../../utility/error-functions";
 export class RecipeEditingComponent implements OnInit {
 
   recipeData: RecipeModel = RecipeEditingComponent.defaultRecipeData();
+  recipeItemData: RecipeItemModel = {
+    productName: ''
+  };
 
   constructor(private location: Location,
               private router: Router,
@@ -27,15 +30,26 @@ export class RecipeEditingComponent implements OnInit {
   private static defaultRecipeData(): RecipeModel {
     return {
       id: undefined,
-      name: '',
-      category: '',
       duration: 15,
-      description: '',
       items: []
     }
   }
 
   ngOnInit(): void {
+  }
+
+  public addItemToRecipe(): void {
+    this.recipeData.items?.push(this.recipeItemData);
+    this.recipeItemData = {
+      productName: ''
+    };
+  }
+
+  public removeItemFromRecipe(item: RecipeItemModel): void {
+    const index = this.recipeData.items.indexOf(item, 0);
+    if (index > -1) {
+      this.recipeData.items?.splice(index, 1);
+    }
   }
 
   public submitCreate(): void {
