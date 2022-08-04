@@ -1,4 +1,5 @@
-.div-header {
+#recipe-headline {
+  width: 100%;
   min-width: 300px;
   margin-bottom: 30px;
 
@@ -20,15 +21,34 @@
   }
 }
 
-.div-items {
-  margin-top: 30px;
-  margin-bottom: 30px;
+#recipe-items {
+  width: 100%;
+  margin: 30px;
+}
+
+#recipe-ingredients {
+  width: 100%;
+  margin: 30px;
+
+  #recipe-ingredient-details {
+    td {
+      padding: 0 25px 0;
+    }
+  }
 }
 
 mat-expansion-panel {
   min-width: 300px;
 
   mat-panel-title {
+    mat-icon {
+      margin-right: 25px;
+    }
+
     width: 50%;
+  }
+
+  mat-divider {
+    height: 10px;
   }
 }

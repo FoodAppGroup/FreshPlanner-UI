@@ -1,10 +1,11 @@
 <div fxLayout="column" fxLayoutAlign="start center">
-  <div class="div-header" fxLayout="column" fxLayoutAlign="center start">
+
+  <div fxLayout="column" fxLayoutAlign="center start" id="recipe-headline">
     <div class="div-title" fxLayout="row" fxLayoutAlign="start center">
       <h2>{{recipeData.name}}</h2>
       <span class="spacer"></span>
       <mat-icon>access_time</mat-icon>
-      <div>{{recipeData.duration}}</div>
+      <div>{{recipeData.duration}} Minutes</div>
     </div>
     <h3>{{recipeData.category}}</h3>
   </div>
@@ -13,7 +14,7 @@
     {{recipeData.description}}
   </p>
 
-  <div class="div-items">
+  <div id="recipe-items">
     <h2>Recipe Items</h2>
     <mat-accordion>
       <mat-expansion-panel *ngFor="let item of recipeData.items; let i = index">
@@ -24,16 +25,15 @@
             {{item.productName}}
           </mat-panel-title>
 
-          <mat-panel-description>
-            {{item.count}} {{item.unit}}
-          </mat-panel-description>
+          <mat-panel-description>{{item.count}} {{item.unit}}</mat-panel-description>
         </mat-expansion-panel-header>
 
         <div class="expansion-panel-body" fxLayout="column" fxLayoutAlign="start center">
           <p *ngIf="item.description">{{item.description}}</p>
+          <mat-divider inset></mat-divider>
           <div class="expansion-panel-actions" fxLayout="row wrap" fxLayoutAlign="center start">
-            <button (click)="navigateToProduct(item.productId)" *ngIf="item.productId" mat-icon-button>
-              <mat-icon>open_in_new</mat-icon>
+            <button (click)="navigateToProduct(item.productId)" *ngIf="item.productId" mat-button>
+              Product Information
             </button>
           </div>
         </div>
@@ -42,45 +42,40 @@
     </mat-accordion>
   </div>
 
-  <mat-expansion-panel class="ingredients">
+  <mat-expansion-panel id="recipe-ingredients">
     <mat-expansion-panel-header>
       <mat-panel-title>
         <mat-icon>donut_small</mat-icon>
         Ingredients
       </mat-panel-title>
 
-      <mat-panel-description>
-        {{recipeData.kcal}} kCal
-      </mat-panel-description>
+      <mat-panel-description>{{recipeData.kcal}} kCal</mat-panel-description>
     </mat-expansion-panel-header>
 
-    <div class="expansion-panel-body" fxLayout="column" fxLayoutAlign="start center">
-      <mat-list>
-
-        <mat-list-item>
-          <mat-icon mat-list-icon>donut_small</mat-icon>
-          <div mat-line>kCal</div>
-          <div mat-line>{{recipeData.kcal}}</div>
-        </mat-list-item>
-
-        <mat-list-item>
-          <mat-icon mat-list-icon>donut_small</mat-icon>
-          <div mat-line>Carbohydrates</div>
-          <div mat-line>{{recipeData.carbohydrates}}</div>
-        </mat-list-item>
-
-        <mat-list-item>
-          <mat-icon mat-list-icon>donut_small</mat-icon>
-          <div mat-line>Protein</div>
-          <div mat-line>{{recipeData.protein}}</div>
-        </mat-list-item>
-
-        <mat-list-item>
-          <mat-icon mat-list-icon>donut_small</mat-icon>
-          <div mat-line>Fat</div>
-          <div mat-line>{{recipeData.fat}}</div>
-        </mat-list-item>
-      </mat-list>
+    <div fxLayout="column" fxLayoutAlign="start center">
+      <table id="recipe-ingredient-details">
+        <tr>
+          <th>
+            <mat-icon mat-list-icon>donut_small</mat-icon>
+          </th>
+          <td>Carbohydrates</td>
+          <td>{{recipeData.carbohydrates}}g</td>
+        </tr>
+        <tr>
+          <th>
+            <mat-icon mat-list-icon>donut_small</mat-icon>
+          </th>
+          <td>Protein</td>
+          <td>{{recipeData.protein}}g</td>
+        </tr>
+        <tr>
+          <th>
+            <mat-icon mat-list-icon>donut_small</mat-icon>
+          </th>
+          <td>Fat</td>
+          <td>{{recipeData.fat}}g</td>
+        </tr>
+      </table>
     </div>
   </mat-expansion-panel>
 </div>
