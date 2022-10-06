@@ -10,4 +10,6 @@ export interface CartItemModel {
   productName?: string;
   count?: number;
   unit?: string;
+  checked?: boolean;
+  expanded?: boolean;
 }

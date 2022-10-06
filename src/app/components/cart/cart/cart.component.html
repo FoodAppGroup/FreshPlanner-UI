@@ -1,7 +1,52 @@
-<p>src/app/components/cart/cart</p>
-<p *ngIf="cartData">{{cartData |json}}</p>
+<div fxLayout="column" fxLayoutAlign="center start" id="recipe-headline">
+  <div fxLayout="row" fxLayoutAlign="start center" id="recipe-title">
+    <h2>{{cartData?.name}}</h2>
 
-<div class="div-actions">
-  <button (click)="navigateToProduct(1)" mat-raised-button>Product</button>
-  <button (click)="navigateBack()" mat-raised-button>Back</button>
+    <span class="spacer"></span>
+
+    <button (click)="clickEditSocial()" mat-icon-button>
+      <mat-icon>people_outline</mat-icon>
+    </button>
+  </div>
+</div>
+
+<mat-accordion *ngIf="cartData">
+  <mat-expansion-panel *ngFor="let item of cartData.items; let i = index" [expanded]="item.expanded" disabled
+                       hideToggle>
+
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <button (click)="item.expanded = !item.expanded" mat-icon-button>
+          <mat-icon>{{item.expanded ? "expand_less" : "expand_more"}}</mat-icon>
+        </button>
+        {{item.productName}}
+      </mat-panel-title>
+
+      <mat-panel-description>
+        <button (click)="clickDecreaseCount()" mat-icon-button>
+          <mat-icon>remove_circle_outline</mat-icon>
+        </button>
+        {{item.count}} {{item.unit}}
+        <button (click)="clickIncreaseCount()" mat-icon-button>
+          <mat-icon>add_circle_outline</mat-icon>
+        </button>
+        <mat-checkbox [(ngModel)]="item.checked"></mat-checkbox>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <div class="expansion-panel-body" fxLayout="column" fxLayoutAlign="start center">
+      <button (click)="clickProductDetails(item.productId)">
+        Product Details
+      </button>
+      <button (click)="clickRemoveProduct()">
+        Remove Product
+      </button>
+    </div>
+  </mat-expansion-panel>
+</mat-accordion>
+
+<div>
+  <button (click)="clickBack()" mat-raised-button>Back</button>
+  <button (click)="clickAddProduct()" mat-raised-button>Add Product</button>
+  <button (click)="clickCheckoutCart()" mat-raised-button>Checkout Cart</button>
 </div>

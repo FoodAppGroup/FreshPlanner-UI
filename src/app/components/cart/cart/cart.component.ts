@@ -34,10 +34,6 @@ export class CartComponent implements OnInit {
     }
   }
 
-  public navigateToProduct(productId: number): void {
-    this.router.navigate(['/' + AppRoute.PRODUCT_DETAIL + '/' + productId]);
-  }
-
   private loadCart(cartId: number): void {
     this.cartService.getCart(cartId).subscribe((response) => {
       this.cartData = response;
@@ -45,7 +41,35 @@ export class CartComponent implements OnInit {
     });
   }
 
-  public navigateBack(): void {
+  public clickProductDetails(productId: number): void {
+    this.router.navigate(['/' + AppRoute.PRODUCT_DETAIL + '/' + productId]);
+  }
+
+  public clickRemoveProduct(): void {
+
+  }
+
+  public clickEditSocial(): void {
+
+  }
+
+  public clickAddProduct(): void {
+
+  }
+
+  public clickIncreaseCount(): void {
+
+  }
+
+  public clickDecreaseCount(): void {
+
+  }
+
+  public clickCheckoutCart(): void {
+
+  }
+
+  public clickBack(): void {
     this.location.back();
   }
 }
