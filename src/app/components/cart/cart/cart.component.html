@@ -23,11 +23,11 @@
       </mat-panel-title>
 
       <mat-panel-description>
-        <button (click)="clickDecreaseCount()" mat-icon-button>
+        <button (click)="clickDecreaseCount(i)" mat-icon-button>
           <mat-icon>remove_circle_outline</mat-icon>
         </button>
         {{item.count}} {{item.unit}}
-        <button (click)="clickIncreaseCount()" mat-icon-button>
+        <button (click)="clickIncreaseCount(i)" mat-icon-button>
           <mat-icon>add_circle_outline</mat-icon>
         </button>
         <mat-checkbox [(ngModel)]="item.checked"></mat-checkbox>
@@ -38,7 +38,7 @@
       <button (click)="clickProductDetails(item.productId)">
         Product Details
       </button>
-      <button (click)="clickRemoveProduct()">
+      <button (click)="clickRemoveProduct(i)">
         Remove Product
       </button>
     </div>
