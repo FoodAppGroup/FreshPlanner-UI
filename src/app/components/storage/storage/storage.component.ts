@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Location} from "@angular/common";
 import {AppRoute} from "../../../app-routing.module";
-import {StorageItemModel, StorageModel} from "../../../models/storage/storage.model";
+import {StorageItemModel, StorageModel} from "../../../models/storage.model";
 import {OpenSnackBar, OpenWarnSnackBar} from "../../../utility/snackbar";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {StorageService} from "../../../services/storage.service";
@@ -11,7 +11,7 @@ import {Log} from "../../../utility/log";
 import {AuthenticationService} from "../../../services/authentication.service";
 import {AutoComplete, ProductAutoComplete} from "../../../utility/autocomplete-data";
 import {ProductService} from "../../../services/product.service";
-import {ProductSummaryModel} from "../../../models/product/product-summary.model";
+import {ProductModel} from "../../../models/product.model";
 
 @Component({
   selector: 'app-storage',
@@ -20,7 +20,7 @@ import {ProductSummaryModel} from "../../../models/product/product-summary.model
 })
 export class StorageComponent implements OnInit {
 
-  ProductSummaryModel = ProductSummaryModel;
+  ProductModel = ProductModel;
   storageData: StorageModel | undefined;
   categorizedItems: Map<string, StorageItemModel[]> | undefined;
 

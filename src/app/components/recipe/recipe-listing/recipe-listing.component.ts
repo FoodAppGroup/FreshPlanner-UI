@@ -3,7 +3,7 @@ import {AppRoute} from "../../../app-routing.module";
 import {Location} from "@angular/common";
 import {RecipeService} from "../../../services/recipe.service";
 import {Router} from "@angular/router";
-import {RecipeSummaryModel} from "../../../models/recipe/recipe-summary.model";
+import {RecipeModel} from "../../../models/recipe.model";
 
 @Component({
   selector: 'app-recipe',
@@ -12,7 +12,7 @@ import {RecipeSummaryModel} from "../../../models/recipe/recipe-summary.model";
 })
 export class RecipeListingComponent implements OnInit {
 
-  recipeSummaryData: RecipeSummaryModel[] | undefined;
+  recipeData: RecipeModel[] | undefined;
 
   constructor(private location: Location,
               private router: Router,
@@ -29,7 +29,7 @@ export class RecipeListingComponent implements OnInit {
 
   private loadRecipeSelection(): void {
     this.recipeService.getAllRecipes().subscribe((response) => {
-      this.recipeSummaryData = response;
+      this.recipeData = response;
     });
   }
 

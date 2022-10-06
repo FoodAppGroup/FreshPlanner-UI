@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Location} from "@angular/common";
 import {RecipeService} from "../../../services/recipe.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {RecipeModel} from "../../../models/recipe/recipe.model";
+import {RecipeModel} from "../../../models/recipe.model";
 import {ActivatedRoute, Router} from "@angular/router";
 import {AppRoute} from "../../../app-routing.module";
 import {OpenSnackBar, OpenWarnSnackBar} from "../../../utility/snackbar";

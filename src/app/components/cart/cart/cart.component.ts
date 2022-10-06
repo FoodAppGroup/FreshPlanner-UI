@@ -5,7 +5,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {CartService} from "../../../services/cart.service";
 import {OpenSnackBar, OpenWarnSnackBar} from "../../../utility/snackbar";
-import {CartModel} from "../../../models/cart/cart.model";
+import {CartModel} from "../../../models/cart.model";
 
 @Component({
   selector: 'app-cart',

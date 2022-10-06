@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Location} from "@angular/common";
-import {UserInfoModel} from "../../../models/authentication/user-info.model";
+import {UserModel} from "../../../models/user.model";
 import {AuthenticationService} from "../../../services/authentication.service";
 import {OpenSnackBar} from "../../../utility/snackbar";
 import {MatSnackBar} from "@angular/material/snack-bar";
@@ -16,7 +16,7 @@ import {AuthAction, AuthState} from "../../../stores/auth.reducer";
 })
 export class ProfileComponent implements OnInit {
 
-  userInfoData: UserInfoModel | undefined;
+  userInfoData: UserModel | undefined;
   editingDisabled = true;
 
   constructor(private location: Location,

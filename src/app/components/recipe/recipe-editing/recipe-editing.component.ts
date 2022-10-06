@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {RecipeItemModel, RecipeModel} from "../../../models/recipe/recipe.model";
+import {RecipeItemModel, RecipeModel} from "../../../models/recipe.model";
 import {Location} from "@angular/common";
 import {ActivatedRoute, Router} from "@angular/router";
 import {MatSnackBar} from "@angular/material/snack-bar";

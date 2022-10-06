@@ -1,16 +1,16 @@
 import {createAction, createFeatureSelector, createReducer, createSelector, on, props} from '@ngrx/store';
-import {UserAuthModel} from "../models/authentication/user-auth.model";
+import {AuthModel} from "../models/authentication/auth.model";
 import {SessionStore} from "./session.store";
 
 const sessionKey = 'user-auth';
-const sessionStorage = new SessionStore<UserAuthModel>();
+const sessionStorage = new SessionStore<AuthModel>();
 
 /**
  * State Interface of the Store
  */
 export interface AuthState {
   authenticated: boolean;
-  userAuth: UserAuthModel | undefined;
+  userAuth: AuthModel | undefined;
 }
 
 /**
@@ -24,7 +24,7 @@ export class AuthAction {
    *     this.authStore.dispatch(AuthReducer.set({userAuth: data}));
    *   }
    */
-  public static set = createAction('[AUTH] Set', props<{ userAuth: UserAuthModel }>());
+  public static set = createAction('[AUTH] Set', props<{ userAuth: AuthModel }>());
   public static reset = createAction('[AUTH] Reset');
   /**
    * Feature Selector to create GetActions. 'featureName' is important for the registration in app.module.ts.

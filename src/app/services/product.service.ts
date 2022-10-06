@@ -2,8 +2,7 @@ import {Injectable} from '@angular/core';
 import {Observable} from "rxjs";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from "../../environments/environment";
-import {ProductModel} from "../models/product/product.model";
-import {ProductSummaryModel} from "../models/product/product-summary.model";
+import {ProductModel} from "../models/product.model";
 
 @Injectable({
   providedIn: 'root'
@@ -27,8 +26,8 @@ export class ProductService {
 
   // === GET =========================================================================================================
 
-  public getAllProducts(): Observable<ProductSummaryModel[]> {
-    return this.httpClient.get<ProductSummaryModel[]>(this.controllerUrl, this.defaultHeaders);
+  public getAllProducts(): Observable<ProductModel[]> {
+    return this.httpClient.get<ProductModel[]>(this.controllerUrl, this.defaultHeaders);
   }
 
   public getProductById(productId: number): Observable<ProductModel> {

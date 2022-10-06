@@ -2,10 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import {AppRoute} from "../../../app-routing.module";
 import {Router} from "@angular/router";
 import {StorageService} from "../../../services/storage.service";
-import {StorageSummaryModel} from "../../../models/storage/storage-summary.model";
 import {OpenSnackBar} from "../../../utility/snackbar";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {MatDialogRef} from "@angular/material/dialog";
+import {StorageModel} from "../../../models/storage.model";
 
 @Component({
   selector: 'app-storage.dialog',
@@ -14,8 +14,8 @@ import {MatDialogRef} from "@angular/material/dialog";
 })
 export class StorageDialogComponent implements OnInit {
 
-  storageSelectionData: StorageSummaryModel[] = [];
-  storageCreationData: StorageSummaryModel = {
+  storageSelectionData: StorageModel[] = [];
+  storageCreationData: StorageModel = {
     name: 'New Storage'
   }
   storageCreationEnabled: boolean = false;

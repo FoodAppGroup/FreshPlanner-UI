@@ -1,4 +1,4 @@
-import {RecipeModel} from "../models/recipe/recipe.model";
+import {RecipeModel} from "../models/recipe.model";
 import {createAction, createFeatureSelector, createReducer, createSelector, on, props} from "@ngrx/store";
 
 /**

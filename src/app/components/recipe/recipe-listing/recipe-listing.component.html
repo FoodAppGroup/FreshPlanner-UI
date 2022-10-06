@@ -1,5 +1,5 @@
 <div class="selection-column" fxLayout="column" fxLayoutAlign="start center">
-  <button (click)="navigateToRecipeDetail(recipe.id)" *ngFor="let recipe of recipeSummaryData" mat-raised-button>
+  <button (click)="navigateToRecipeDetail(recipe.id)" *ngFor="let recipe of recipeData" mat-raised-button>
     <div fxLayout="row" fxLayoutAlign="center center">
       <div fxLayout="column" fxLayoutAlign="center start" id="recipe-identifier">
         <div>{{recipe.name}}</div>
