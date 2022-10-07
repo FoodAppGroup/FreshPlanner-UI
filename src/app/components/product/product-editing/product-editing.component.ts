@@ -42,11 +42,6 @@ export class ProductEditingComponent implements OnInit {
     }
   }
 
-  public clickCreateNewProduct(): void {
-    this.isEditing = false;
-    this.setDefaultProductData();
-  }
-
   public clickSubmitUpdate(): void {
     this.productData.unit = this.unitAC.input;
     this.productData.category = this.categoryAC.input;

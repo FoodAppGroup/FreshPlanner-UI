@@ -42,10 +42,6 @@ export class ProductDisplayComponent implements OnInit {
     this.router.navigate([`/${AppRoute.PRODUCT_EDIT}/${this.productData.id}`]);
   }
 
-  public clickNavigateBack(): void {
-    this.location.back();
-  }
-
   private loadProductData(productId: number): void {
     this.isLoading = true;
     this.productService.getProductById(productId).subscribe({

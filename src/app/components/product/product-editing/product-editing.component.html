@@ -70,13 +70,9 @@
       Submit Product
     </button>
     <button (click)="clickSubmitUpdate()" *ngIf="isEditing" class="btn-submit" color="primary" mat-raised-button>
-      Submit Product
+      Submit Changes
     </button>
   </div>
-
-  <button (click)="clickCreateNewProduct()" *ngIf="isEditing" class="btn-full-width" mat-raised-button>
-    Create New Product
-  </button>
 
   <button (click)="clickSubmitDelete()" *ngIf="isEditing" class="btn-full-width" color="warn" mat-raised-button>
     Delete Product
