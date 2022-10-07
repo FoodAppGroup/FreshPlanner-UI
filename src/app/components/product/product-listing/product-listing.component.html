@@ -1,185 +1,50 @@
 <!-- root column starts at the top and centers elements horizontally -->
-<div class="root-column" fxLayout="column" fxLayoutAlign="start center">
+<div (keyup.enter)="clickSearchProducts()" fxLayout="column" fxLayoutAlign="start center" id="product-listing-root">
 
   <!-- search input row with fully centered elements -->
-  <div class="search-input" fxLayout="row" fxLayoutAlign="center center">
+  <div fxLayout="row" fxLayoutAlign="center center" id="search-input">
     <mat-form-field appearance="outline">
-      <mat-label>Enter partial product name</mat-label>
-      <input [(ngModel)]="searchInput" matInput>
+      <mat-label>Search name</mat-label>
+      <input (ngModelChange)="clickSearchProducts()" [(ngModel)]="searchInput" matInput>
     </mat-form-field>
 
-    <button (click)="submitSearchProducts()" color="primary" mat-raised-button>
+    <button (click)="clickSearchProducts()" color="primary" mat-raised-button type="submit">
       <mat-icon>search</mat-icon>
     </button>
   </div>
 
-  <!-- flex div with table and paginator -->
-  <div class="mat-elevation-z8 product-table">
-    <table [dataSource]="tableData.dataSource" mat-table matSort>
 
-      <!-- ID Column -->
-      <ng-container matColumnDef="{{PRODUCT_COLUMN.ID}}">
-        <th *matHeaderCellDef [matTooltipShowDelay]="1000"
-            mat-header-cell
-            mat-sort-header
-            matTooltip="Database ID"
-            matTooltipPosition="below">
-          ID
-        </th>
-        <td *matCellDef="let product" mat-cell>
-          {{product.id}}
-        </td>
-      </ng-container>
+  <mat-list *ngIf="categorizedProducts" id="list-product-categories">
+    <div *ngFor="let category of categorizedProducts | keyvalue; let i = index">
+      <!-- CATEGORY HEADER -->
+      <div *ngIf="i !== 0" class="category-divider"></div>
+      <div class="category-header" mat-subheader>{{category.key}}</div>
+      <!-- PRODUCT ROW -->
+      <mat-list-item *ngFor="let product of category.value">
+        <div fxLayout="row" fxLayoutAlign="start center" mat-line>
+          <span (click)="clickDisplayProduct(product)" class="btn-product">
+            {{product.name}}
+          </span>
 
-      <!-- NAME Column -->
-      <ng-container matColumnDef="{{PRODUCT_COLUMN.NAME}}">
-        <th *matHeaderCellDef [matTooltipShowDelay]="1000"
-            mat-header-cell
-            mat-sort-header
-            matTooltip="NAME"
-            matTooltipPosition="below">
-          Name
-        </th>
-        <td *matCellDef="let product" mat-cell>
-          {{product.name}}
-        </td>
-      </ng-container>
+          <span class="spacer"></span>
 
-      <!-- CATEGORY Column -->
-      <ng-container matColumnDef="{{PRODUCT_COLUMN.CATEGORY}}">
-        <th *matHeaderCellDef [matTooltipShowDelay]="1000"
-            mat-header-cell
-            mat-sort-header
-            matTooltip="CATEGORY"
-            matTooltipPosition="below">
-          Category
-        </th>
-        <td *matCellDef="let product" mat-cell>
-          {{product.category}}
-        </td>
-      </ng-container>
+          <span class="txt-package">
+            {{product.packageSize}} {{product.unit}}
+          </span>
 
-      <!-- PACKAGE_SIZE Column -->
-      <ng-container matColumnDef="{{PRODUCT_COLUMN.PACKAGE_SIZE}}">
-        <th *matHeaderCellDef [matTooltipShowDelay]="1000"
-            mat-header-cell
-            mat-sort-header
-            matTooltip="PACKAGE_SIZE"
-            matTooltipPosition="below">
-          Package
-        </th>
-        <td *matCellDef="let product" mat-cell>
-          {{product.packageSize}}
-        </td>
-      </ng-container>
-
-      <!-- UNIT Column -->
-      <ng-container matColumnDef="{{PRODUCT_COLUMN.UNIT}}">
-        <th *matHeaderCellDef [matTooltipShowDelay]="1000"
-            mat-header-cell
-            mat-sort-header
-            matTooltip="UNIT"
-            matTooltipPosition="below">
-          Unit
-        </th>
-        <td *matCellDef="let product" mat-cell>
-          {{product.unit}}
-        </td>
-      </ng-container>
-
-      <!-- KCAL Column -->
-      <ng-container matColumnDef="{{PRODUCT_COLUMN.KCAL}}">
-        <th *matHeaderCellDef [matTooltipShowDelay]="1000"
-            mat-header-cell
-            mat-sort-header
-            matTooltip="Kcal  per 100g"
-            matTooltipPosition="below">
-          Kcal
-        </th>
-        <td *matCellDef="let product" mat-cell>
-          {{product.kcal}}
-        </td>
-      </ng-container>
-
-      <!-- CARBOHYDRATES Column -->
-      <ng-container matColumnDef="{{PRODUCT_COLUMN.CARBOHYDRATES}}">
-        <th *matHeaderCellDef [matTooltipShowDelay]="1000"
-            mat-header-cell
-            mat-sort-header
-            matTooltip="Carbohydrates per 100g"
-            matTooltipPosition="below">
-          Carbo
-        </th>
-        <td *matCellDef="let product" mat-cell>
-          {{product.carbohydrates}}
-        </td>
-      </ng-container>
-
-      <!-- PROTEIN Column -->
-      <ng-container matColumnDef="{{PRODUCT_COLUMN.PROTEIN}}">
-        <th *matHeaderCellDef [matTooltipShowDelay]="1000"
-            mat-header-cell
-            mat-sort-header
-            matTooltip="Protein per 100g"
-            matTooltipPosition="below">
-          Protein
-        </th>
-        <td *matCellDef="let product" mat-cell>
-          {{product.protein}}
-        </td>
-      </ng-container>
-
-      <!-- FAT Column -->
-      <ng-container matColumnDef="{{PRODUCT_COLUMN.FAT}}">
-        <th *matHeaderCellDef [matTooltipShowDelay]="1000"
-            mat-header-cell
-            mat-sort-header
-            matTooltip="Fat per 100g"
-            matTooltipPosition="below">
-          Fat
-        </th>
-        <td *matCellDef="let product" mat-cell>
-          {{product.fat}}
-        </td>
-      </ng-container>
-
-      <!-- ACTIONS Column -->
-      <ng-container matColumnDef="{{PRODUCT_COLUMN.ACTIONS}}">
-        <th *matHeaderCellDef [matTooltipShowDelay]="1000"
-            mat-header-cell
-            mat-sort-header
-            matTooltip="Actions"
-            matTooltipPosition="below">
-        </th>
-        <td *matCellDef="let product" mat-cell>
-          <button (click)="navigateToProduct(product.id)" mat-icon-button>
-            <mat-icon>open_in_new</mat-icon>
+          <button (click)="clickAddToStock(product)" class="btn-storage" color="accent" mat-mini-fab>
+            <mat-icon>move_to_inbox</mat-icon>
           </button>
-        </td>
-      </ng-container>
 
-      <!-- General Row Definition -->
-      <tr *matHeaderRowDef="tableData.displayedColumns" mat-header-row></tr>
-      <tr *matRowDef="let row; columns: tableData.displayedColumns;" mat-row></tr>
+          <button (click)="clickAddToCart(product)" color="primary" mat-mini-fab>
+            <mat-icon>add_shopping_cart</mat-icon>
+          </button>
+        </div>
+      </mat-list-item>
+    </div>
+  </mat-list>
 
-      <!-- Row shown when there is no matching data. -->
-      <tr *matNoDataRow class="mat-row">
-        <td class="mat-cell" colspan="9">
-          {{doneFirstSearch ? 'No results for search input.' : 'Execute search for data. Leave input empty for all products.'}}
-        </td>
-      </tr>
-    </table>
-
-    <mat-paginator [pageSizeOptions]="tableData.pageSizeOptions" [pageSize]="tableData.defaultPageSize"></mat-paginator>
-  </div>
-
-  <!-- footer with actions, elements start at the top and centers elements horizontally -->
-  <div class="div-actions" fxLayout="row wrap" fxLayoutAlign="center start">
-    <button (click)="navigateBack()" mat-raised-button>
-      Back
-    </button>
-    <button (click)="navigateToProduct('new')" color="primary" mat-raised-button>
-      Add Product
-    </button>
-  </div>
+  <button (click)="clickCreateNewProduct()" id="btn-new-product" mat-raised-button>
+    Add New Product
+  </button>
 </div>

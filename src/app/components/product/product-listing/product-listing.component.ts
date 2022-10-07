@@ -1,48 +1,23 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import {MatPaginator} from "@angular/material/paginator";
-import {MatSort} from "@angular/material/sort";
+import {Component, OnInit} from '@angular/core';
 import {ProductService} from "../../../services/product.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {animate, state, style, transition, trigger} from "@angular/animations";
 import {Location} from "@angular/common";
 import {AppRoute} from "../../../app-routing.module";
 import {Router} from "@angular/router";
-import {TableData} from "../../../utility/table-data";
 import {ProductModel} from "../../../models/product.model";
+import {OpenWarnSnackBar} from "../../../utility/snackbar";
 
 @Component({
-  selector: 'app-product',
+  selector: 'app-product-listing',
   templateUrl: './product-listing.component.html',
-  styleUrls: ['./product-listing.component.scss'],
-  animations: [
-    trigger('detailExpand', [
-      state('collapsed', style({height: '0px', minHeight: '0'})),
-      state('expanded', style({height: '*'})),
-      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
-    ]),
-  ]
+  styleUrls: ['./product-listing.component.scss']
 })
-export class ProductListingComponent implements OnInit, AfterViewInit {
-
-  PRODUCT_COLUMN = PRODUCT_COLUMN;
-
-  @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
-  @ViewChild(MatSort) sort: MatSort | undefined;
+export class ProductListingComponent implements OnInit {
 
   searchInput = '';
-  doneFirstSearch = false;
-  tableData = new TableData<ProductModel>([
-    PRODUCT_COLUMN.ID,
-    PRODUCT_COLUMN.NAME,
-    PRODUCT_COLUMN.CATEGORY,
-    PRODUCT_COLUMN.PACKAGE_SIZE,
-    PRODUCT_COLUMN.UNIT,
-    PRODUCT_COLUMN.KCAL,
-    PRODUCT_COLUMN.CARBOHYDRATES,
-    PRODUCT_COLUMN.PROTEIN,
-    PRODUCT_COLUMN.FAT,
-    PRODUCT_COLUMN.ACTIONS
-  ]);
+  productList: ProductModel[] = [];
+  categorizedProducts: Map<string, ProductModel[]> | undefined;
+  isLoading: boolean = false;
 
   constructor(private productService: ProductService,
               private snackBar: MatSnackBar,
@@ -51,37 +26,74 @@ export class ProductListingComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-  }
-
-  ngAfterViewInit(): void {
-    this.tableData.afterViewInit(this.paginator, this.sort);
-  }
-
-  public submitSearchProducts() {
-    this.productService.searchProductsByName(this.searchInput).subscribe((response) => {
-      this.tableData.setData(response);
-      this.doneFirstSearch = true;
+    this.isLoading = true;
+    this.productService.getAllProducts().subscribe({
+      next: (response) => {
+        this.productList = response;
+        this.categorizeProducts(response);
+        if (!this.categorizedProducts) {
+          OpenWarnSnackBar(this.snackBar, 'No products found.');
+        }
+      },
+      error: (error) => {
+        console.log(error);
+        OpenWarnSnackBar(this.snackBar, 'Failed to load all products.');
+      }
+    }).add(() => {
+      this.isLoading = false;
     });
   }
 
-  public navigateToProduct(productId: number | string): void {
-    this.router.navigate(['/' + AppRoute.PRODUCT_DETAIL + '/' + productId]);
+  public clickSearchProducts() {
+    const list = this.productList.filter(product => {
+      return product.name?.toLowerCase().includes(this.searchInput.toLowerCase());
+    });
+    this.categorizeProducts(list);
   }
 
-  public navigateBack(): void {
-    this.location.back();
+  public clickAddToStock(productModel: ProductModel): void {
+    // TODO not implemented yet
+    OpenWarnSnackBar(this.snackBar, 'Not implemented yet!');
   }
-}
 
-enum PRODUCT_COLUMN {
-  ID = 'id',
-  NAME = 'name',
-  CATEGORY = 'category',
-  UNIT = 'unit',
-  PACKAGE_SIZE = 'packageSize',
-  KCAL = 'kcal',
-  CARBOHYDRATES = 'carbohydrates',
-  PROTEIN = 'protein',
-  FAT = 'fat',
-  ACTIONS = 'actions'
+  public clickAddToCart(productModel: ProductModel): void {
+    // TODO not implemented yet
+    OpenWarnSnackBar(this.snackBar, 'Not implemented yet!');
+  }
+
+  public clickDisplayProduct(productModel: ProductModel): void {
+    if (!productModel.id) {
+      OpenWarnSnackBar(this.snackBar, 'No product ID found.');
+      return;
+    }
+    this.router.navigate(['/' + AppRoute.PRODUCT_DETAIL + '/' + productModel.id]);
+  }
+
+  public clickCreateNewProduct(): void {
+    this.router.navigate(['/' + AppRoute.PRODUCT_EDIT]);
+  }
+
+  private categorizeProducts(products: ProductModel[] | undefined): void {
+    if (!products || products.length === 0) {
+      this.categorizedProducts = undefined;
+      return;
+    }
+    this.categorizedProducts = new Map<string, ProductModel[]>();
+    for (const product of products) {
+      const category = product.category;
+      if (category) {
+        this.addItemToMap(category, product);
+      } else {
+        this.addItemToMap('Others', product);
+      }
+    }
+  }
+
+  private addItemToMap(category: string, product: ProductModel) {
+    if (this.categorizedProducts?.has(category)) {
+      this.categorizedProducts.get(category)?.push(product);
+    } else {
+      this.categorizedProducts?.set(category, [product]);
+    }
+  }
 }
