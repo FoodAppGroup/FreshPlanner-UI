@@ -1,98 +1,86 @@
-<!-- root column starts at the top and centers elements horizontally -->
-<div class="root-column disabled-color" fxLayout="column" fxLayoutAlign="start center">
+<div fxLayout="column" fxLayoutAlign="start center" id="product-display-root">
 
-  <mat-form-field appearance="outline">
-    <mat-label>{{productData.id ? 'ID' : 'Generated ID'}}</mat-label>
-    <input [(ngModel)]="productData.id" disabled matInput>
-  </mat-form-field>
+  <table id="table-product-values">
+    <tr>
+      <td>
+        <mat-card class="product-card" fxLayout="column" fxLayoutAlign="start center">
+          <h2>{{productData.name}}</h2>
+          <h3>{{productData.category}}</h3>
+        </mat-card>
+      </td>
+    </tr>
 
-  <mat-form-field appearance="outline">
-    <mat-label>Name</mat-label>
-    <input [(ngModel)]="productData.name" [disabled]="!creationEnabled && !editingEnabled" matInput>
-  </mat-form-field>
+    <tr>
+      <td>
+        <mat-card class="product-card" fxLayout="column" fxLayoutAlign="center start">
+          <table>
+            <tr>
+              <th>
+                <mat-icon class="product-icon" mat-list-icon>donut_small</mat-icon>
+              </th>
+              <td class="product-label">Package</td>
+              <td class="product-value">{{productData.packageSize}}</td>
+            </tr>
 
-  <mat-form-field appearance="outline">
-    <mat-label>Category</mat-label>
-    <input [(ngModel)]="categoryAC.input"
-           [formControl]="categoryAC.inputControl"
-           [matAutocomplete]="autocompleteCategory"
-           matInput
-           placeholder="Pick Category"
-           type="text">
-    <mat-autocomplete #autocompleteCategory="matAutocomplete">
-      <mat-option *ngFor="let option of categoryAC.filteredOptions | async" [value]="option">
-        {{option}}
-      </mat-option>
-    </mat-autocomplete>
-  </mat-form-field>
+            <tr>
+              <th>
+                <mat-icon class="product-icon" mat-list-icon>donut_small</mat-icon>
+              </th>
+              <td class="product-label">Unit</td>
+              <td class="product-value">{{productData.unit}}</td>
+            </tr>
+          </table>
+        </mat-card>
+      </td>
+    </tr>
 
-  <mat-form-field appearance="outline">
-    <mat-label>Unit</mat-label>
-    <input [(ngModel)]="unitAC.input"
-           [formControl]="unitAC.inputControl"
-           [matAutocomplete]="autocompleteUnit"
-           matInput
-           placeholder="Pick Unit"
-           type="text">
-    <mat-autocomplete #autocompleteUnit="matAutocomplete">
-      <mat-option *ngFor="let option of unitAC.filteredOptions | async" [value]="option">
-        {{option}}
-      </mat-option>
-    </mat-autocomplete>
-  </mat-form-field>
+    <tr>
+      <td>
+        <mat-card class="product-card" fxLayout="column" fxLayoutAlign="center start">
+          <table>
+            <tr>
+              <th>
+                <mat-icon class="product-icon" mat-list-icon>donut_small</mat-icon>
+              </th>
+              <td class="product-label">Energy</td>
+              <td class="product-value">{{productData.kcal}} kCal</td>
+            </tr>
 
-  <mat-form-field appearance="outline">
-    <mat-label>Package Size</mat-label>
-    <input [(ngModel)]="productData.packageSize" [disabled]="!creationEnabled && !editingEnabled" matInput>
-  </mat-form-field>
+            <tr>
+              <th>
+                <mat-icon class="product-icon" mat-list-icon>donut_small</mat-icon>
+              </th>
+              <td class="product-label">Carbohydrates</td>
+              <td class="product-value">{{productData.carbohydrates}}g</td>
+            </tr>
 
-  <mat-form-field appearance="outline">
-    <mat-label>kCal</mat-label>
-    <input [(ngModel)]="productData.kcal" [disabled]="!creationEnabled && !editingEnabled" matInput>
-  </mat-form-field>
+            <tr>
+              <th>
+                <mat-icon class="product-icon" mat-list-icon>donut_small</mat-icon>
+              </th>
+              <td class="product-label">Protein</td>
+              <td class="product-value">{{productData.protein}}g</td>
+            </tr>
 
-  <mat-form-field appearance="outline">
-    <mat-label>Carbohydrates</mat-label>
-    <input [(ngModel)]="productData.carbohydrates" [disabled]="!creationEnabled && !editingEnabled" matInput>
-  </mat-form-field>
+            <tr>
+              <th>
+                <mat-icon class="product-icon" mat-list-icon>donut_small</mat-icon>
+              </th>
+              <td class="product-label">Fat</td>
+              <td class="product-value">{{productData.fat}}g</td>
+            </tr>
+          </table>
+        </mat-card>
+      </td>
+    </tr>
+  </table>
 
-  <mat-form-field appearance="outline">
-    <mat-label>Protein</mat-label>
-    <input [(ngModel)]="productData.protein" [disabled]="!creationEnabled && !editingEnabled" matInput>
-  </mat-form-field>
-
-  <mat-form-field appearance="outline">
-    <mat-label>Fat</mat-label>
-    <input [(ngModel)]="productData.fat" [disabled]="!creationEnabled && !editingEnabled" matInput>
-  </mat-form-field>
-
-  <!-- footer with actions, elements start at the top and centers elements horizontally -->
-  <div class="div-actions" fxLayout="row wrap" fxLayoutAlign="center start">
-    <button (click)="navigateBack()" mat-raised-button>
+  <div class="btn-full-width" fxLayout="row" fxLayoutAlign="center start">
+    <button (click)="clickNavigateBack()" id="btn-back" mat-raised-button>
       Back
     </button>
-    <button (click)="startCreation()" *ngIf="!creationEnabled && !editingEnabled" color="primary" mat-raised-button>
-      Create Product
-    </button>
-    <button (click)="startEditing()" *ngIf="!creationEnabled && !editingEnabled" color="primary" mat-raised-button>
-      Edit Product
-    </button>
-    <button (click)="cancelCreation()" *ngIf="creationEnabled" mat-raised-button>
-      Cancel Creation
-    </button>
-    <button (click)="cancelEditing()" *ngIf="editingEnabled" mat-raised-button>
-      Cancel Editing
-    </button>
-    <button (click)="submitNewProduct()" *ngIf="creationEnabled" color="primary" mat-raised-button>
-      Submit Product
-    </button>
-    <button (click)="submitEditedProduct()" *ngIf="editingEnabled" color="primary" mat-raised-button>
-      Update Product
-    </button>
-  </div>
-  <div class="div-actions" fxLayout="row wrap" fxLayoutAlign="center start">
-    <button (click)="submitDeleteProduct()" *ngIf="editingEnabled" color="warn" mat-raised-button>
-      Delete Product
+    <button (click)="clickEditProduct()" color="primary" id="btn-edit" mat-raised-button>
+      Edit
     </button>
   </div>
 </div>

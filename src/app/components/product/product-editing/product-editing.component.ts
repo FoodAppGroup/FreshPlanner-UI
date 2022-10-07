@@ -96,13 +96,12 @@ export class ProductEditingComponent implements OnInit {
           this.productData = response;
           if (response.unit) this.unitAC.input = response.unit;
           if (response.category) this.categoryAC.input = response.category;
-          OpenSnackBar(this.snackBar, 'Loaded product: ' + response.name);
           this.isEditing = true;
         },
         error: (error) => {
           console.log(error);
           this.setDefaultProductData();
-          OpenWarnSnackBar(this.snackBar, 'Failed to load recipe: ' + ParseErrorResponse(error));
+          OpenWarnSnackBar(this.snackBar, 'Failed to load product: ' + ParseErrorResponse(error));
         }
       }).add(() => {
         this.isLoading = false;
