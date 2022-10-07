@@ -11,10 +11,10 @@ import {AppRoute} from "../../../app-routing.module";
 
 @Component({
   selector: 'app-product-detail',
-  templateUrl: './product-detail.component.html',
-  styleUrls: ['./product-detail.component.scss']
+  templateUrl: './product-display.component.html',
+  styleUrls: ['./product-display.component.scss']
 })
-export class ProductDetailComponent implements OnInit {
+export class ProductDisplayComponent implements OnInit {
 
   productData: ProductModel = this.defaultProductData();
   dbProductData: ProductModel | undefined;

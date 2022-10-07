@@ -12,8 +12,8 @@ import {ProductModel} from "../../../models/product.model";
 
 @Component({
   selector: 'app-product',
-  templateUrl: './product.component.html',
-  styleUrls: ['./product.component.scss'],
+  templateUrl: './product-listing.component.html',
+  styleUrls: ['./product-listing.component.scss'],
   animations: [
     trigger('detailExpand', [
       state('collapsed', style({height: '0px', minHeight: '0'})),
@@ -22,7 +22,7 @@ import {ProductModel} from "../../../models/product.model";
     ]),
   ]
 })
-export class ProductComponent implements OnInit, AfterViewInit {
+export class ProductListingComponent implements OnInit, AfterViewInit {
 
   PRODUCT_COLUMN = PRODUCT_COLUMN;
 
