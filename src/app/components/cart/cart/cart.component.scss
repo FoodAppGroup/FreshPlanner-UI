@@ -1,0 +1,21 @@
+h2 {
+  margin: 0;
+}
+
+mat-expansion-panel-header[aria-disabled=true]{
+  color: #fff;
+}
+
+#cart-root {
+  height: 100%;
+}
+
+mat-accordion {
+  height: 100%;
+  overflow-y: auto;
+}
+
+#floating-buttons{
+  z-index: 9999;
+  padding: .4cm;
+}

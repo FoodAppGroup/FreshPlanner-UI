@@ -9,7 +9,7 @@ import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {environment} from '../environments/environment';
 import {MaterialModule} from "./material-module";
 import {ProductComponent} from './components/product/product/product.component';
-import {FlexModule} from "@angular/flex-layout";
+import {FlexModule, GridModule} from "@angular/flex-layout";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {LoginComponent} from './components/authentication/login/login.component';
 import {ProfileComponent} from './components/authentication/profile/profile.component';
@@ -45,17 +45,18 @@ import {RecipeReducer} from "./stores/recipe.reducer";
     ProductDetailComponent,
     RecipeEditingComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    MaterialModule,
-    BrowserAnimationsModule,
-    HttpClientModule,
-    StoreModule.forRoot({authStateReducer: AuthReducer, recipeStateReducer: RecipeReducer}, {}),
-    StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}),
-    FlexModule,
-    FormsModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        MaterialModule,
+        BrowserAnimationsModule,
+        HttpClientModule,
+        StoreModule.forRoot({authStateReducer: AuthReducer, recipeStateReducer: RecipeReducer}, {}),
+        StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}),
+        FlexModule,
+        FormsModule,
+        GridModule
+    ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: HttpAuthInterceptor, multi: true}
   ],

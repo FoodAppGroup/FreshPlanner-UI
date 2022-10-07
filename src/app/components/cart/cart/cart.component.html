@@ -1,5 +1,5 @@
-<div fxLayout="column" fxLayoutAlign="center start" id="recipe-headline">
-  <div fxLayout="row" fxLayoutAlign="start center" id="recipe-title">
+<div id="cart-root">
+  <div fxLayout="row" fxLayoutAlign="start center">
     <h2>{{cartData?.name}}</h2>
 
     <span class="spacer"></span>
@@ -8,45 +8,49 @@
       <mat-icon>people_outline</mat-icon>
     </button>
   </div>
-</div>
 
-<mat-accordion *ngIf="cartData">
-  <mat-expansion-panel *ngFor="let item of cartData.items; let i = index" [expanded]="item.expanded" disabled
-                       hideToggle>
+  <div>
+    <mat-accordion *ngIf="cartData">
+      <mat-expansion-panel *ngFor="let item of cartData.items; let i = index" [expanded]="item.expanded" disabled
+                           hideToggle>
 
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        <button (click)="item.expanded = !item.expanded" mat-icon-button>
-          <mat-icon>{{item.expanded ? "expand_less" : "expand_more"}}</mat-icon>
-        </button>
-        {{item.productName}}
-      </mat-panel-title>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <button (click)="item.expanded = !item.expanded" mat-icon-button>
+              <mat-icon>{{item.expanded ? "expand_less" : "expand_more"}}</mat-icon>
+            </button>
+            {{item.productName}}
+          </mat-panel-title>
 
-      <mat-panel-description>
-        <button (click)="clickDecreaseCount(i)" mat-icon-button>
-          <mat-icon>remove_circle_outline</mat-icon>
-        </button>
-        {{item.count}} {{item.unit}}
-        <button (click)="clickIncreaseCount(i)" mat-icon-button>
-          <mat-icon>add_circle_outline</mat-icon>
-        </button>
-        <mat-checkbox [(ngModel)]="item.checked"></mat-checkbox>
-      </mat-panel-description>
-    </mat-expansion-panel-header>
+          <mat-panel-description>
+            <button (click)="clickDecreaseCount(i)" mat-icon-button>
+              <mat-icon>remove_circle_outline</mat-icon>
+            </button>
+            <div class="disabled-text-color">{{item.count}} {{item.unit}}</div>
+            <button (click)="clickIncreaseCount(i)" mat-icon-button>
+              <mat-icon>add_circle_outline</mat-icon>
+            </button>
+            <mat-checkbox [(ngModel)]="item.checked" color="primary"></mat-checkbox>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
 
-    <div class="expansion-panel-body" fxLayout="column" fxLayoutAlign="start center">
-      <button (click)="clickProductDetails(item.productId)">
-        Product Details
-      </button>
-      <button (click)="clickRemoveProduct(i)">
-        Remove Product
-      </button>
-    </div>
-  </mat-expansion-panel>
-</mat-accordion>
+        <div class="expansion-panel-body" fxLayout="row" fxLayoutAlign="start center">
+          <button (click)="clickProductDetails(item.productId)">
+            Product Details
+          </button>
+          <span class="spacer"></span>
+          <button (click)="clickRemoveProduct(i)" mat-icon-button>
+            <mat-icon color="warn">delete_outline</mat-icon>
+          </button>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
 
-<div>
-  <button (click)="clickBack()" mat-raised-button>Back</button>
-  <button (click)="clickAddProduct()" mat-raised-button>Add Product</button>
-  <button (click)="clickCheckoutCart()" mat-raised-button>Checkout Cart</button>
+
+  <div id="floating-buttons" gdRows="repeat(2, [row] auto)" gdColumns="repeat(2, [col] 47.5%)" gdGap=".4cm">
+    <button class="nested-grid-button" (click)="clickBack()" gdColumn="col" mat-raised-button>Back</button>
+    <button (click)="clickAddProduct()" gdColumn="col 2" mat-raised-button>Add Product</button>
+    <button (click)="clickCheckoutCart()" color="primary" gdColumn="col / span 2" mat-raised-button>Checkout Cart</button>
+  </div>
 </div>
