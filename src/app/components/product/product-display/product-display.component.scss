@@ -1,0 +1,44 @@
+#product-display-root {
+  padding: 16px;
+}
+
+@media (min-width: 440px) {
+  #product-display-root {
+    min-width: 440px;
+  }
+}
+
+@media (max-width: 440px) {
+  :host {
+    width: 100%;
+  }
+  #product-display-root {
+    width: 100%;
+  }
+}
+
+#table-product-values {
+  width: 100%;
+
+  .product-card {
+    margin-top: 4px;
+    margin-bottom: 4px;
+
+    .product-icon {
+      padding-right: 8px;
+    }
+
+    .product-label {
+      padding-right: 16px;
+    }
+
+    .product-value {
+    }
+  }
+}
+
+
+.btn-full-width {
+  margin-top: 16px;
+  width: 98%;
+}

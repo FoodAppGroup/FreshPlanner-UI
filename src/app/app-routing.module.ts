@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {ProductComponent} from "./components/product/product/product.component";
+import {ProductListingComponent} from "./components/product/product-listing/product-listing.component";
 import {DashboardComponent} from "./components/dashboard/dashboard.component";
 import {ProfileComponent} from "./components/authentication/profile/profile.component";
 import {LoginComponent} from "./components/authentication/login/login.component";
@@ -9,8 +9,9 @@ import {CartComponent} from "./components/cart/cart/cart.component";
 import {StorageComponent} from "./components/storage/storage/storage.component";
 import {RecipeListingComponent} from "./components/recipe/recipe-listing/recipe-listing.component";
 import {RecipeDisplayComponent} from "./components/recipe/recipe-display/recipe-display.component";
-import {ProductDetailComponent} from "./components/product/product-detail/product-detail.component";
+import {ProductDisplayComponent} from "./components/product/product-display/product-display.component";
 import {RecipeEditingComponent} from "./components/recipe/recipe-editing/recipe-editing.component";
+import {ProductEditingComponent} from "./components/product/product-editing/product-editing.component";
 
 export enum AppRoute {
   DASHBOARD = 'dashboard',
@@ -18,7 +19,8 @@ export enum AppRoute {
   LOGIN = 'login',
   REGISTRATION = 'registration',
   PRODUCT = 'product',
-  PRODUCT_DETAIL = 'product-detail',
+  PRODUCT_DETAIL = 'product/display',
+  PRODUCT_EDIT = 'product/edit',
   CART = 'cart',
   STORAGE = 'storage',
   RECIPE = 'recipe',
@@ -32,9 +34,10 @@ const routes: Routes = [
   {path: AppRoute.PROFILE, component: ProfileComponent},
   {path: AppRoute.LOGIN, component: LoginComponent},
   {path: AppRoute.REGISTRATION, component: RegistrationComponent},
-  {path: AppRoute.PRODUCT, component: ProductComponent},
-  {path: AppRoute.PRODUCT_DETAIL, component: ProductDetailComponent},
-  {path: AppRoute.PRODUCT_DETAIL + '/:id', component: ProductDetailComponent},
+  {path: AppRoute.PRODUCT, component: ProductListingComponent},
+  {path: AppRoute.PRODUCT_DETAIL + '/:id', component: ProductDisplayComponent},
+  {path: AppRoute.PRODUCT_EDIT, component: ProductEditingComponent},
+  {path: AppRoute.PRODUCT_EDIT + '/:id', component: ProductEditingComponent},
   {path: AppRoute.CART, component: CartComponent},
   {path: AppRoute.CART + '/:id', component: CartComponent},
   {path: AppRoute.STORAGE, component: StorageComponent},

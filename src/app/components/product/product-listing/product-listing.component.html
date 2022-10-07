@@ -1,0 +1,50 @@
+<!-- root column starts at the top and centers elements horizontally -->
+<div (keyup.enter)="clickSearchProducts()" fxLayout="column" fxLayoutAlign="start center" id="product-listing-root">
+
+  <!-- search input row with fully centered elements -->
+  <div fxLayout="row" fxLayoutAlign="center center" id="search-input">
+    <mat-form-field appearance="outline" autocomplete="off">
+      <mat-label>Search name</mat-label>
+      <input (ngModelChange)="clickSearchProducts()" [(ngModel)]="searchInput" matInput>
+    </mat-form-field>
+
+    <button (click)="clickSearchProducts()" color="primary" mat-raised-button type="submit">
+      <mat-icon>search</mat-icon>
+    </button>
+  </div>
+
+
+  <mat-list *ngIf="categorizedProducts" id="list-product-categories">
+    <div *ngFor="let category of categorizedProducts | keyvalue; let i = index">
+      <!-- CATEGORY HEADER -->
+      <div *ngIf="i !== 0" class="category-divider"></div>
+      <div class="category-header" mat-subheader>{{category.key}}</div>
+      <!-- PRODUCT ROW -->
+      <mat-list-item *ngFor="let product of category.value">
+        <div fxLayout="row" fxLayoutAlign="start center" mat-line>
+          <span (click)="clickDisplayProduct(product)" class="btn-product">
+            {{product.name}}
+          </span>
+
+          <span class="spacer"></span>
+
+          <span class="txt-package">
+            {{product.packageSize}} {{product.unit}}
+          </span>
+
+          <button (click)="clickAddToStock(product)" class="btn-storage" color="accent" mat-icon-button>
+            <mat-icon>move_to_inbox</mat-icon>
+          </button>
+
+          <button (click)="clickAddToCart(product)" color="primary" mat-icon-button>
+            <mat-icon>add_shopping_cart</mat-icon>
+          </button>
+        </div>
+      </mat-list-item>
+    </div>
+  </mat-list>
+
+  <button (click)="clickCreateNewProduct()" id="btn-new-product" mat-raised-button>
+    Add New Product
+  </button>
+</div>

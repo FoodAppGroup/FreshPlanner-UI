@@ -1,0 +1,83 @@
+<div fxLayout="column" fxLayoutAlign="start center" id="product-display-root">
+
+  <table id="table-product-values">
+    <tr>
+      <td>
+        <mat-card class="product-card" fxLayout="column" fxLayoutAlign="start center">
+          <h2>{{productData.name}}</h2>
+          <h3>{{productData.category}}</h3>
+        </mat-card>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <mat-card class="product-card" fxLayout="column" fxLayoutAlign="center start">
+          <table>
+            <tr>
+              <th>
+                <mat-icon class="product-icon" mat-list-icon>donut_small</mat-icon>
+              </th>
+              <td class="product-label">Package</td>
+              <td class="product-value">{{productData.packageSize}}</td>
+            </tr>
+
+            <tr>
+              <th>
+                <mat-icon class="product-icon" mat-list-icon>donut_small</mat-icon>
+              </th>
+              <td class="product-label">Unit</td>
+              <td class="product-value">{{productData.unit}}</td>
+            </tr>
+          </table>
+        </mat-card>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <mat-card class="product-card" fxLayout="column" fxLayoutAlign="center start">
+          <table>
+            <tr>
+              <th>
+                <mat-icon class="product-icon" mat-list-icon>donut_small</mat-icon>
+              </th>
+              <td class="product-label">Energy</td>
+              <td class="product-value">{{productData.kcal}} kCal</td>
+            </tr>
+
+            <tr>
+              <th>
+                <mat-icon class="product-icon" mat-list-icon>donut_small</mat-icon>
+              </th>
+              <td class="product-label">Carbohydrates</td>
+              <td class="product-value">{{productData.carbohydrates}}g</td>
+            </tr>
+
+            <tr>
+              <th>
+                <mat-icon class="product-icon" mat-list-icon>donut_small</mat-icon>
+              </th>
+              <td class="product-label">Protein</td>
+              <td class="product-value">{{productData.protein}}g</td>
+            </tr>
+
+            <tr>
+              <th>
+                <mat-icon class="product-icon" mat-list-icon>donut_small</mat-icon>
+              </th>
+              <td class="product-label">Fat</td>
+              <td class="product-value">{{productData.fat}}g</td>
+            </tr>
+          </table>
+        </mat-card>
+      </td>
+    </tr>
+  </table>
+
+  <button (click)="clickEditProduct()" class="btn-full-width" color="primary" mat-raised-button>
+    Edit
+  </button>
+</div>
+
+

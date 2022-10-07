@@ -25,13 +25,13 @@
 
   #router-container {
     margin: 0;
-    padding: 16px;
+    padding: 8px;
     background-color: rgba(0, 0, 0, 0.7);
     width: 80%;
     height: 300vh; // TODO keep this value in mind when the overflow gets too big, the black can run out
   }
 
-  @media (max-width: 400px) {
+  @media (max-width: 440px) {
     #router-container {
       height: 100vh;
       width: 100vw;
