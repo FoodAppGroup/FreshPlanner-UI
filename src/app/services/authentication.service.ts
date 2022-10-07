@@ -2,10 +2,10 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {environment} from "../../environments/environment";
-import {UserInfoModel} from "../models/authentication/user-info.model";
+import {UserModel} from "../models/user.model";
 import {LoginModel} from "../models/authentication/login.model";
 import {RegistrationModel} from "../models/authentication/registration.model";
-import {UserAuthModel} from "../models/authentication/user-auth.model";
+import {AuthModel} from "../models/authentication/auth.model";
 
 @Injectable({
   providedIn: 'root'
@@ -22,21 +22,21 @@ export class AuthenticationService {
 
   // === POST ========================================================================================================
 
-  public login(authLogin: LoginModel): Observable<UserAuthModel> {
+  public login(authLogin: LoginModel): Observable<AuthModel> {
     const endpointUrl = this.controllerUrl + '/login';
-    return this.httpClient.post<UserAuthModel>(endpointUrl, authLogin, this.defaultHeaders);
+    return this.httpClient.post<AuthModel>(endpointUrl, authLogin, this.defaultHeaders);
   }
 
-  public register(authRegistration: RegistrationModel): Observable<UserAuthModel> {
+  public register(authRegistration: RegistrationModel): Observable<AuthModel> {
     const endpointUrl = this.controllerUrl + '/register';
-    return this.httpClient.post<UserAuthModel>(endpointUrl, authRegistration, this.defaultHeaders);
+    return this.httpClient.post<AuthModel>(endpointUrl, authRegistration, this.defaultHeaders);
   }
 
   // === GET =========================================================================================================
 
-  public getUserInfo(): Observable<UserInfoModel> {
+  public getUserInfo(): Observable<UserModel> {
     const endpointUrl = this.controllerUrl + '/info';
-    return this.httpClient.get<UserInfoModel>(endpointUrl, this.defaultHeaders);
+    return this.httpClient.get<UserModel>(endpointUrl, this.defaultHeaders);
   }
 
   public getAuthRoles(): Observable<string[]> {
@@ -51,8 +51,8 @@ export class AuthenticationService {
 
   // === DELETE ======================================================================================================
 
-  public deleteUser(): Observable<UserInfoModel> {
+  public deleteUser(): Observable<UserModel> {
     const endpointUrl = this.controllerUrl + '/delete';
-    return this.httpClient.delete<UserInfoModel>(endpointUrl, this.defaultHeaders);
+    return this.httpClient.delete<UserModel>(endpointUrl, this.defaultHeaders);
   }
 }

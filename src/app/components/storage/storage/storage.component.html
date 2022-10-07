@@ -69,7 +69,7 @@
       <mat-autocomplete #autocompleteProduct="matAutocomplete">
         <mat-option (click)="submitAddItem(option.id)" *ngFor="let option of productAC.filteredOptions | async"
                     [value]="option.name">
-          {{ProductSummaryModel.shortString(option)}}
+          {{ProductModel.shortString(option)}}
         </mat-option>
       </mat-autocomplete>
     </mat-form-field>
@@ -113,6 +113,6 @@
   </mat-list>
 </div>
 
-<div class="footer-actions">
+<div class="div-actions">
   <button (click)="navigateBack()" mat-raised-button>Back</button>
 </div>

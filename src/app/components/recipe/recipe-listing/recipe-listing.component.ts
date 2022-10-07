@@ -3,16 +3,16 @@ import {AppRoute} from "../../../app-routing.module";
 import {Location} from "@angular/common";
 import {RecipeService} from "../../../services/recipe.service";
 import {Router} from "@angular/router";
-import {RecipeSummaryModel} from "../../../models/recipe/recipe-summary.model";
+import {RecipeModel} from "../../../models/recipe.model";
 
 @Component({
   selector: 'app-recipe',
-  templateUrl: './recipe.component.html',
-  styleUrls: ['./recipe.component.scss']
+  templateUrl: './recipe-listing.component.html',
+  styleUrls: ['./recipe-listing.component.scss']
 })
-export class RecipeComponent implements OnInit {
+export class RecipeListingComponent implements OnInit {
 
-  recipeSummaryData: RecipeSummaryModel[] | undefined;
+  recipeData: RecipeModel[] | undefined;
 
   constructor(private location: Location,
               private router: Router,
@@ -24,12 +24,12 @@ export class RecipeComponent implements OnInit {
   }
 
   public navigateToRecipeDetail(recipeId?: number): void {
-    this.router.navigate(['/' + AppRoute.RECIPE_DETAIL + '/' + recipeId]);
+    this.router.navigate(['/' + AppRoute.RECIPE_DISPLAY + '/' + recipeId]);
   }
 
   private loadRecipeSelection(): void {
     this.recipeService.getAllRecipes().subscribe((response) => {
-      this.recipeSummaryData = response;
+      this.recipeData = response;
     });
   }
 

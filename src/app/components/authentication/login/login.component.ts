@@ -7,8 +7,7 @@ import {OpenSnackBar} from "../../../utility/snackbar";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {AuthenticationService} from "../../../services/authentication.service";
 import {Store} from "@ngrx/store";
-import {AuthState} from "../../../stores/auth.reducer";
-import {AuthAction} from "../../../stores/auth.action";
+import {AuthAction, AuthState} from "../../../stores/auth.reducer";
 
 @Component({
   selector: 'app-login',

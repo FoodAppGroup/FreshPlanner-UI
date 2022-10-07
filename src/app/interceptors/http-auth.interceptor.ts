@@ -3,9 +3,8 @@ import {Injectable} from '@angular/core';
 
 import {Observable} from 'rxjs';
 import {Store} from '@ngrx/store';
-import {AuthState} from "../stores/auth.reducer";
-import {AuthAction} from "../stores/auth.action";
-import {UserAuthModel} from "../models/authentication/user-auth.model";
+import {AuthAction, AuthState} from "../stores/auth.reducer";
+import {AuthModel} from "../models/authentication/auth.model";
 
 /**
  * Interceptor for Http Requests. Registered as Provider in app.module.ts.
@@ -13,7 +12,7 @@ import {UserAuthModel} from "../models/authentication/user-auth.model";
 @Injectable()
 export class HttpAuthInterceptor implements HttpInterceptor {
 
-  private userAuth: UserAuthModel | undefined;
+  private userAuth: AuthModel | undefined;
 
   /**
    * selects jwt from application context

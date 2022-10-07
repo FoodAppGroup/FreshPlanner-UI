@@ -1,6 +1,6 @@
 import {FormControl} from "@angular/forms";
 import {map, Observable, startWith} from "rxjs";
-import {ProductSummaryModel} from "../models/product/product-summary.model";
+import {ProductModel} from "../models/product.model";
 
 export class AutoComplete {
   input: string = '';
@@ -19,11 +19,11 @@ export class AutoComplete {
 
 export class ProductAutoComplete {
   input: string = '';
-  options: ProductSummaryModel[] = [];
+  options: ProductModel[] = [];
   readonly inputControl = new FormControl();
-  readonly filteredOptions: Observable<ProductSummaryModel[]> = this.inputControl.valueChanges.pipe(
+  readonly filteredOptions: Observable<ProductModel[]> = this.inputControl.valueChanges.pipe(
     startWith(''),
-    map(value => this.options.filter((option) => ProductSummaryModel.shortString(option).toLowerCase().includes(value.toLowerCase())))
+    map(value => this.options.filter((option) => ProductModel.shortString(option).toLowerCase().includes(value.toLowerCase())))
   );
 
   public reset(): void {

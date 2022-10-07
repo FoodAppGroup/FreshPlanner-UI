@@ -5,7 +5,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import {ProductService} from "../../../services/product.service";
 import {GetIdFromRoute} from "../../../utility/route-processor";
 import {OpenSnackBar, OpenWarnSnackBar} from "../../../utility/snackbar";
-import {ProductModel} from "../../../models/product/product.model";
+import {ProductModel} from "../../../models/product.model";
 import {AutoComplete} from "../../../utility/autocomplete-data";
 import {AppRoute} from "../../../app-routing.module";
 

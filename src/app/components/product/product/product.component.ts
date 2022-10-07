@@ -8,7 +8,7 @@ import {Location} from "@angular/common";
 import {AppRoute} from "../../../app-routing.module";
 import {Router} from "@angular/router";
 import {TableData} from "../../../utility/table-data";
-import {ProductModel} from "../../../models/product/product.model";
+import {ProductModel} from "../../../models/product.model";
 
 @Component({
   selector: 'app-product',

@@ -1,9 +1,8 @@
 import {Injectable} from '@angular/core';
 import {Observable} from "rxjs";
-import {StorageItemModel, StorageModel} from "../models/storage/storage.model";
+import {StorageItemModel, StorageModel} from "../models/storage.model";
 import {environment} from "../../environments/environment";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {StorageSummaryModel} from "../models/storage/storage-summary.model";
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +19,7 @@ export class StorageService {
 
   // === POST ========================================================================================================
 
-  public addStorage(storageModel: StorageSummaryModel): Observable<StorageModel> {
+  public addStorage(storageModel: StorageModel): Observable<StorageModel> {
     const endpointUrl = this.controllerUrl + '/insert';
     return this.httpClient.post <StorageModel>(endpointUrl, storageModel, this.defaultHeaders);
   }
@@ -32,8 +31,8 @@ export class StorageService {
 
   // === GET =========================================================================================================
 
-  public getUserStorages(): Observable<StorageSummaryModel[]> {
-    return this.httpClient.get<StorageSummaryModel[]>(this.controllerUrl, this.defaultHeaders);
+  public getUserStorages(): Observable<StorageModel[]> {
+    return this.httpClient.get<StorageModel[]>(this.controllerUrl, this.defaultHeaders);
   }
 
   public getStorageById(storageId: number): Observable<StorageModel> {

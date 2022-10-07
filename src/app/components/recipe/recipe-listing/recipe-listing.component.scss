@@ -1,0 +1,28 @@
+.selection-column {
+  margin: 25px;
+
+  button {
+    margin: 5px;
+    min-width: 400px;
+  }
+
+
+}
+
+#recipe-identifier {
+  margin: 8px 0 8px;
+  min-width: 60%;
+
+  #recipe-category {
+    font-size: 13px;
+    font-weight: 350;
+  }
+}
+
+#recipe-duration {
+  height: 100%;
+
+  mat-icon {
+    margin-right: 8px;
+  }
+}

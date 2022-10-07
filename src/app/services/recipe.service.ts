@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Observable} from "rxjs";
-import {RecipeItemModel, RecipeModel} from "../models/recipe/recipe.model";
-import {RecipeSummaryModel} from "../models/recipe/recipe-summary.model";
+import {RecipeItemModel, RecipeModel} from "../models/recipe.model";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from "../../environments/environment";
 
@@ -32,8 +31,8 @@ export class RecipeService {
 
   // === GET =========================================================================================================
 
-  public getAllRecipes(): Observable<RecipeSummaryModel[]> {
-    return this.httpClient.get<RecipeSummaryModel[]>(this.controllerUrl, this.defaultHeaders);
+  public getAllRecipes(): Observable<RecipeModel[]> {
+    return this.httpClient.get<RecipeModel[]>(this.controllerUrl, this.defaultHeaders);
   }
 
   public getRecipeById(recipeId: number): Observable<RecipeModel> {
@@ -41,14 +40,14 @@ export class RecipeService {
     return this.httpClient.get<RecipeModel>(endpointUrl, this.defaultHeaders);
   }
 
-  public searchRecipesByName(name: string): Observable<RecipeSummaryModel[]> {
+  public searchRecipesByName(name: string): Observable<RecipeModel[]> {
     const endpointUrl = this.controllerUrl + '/search-name?name=' + name;
-    return this.httpClient.get<RecipeSummaryModel[]>(endpointUrl, this.defaultHeaders);
+    return this.httpClient.get<RecipeModel[]>(endpointUrl, this.defaultHeaders);
   }
 
-  public searchRecipesByCategory(category: string): Observable<RecipeSummaryModel[]> {
+  public searchRecipesByCategory(category: string): Observable<RecipeModel[]> {
     const endpointUrl = this.controllerUrl + '/search-category?category=' + category;
-    return this.httpClient.get<RecipeSummaryModel[]>(endpointUrl, this.defaultHeaders);
+    return this.httpClient.get<RecipeModel[]>(endpointUrl, this.defaultHeaders);
   }
 
   public getCategories(): Observable<string[]> {
@@ -75,7 +74,7 @@ export class RecipeService {
     return this.httpClient.delete <RecipeModel>(endpointUrl, this.defaultHeaders);
   }
 
-  public deleteRecipe(recipeId: number): Observable<RecipeModel> {
+  public deleteRecipe(recipeId: number | undefined): Observable<RecipeModel> {
     const endpointUrl = this.controllerUrl + '/delete/' + recipeId;
     return this.httpClient.delete <RecipeModel>(endpointUrl, this.defaultHeaders);
   }
