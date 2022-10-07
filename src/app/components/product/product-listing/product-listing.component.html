@@ -3,7 +3,7 @@
 
   <!-- search input row with fully centered elements -->
   <div fxLayout="row" fxLayoutAlign="center center" id="search-input">
-    <mat-form-field appearance="outline">
+    <mat-form-field appearance="outline" autocomplete="off">
       <mat-label>Search name</mat-label>
       <input (ngModelChange)="clickSearchProducts()" [(ngModel)]="searchInput" matInput>
     </mat-form-field>
@@ -32,11 +32,11 @@
             {{product.packageSize}} {{product.unit}}
           </span>
 
-          <button (click)="clickAddToStock(product)" class="btn-storage" color="accent" mat-mini-fab>
+          <button (click)="clickAddToStock(product)" class="btn-storage" color="accent" mat-icon-button>
             <mat-icon>move_to_inbox</mat-icon>
           </button>
 
-          <button (click)="clickAddToCart(product)" color="primary" mat-mini-fab>
+          <button (click)="clickAddToCart(product)" color="primary" mat-icon-button>
             <mat-icon>add_shopping_cart</mat-icon>
           </button>
         </div>

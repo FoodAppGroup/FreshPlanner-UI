@@ -1,1 +1,86 @@
-<p>product-editing works!</p>
+<!-- root column starts at the top and centers elements horizontally -->
+<div fxLayout="column" fxLayoutAlign="start center" id="product-editing-root">
+  <mat-form-field appearance="outline">
+    <mat-label>Name</mat-label>
+    <input [(ngModel)]="productData.name" matInput>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Category</mat-label>
+    <input [(ngModel)]="categoryAC.input"
+           [formControl]="categoryAC.inputControl"
+           [matAutocomplete]="autocompleteCategory"
+           matInput
+           placeholder="Pick Category"
+           type="text">
+    <mat-autocomplete #autocompleteCategory="matAutocomplete">
+      <mat-option *ngFor="let option of categoryAC.filteredOptions | async" [value]="option">
+        {{option}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Unit</mat-label>
+    <input [(ngModel)]="unitAC.input"
+           [formControl]="unitAC.inputControl"
+           [matAutocomplete]="autocompleteUnit"
+           matInput
+           placeholder="Pick Unit"
+           type="text">
+    <mat-autocomplete #autocompleteUnit="matAutocomplete">
+      <mat-option *ngFor="let option of unitAC.filteredOptions | async" [value]="option">
+        {{option}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Package Size</mat-label>
+    <input [(ngModel)]="productData.packageSize" matInput>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>kCal</mat-label>
+    <input [(ngModel)]="productData.kcal" matInput>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Carbohydrates</mat-label>
+    <input [(ngModel)]="productData.carbohydrates" matInput>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Protein</mat-label>
+    <input [(ngModel)]="productData.protein" matInput>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Fat</mat-label>
+    <input [(ngModel)]="productData.fat" matInput>
+  </mat-form-field>
+
+  <!-- footer with actions, elements start at the top and centers elements horizontally -->
+  <div class="btn-full-width" fxLayout="row wrap" fxLayoutAlign="center start">
+    <button (click)="clickCancel()" class="btn-cancel" mat-raised-button>
+      Cancel
+    </button>
+
+    <button (click)="clickSubmitCreate()" *ngIf="!isEditing" class="btn-submit" color="primary" mat-raised-button>
+      Submit Product
+    </button>
+    <button (click)="clickSubmitUpdate()" *ngIf="isEditing" class="btn-submit" color="primary" mat-raised-button>
+      Submit Product
+    </button>
+  </div>
+
+  <button (click)="clickCreateNewProduct()" *ngIf="isEditing" class="btn-full-width" mat-raised-button>
+    Create New Product
+  </button>
+
+  <button (click)="clickSubmitDelete()" *ngIf="isEditing" class="btn-full-width" color="warn" mat-raised-button>
+    Delete Product
+  </button>
+</div>
+
+
