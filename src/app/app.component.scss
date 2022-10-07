@@ -1,5 +1,4 @@
 #app-toolbar {
-  position: fixed;
   top: 0;
   height: 64px;
   z-index: 1000;
@@ -17,26 +16,26 @@
 }
 
 #app-container {
-  position: fixed;
   bottom: 0;
-  height: calc(100% - 64px);
+  height: calc(100vh - 64px);
   width: 100%;
   overflow-y: auto;
   background-image: url(../assets/background.jpg);
   background-size: cover;
 
-  mat-card {
-    margin: 50px;
-    padding: 50px;
-    background-color: rgba(0,0,0,0.7);
+  #router-container {
+    margin: 0;
+    padding: 16px;
+    background-color: rgba(0, 0, 0, 0.7);
+    width: 80%;
+    height: 300vh; // TODO keep this value in mind when the overflow gets too big, the black can run out
   }
 
   @media (max-width: 400px) {
-    mat-card {
-      margin: 0px;
+    #router-container {
       height: 100vh;
-      overflow-y: auto;
       width: 100vw;
+      overflow-y: auto;
       border-radius: 0;
     }
   }
