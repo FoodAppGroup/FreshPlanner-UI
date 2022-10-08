@@ -1,5 +1,5 @@
 #recipe-display-root {
-  min-width: 500px;
+  padding: 16px;
 
   mat-expansion-panel {
     min-width: 300px;
@@ -18,9 +18,18 @@
   }
 }
 
+@media (max-width: 440px) {
+  :host {
+    width: 100%;
+  }
+  #recipe-display-root {
+    width: 100%;
+  }
+}
+
+
 #recipe-headline {
   width: 100%;
-  min-width: 300px;
   margin-bottom: 30px;
 
   #recipe-title {
@@ -59,4 +68,9 @@
       padding: 0 25px 0;
     }
   }
+}
+
+.btn-full-width {
+  margin-top: 16px;
+  width: 98%;
 }
