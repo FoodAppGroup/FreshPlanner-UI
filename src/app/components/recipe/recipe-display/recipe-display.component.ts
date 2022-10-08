@@ -11,7 +11,7 @@ import {Store} from "@ngrx/store";
 import {RecipeAction, RecipeState} from "../../../stores/recipe.reducer";
 
 @Component({
-  selector: 'app-recipe-detail',
+  selector: 'app-recipe-display',
   templateUrl: './recipe-display.component.html',
   styleUrls: ['./recipe-display.component.scss']
 })

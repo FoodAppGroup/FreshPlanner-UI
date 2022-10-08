@@ -6,7 +6,7 @@ import {Router} from "@angular/router";
 import {RecipeModel} from "../../../models/recipe.model";
 
 @Component({
-  selector: 'app-recipe',
+  selector: 'app-recipe-listing',
   templateUrl: './recipe-listing.component.html',
   styleUrls: ['./recipe-listing.component.scss']
 })

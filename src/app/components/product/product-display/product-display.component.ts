@@ -9,7 +9,7 @@ import {AppRoute} from "../../../app-routing.module";
 import {ParseErrorResponse} from "../../../utility/error-functions";
 
 @Component({
-  selector: 'app-product-detail',
+  selector: 'app-product-display',
   templateUrl: './product-display.component.html',
   styleUrls: ['./product-display.component.scss']
 })
