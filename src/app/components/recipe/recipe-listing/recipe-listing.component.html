@@ -1,23 +1,45 @@
-<div class="selection-column" fxLayout="column" fxLayoutAlign="start center">
-  <button (click)="navigateToRecipeDetail(recipe.id)" *ngFor="let recipe of recipeData" mat-raised-button>
-    <div fxLayout="row" fxLayoutAlign="center center">
-      <div fxLayout="column" fxLayoutAlign="center start" id="recipe-identifier">
-        <div>{{recipe.name}}</div>
-        <div id="recipe-category">{{recipe.category}}</div>
-      </div>
-      <div fxLayout="row" fxLayoutAlign="start center" id="recipe-duration">
-        <mat-icon>access_time</mat-icon>
-        <div>{{recipe.duration}} min</div>
-      </div>
-    </div>
-  </button>
-</div>
+<!-- root column starts at the top and centers elements horizontally -->
+<div (keyup.enter)="clickSearchRecipes()" fxLayout="column" fxLayoutAlign="start center" id="recipe-listing-root">
 
-<div class="div-actions" fxLayout="row wrap" fxLayoutAlign="center start">
-  <button (click)="navigateBack()" mat-raised-button>
-    Back
-  </button>
-  <button (click)="navigateToRecipeDetail()" color="primary" mat-raised-button>
-    Create new Recipe
+  <!-- search input row with fully centered elements -->
+  <div fxLayout="row" fxLayoutAlign="center center" id="search-input">
+    <mat-form-field appearance="outline" autocomplete="off">
+      <mat-label>Search name</mat-label>
+      <input (ngModelChange)="clickSearchRecipes()" [(ngModel)]="searchInput" matInput>
+    </mat-form-field>
+
+    <button (click)="clickSearchRecipes()" color="primary" mat-raised-button type="submit">
+      <mat-icon>search</mat-icon>
+    </button>
+  </div>
+
+  <mat-list *ngIf="categorizedRecipeMap" id="list-recipe-categories">
+    <div *ngFor="let category of categorizedRecipeMap | keyvalue; let i = index">
+      <!-- CATEGORY HEADER -->
+      <div *ngIf="i !== 0" class="category-divider"></div>
+      <div class="category-header" mat-subheader>{{category.key}}</div>
+      <!-- RECIPE ROW -->
+      <mat-list-item *ngFor="let recipe of category.value">
+        <button (click)="clickDisplayRecipe(recipe.id)" class="btn-recipe" mat-raised-button>
+          <div fxLayout="row" fxLayoutAlign="center center">
+
+            <div class="recipe-identifier" fxLayout="column" fxLayoutAlign="center start">
+              <span class="recipe-name">{{recipe.name}}</span>
+              <span class="recipe-category">{{recipe.category}}</span>
+            </div>
+
+            <div class="recipe-duration" fxLayout="row" fxLayoutAlign="start center">
+              <mat-icon>access_time</mat-icon>
+              <span>{{recipe.duration}} min</span>
+            </div>
+
+          </div>
+        </button>
+      </mat-list-item>
+    </div>
+  </mat-list>
+
+  <button (click)="clickCreateNewRecipe()" id="btn-new-recipe" mat-raised-button>
+    Add New Recipe
   </button>
 </div>
