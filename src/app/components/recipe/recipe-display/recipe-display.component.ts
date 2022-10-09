@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Location} from "@angular/common";
 import {RecipeService} from "../../../services/recipe.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
@@ -15,7 +15,7 @@ import {RecipeAction, RecipeState} from "../../../stores/recipe.reducer";
   templateUrl: './recipe-display.component.html',
   styleUrls: ['./recipe-display.component.scss']
 })
-export class RecipeDisplayComponent implements OnInit {
+export class RecipeDisplayComponent implements OnInit, OnDestroy {
 
   recipeData: RecipeModel = {
     items: []
@@ -38,6 +38,10 @@ export class RecipeDisplayComponent implements OnInit {
       return;
     }
     this.fetchRecipeData(parseInt(routeId));
+  }
+
+  ngOnDestroy(): void {
+    this.recipeStore.dispatch(RecipeAction.set({recipe: this.recipeData}));
   }
 
   public clickEditRecipe(): void {
@@ -67,7 +71,6 @@ export class RecipeDisplayComponent implements OnInit {
     this.recipeService.getRecipeById(id).subscribe({
       next: (response) => {
         this.recipeData = response;
-        this.recipeStore.dispatch(RecipeAction.set({recipe: response}));
       },
       error: (error) => {
         console.log(error);

@@ -1,27 +1,36 @@
-<div fxLayout="column" fxLayoutAlign="start center">
+<div fxLayout="column" fxLayoutAlign="start center" id="recipe-editing-root">
 
   <div fxLayout="column" fxLayoutAlign="center start" id="recipe-edit-headline">
-    <div fxLayout="row" fxLayoutAlign="start center" id="recipe-edit-title">
+    <div fxLayout="row" fxLayoutAlign="start center" id="recipe-edit-title-div">
 
       <mat-form-field appearance="outline" id="recipe-edit-name">
         <mat-label>Name</mat-label>
         <input [(ngModel)]="recipeData.name" matInput>
       </mat-form-field>
 
-      <span class="spacer"></span>
+      <span *ngIf="!isMobileView" class="spacer"></span>
 
-      <mat-icon>access_time</mat-icon>
-      <mat-form-field appearance="outline" id="recipe-edit-duration">
-        <mat-label>Duration</mat-label>
-        <input [(ngModel)]="recipeData.duration" matInput>
-      </mat-form-field>
-      <div>Minutes</div>
+      <div *ngIf="!isMobileView" class="recipe-edit-duration" fxLayout="row" fxLayoutAlign="start center">
+        <mat-icon>access_time</mat-icon>
+        <mat-form-field appearance="outline">
+          <mat-label>Duration</mat-label>
+          <input [(ngModel)]="recipeData.duration" matInput>
+        </mat-form-field>
+        <span>Minutes</span>
+      </div>
     </div>
 
     <mat-form-field appearance="outline" id="recipe-edit-category">
       <mat-label>Category</mat-label>
       <input [(ngModel)]="recipeData.category" matInput>
     </mat-form-field>
+
+    <div *ngIf="isMobileView" class="recipe-edit-duration" fxLayout="row" fxLayoutAlign="start center">
+      <mat-form-field appearance="outline">
+        <mat-label>Duration in Minutes</mat-label>
+        <input [(ngModel)]="recipeData.duration" matInput>
+      </mat-form-field>
+    </div>
   </div>
 
   <mat-form-field appearance="outline" id="recipe-edit-description">
@@ -62,7 +71,7 @@
         <mat-divider inset></mat-divider>
 
         <div class="expansion-panel-actions" fxLayout="row wrap" fxLayoutAlign="center start">
-          <button (click)="addItemToRecipe()" color="primary" mat-raised-button>
+          <button (click)="clickAddItemToRecipe()" color="primary" mat-raised-button>
             Add Item to Recipe
           </button>
         </div>
@@ -101,7 +110,7 @@
           <mat-divider inset></mat-divider>
 
           <div class="expansion-panel-actions" fxLayout="row wrap" fxLayoutAlign="center start">
-            <button (click)="navigateToProduct(item.productId)" *ngIf="item.productId" mat-button>
+            <button (click)="clickDisplayProduct(item.productId)" *ngIf="item.productId" mat-button>
               Product Information
             </button>
             <button (click)="removeItemFromRecipe(item)" color="warn" mat-raised-button>
@@ -112,16 +121,22 @@
       </mat-expansion-panel>
     </mat-accordion>
   </div>
-</div>
 
-<div class="div-actions" fxLayout="row wrap" fxLayoutAlign="center start">
-  <button (click)="navigateBack()" mat-raised-button>
-    Cancel
-  </button>
-  <button (click)="submitCreate()" color="primary" mat-raised-button>
-    Submit Recipe
-  </button>
-  <button (click)="submitDelete()" color="warn" mat-raised-button>
+  <!-- footer with actions, elements start at the top and centers elements horizontally -->
+  <div class="btn-full-width" fxLayout="row" fxLayoutAlign="center start">
+    <button (click)="clickCancel()" class="btn-cancel" mat-raised-button>
+      Cancel
+    </button>
+
+    <button (click)="clickSubmitCreate()" *ngIf="!isEditing" class="btn-submit" color="primary" mat-raised-button>
+      Submit Recipe
+    </button>
+    <button (click)="clickSubmitUpdate()" *ngIf="isEditing" class="btn-submit" color="primary" mat-raised-button>
+      Submit Changes
+    </button>
+  </div>
+
+  <button (click)="clickSubmitDelete()" *ngIf="isEditing" class="btn-full-width" color="warn" mat-raised-button>
     Delete Recipe
   </button>
 </div>
