@@ -24,6 +24,8 @@ export class RecipeEditingComponent implements OnInit, OnDestroy {
     productName: ''
   };
   isLoading = false;
+  isEditing = false;
+  isMobileView = false;
 
   constructor(private location: Location,
               private router: Router,
@@ -34,37 +36,36 @@ export class RecipeEditingComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    if (window.screen.width <= 440) {
+      this.isMobileView = true;
+    }
     const routeId = this.route.snapshot.paramMap.get('id');
     if (routeId) {
-      this.recipeStore.select(RecipeAction.get).subscribe((storeRecipe) => {
-        const recipeId = parseInt(routeId);
-        if (storeRecipe && storeRecipe.id === recipeId) {
-          this.recipeData = storeRecipe;
-        } else {
-          this.fetchRecipeData(recipeId);
-        }
-      });
+      this.loadRecipeData(parseInt(routeId));
     } else {
-      this.recipeStore.select(RecipeAction.get).subscribe((storeDraft) => {
-        if (storeDraft) {
-          this.recipeData = storeDraft;
-        } else {
-          this.recipeData = {
-            id: undefined,
-            duration: 15,
-            items: []
-          }
-          OpenSnackBar(this.snackBar, 'Feel free to create a new recipe!');
-        }
-      });
+      this.fetchRecipeDraft();
     }
   }
 
   ngOnDestroy(): void {
-    this.recipeStore.dispatch(RecipeAction.setDraft({recipe: this.recipeData}));
+    if (!this.isEditing) {
+      this.recipeStore.dispatch(RecipeAction.setDraft({recipe: this.recipeData}));
+    }
   }
 
-  public addItemToRecipe(): void {
+  public clickDisplayProduct(productId: number): void {
+    this.router.navigate(['/' + AppRoute.PRODUCT_DETAIL + '/' + productId]);
+  }
+
+  public clickCancel(): void {
+    if (this.isEditing) {
+      this.router.navigate(['/' + AppRoute.RECIPE_DISPLAY + '/' + this.recipeData.id]);
+    } else {
+      this.router.navigate(['/' + AppRoute.RECIPE]);
+    }
+  }
+
+  public clickAddItemToRecipe(): void {
     this.recipeData.items?.push(this.recipeItemData);
     this.recipeItemData = {
       productName: ''
@@ -78,54 +79,64 @@ export class RecipeEditingComponent implements OnInit, OnDestroy {
     }
   }
 
-  public submitCreate(): void {
+  public clickSubmitCreate(): void {
     this.recipeService.addRecipe(this.recipeData).subscribe({
       next: (response) => {
-        OpenSnackBar(this.snackBar, 'Created recipe ' + response.id + ': ' + response.name);
-        this.navigateToRecipe(response.id);
+        this.router.navigate(['/' + AppRoute.RECIPE_DISPLAY + '/' + response.id]);
       },
       error: (error) => {
         console.log(error);
         OpenWarnSnackBar(this.snackBar, 'Failed to create recipe: ' + ParseErrorResponse(error));
-      },
-      complete: () => {
       }
     });
   }
 
-  public submitDelete(): void {
+  public clickSubmitUpdate(): void {
+    this.recipeService.updateRecipe(this.recipeData).subscribe({
+      next: (response) => {
+        this.recipeStore.dispatch(RecipeAction.set({recipe: response}));
+        this.router.navigate(['/' + AppRoute.RECIPE_DISPLAY + '/' + response.id]);
+      },
+      error: (error) => {
+        console.log(error);
+        OpenWarnSnackBar(this.snackBar, 'Failed to update recipe: ' + ParseErrorResponse(error));
+      }
+    });
+  }
+
+  public clickSubmitDelete(): void {
+    if (!this.recipeData.id) {
+      OpenWarnSnackBar(this.snackBar, 'Recipe ID not available.');
+      return;
+    }
     this.recipeService.deleteRecipe(this.recipeData.id).subscribe({
       next: (response) => {
-        OpenSnackBar(this.snackBar, 'Deleted recipe ' + response.id + ': ' + response.name);
+        OpenSnackBar(this.snackBar, 'Deleted recipe: ' + response.name);
+        this.router.navigate(['/' + AppRoute.RECIPE]);
       },
       error: (error) => {
         console.log(error);
         OpenWarnSnackBar(this.snackBar, 'Failed to delete recipe: ' + ParseErrorResponse(error));
-      },
-      complete: () => {
       }
     });
   }
 
-  public navigateToProduct(productId: number): void {
-    this.router.navigate(['/' + AppRoute.PRODUCT_DETAIL + '/' + productId]);
+  private fetchRecipeDraft(): void {
+    this.recipeStore.select(RecipeAction.getDraft).subscribe((recipe) => {
+      if (recipe) {
+        this.recipeData = recipe;
+      } else {
+        this.setDefaultRecipeData();
+      }
+    });
   }
 
-  public navigateBack(): void {
-    this.location.back();
-  }
-
-  private navigateToRecipe(recipeId?: number): void {
-    this.router.navigate(['/' + AppRoute.RECIPE_DISPLAY + '/' + recipeId]);
-  }
-
-  private fetchRecipeData(recipeId: number): void {
+  private loadRecipeData(id: number): void {
     this.isLoading = true;
-    this.recipeService.getRecipeById(recipeId).subscribe({
+    this.recipeService.getRecipeById(id).subscribe({
       next: (response) => {
         this.recipeData = response;
-        this.recipeStore.dispatch(RecipeAction.set({recipe: response}));
-        OpenSnackBar(this.snackBar, 'Loaded recipe: ' + response.name)
+        this.isEditing = true;
       },
       error: (error) => {
         console.log(error);
@@ -134,5 +145,13 @@ export class RecipeEditingComponent implements OnInit, OnDestroy {
     }).add(() => {
       this.isLoading = false;
     });
+  }
+
+  private setDefaultRecipeData(): void {
+    this.recipeData = {
+      id: undefined,
+      duration: 15,
+      items: []
+    }
   }
 }

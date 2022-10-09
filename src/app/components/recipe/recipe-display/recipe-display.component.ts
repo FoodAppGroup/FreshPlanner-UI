@@ -1,21 +1,21 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Location} from "@angular/common";
 import {RecipeService} from "../../../services/recipe.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {RecipeModel} from "../../../models/recipe.model";
 import {ActivatedRoute, Router} from "@angular/router";
 import {AppRoute} from "../../../app-routing.module";
-import {OpenSnackBar, OpenWarnSnackBar} from "../../../utility/snackbar";
+import {OpenWarnSnackBar} from "../../../utility/snackbar";
 import {ParseErrorResponse} from "../../../utility/error-functions";
 import {Store} from "@ngrx/store";
 import {RecipeAction, RecipeState} from "../../../stores/recipe.reducer";
 
 @Component({
-  selector: 'app-recipe-detail',
+  selector: 'app-recipe-display',
   templateUrl: './recipe-display.component.html',
   styleUrls: ['./recipe-display.component.scss']
 })
-export class RecipeDisplayComponent implements OnInit {
+export class RecipeDisplayComponent implements OnInit, OnDestroy {
 
   recipeData: RecipeModel = {
     items: []
@@ -32,40 +32,50 @@ export class RecipeDisplayComponent implements OnInit {
 
   ngOnInit(): void {
     const routeId = this.route.snapshot.paramMap.get('id');
-    const recipeId = routeId ? parseInt(routeId) : 0;
-    this.recipeStore.select(RecipeAction.get).subscribe((storeRecipe) => {
-      if (storeRecipe && storeRecipe.id === recipeId) {
-        this.recipeData = storeRecipe;
+    if (!routeId) {
+      OpenWarnSnackBar(this.snackBar, 'Recipe ID not available from route.');
+      this.location.back();
+      return;
+    }
+    this.fetchRecipeData(parseInt(routeId));
+  }
+
+  ngOnDestroy(): void {
+    this.recipeStore.dispatch(RecipeAction.set({recipe: this.recipeData}));
+  }
+
+  public clickEditRecipe(): void {
+    if (!this.recipeData.id) {
+      OpenWarnSnackBar(this.snackBar, 'Recipe ID not available.');
+      return;
+    }
+    this.router.navigate([`/${AppRoute.RECIPE_EDITING}/${this.recipeData.id}`]);
+  }
+
+  public clickDisplayProduct(productId: number): void {
+    this.router.navigate([`/${AppRoute.PRODUCT_DETAIL}/${productId}`]);
+  }
+
+  private fetchRecipeData(id: number): void {
+    this.recipeStore.select(RecipeAction.get).subscribe((recipe) => {
+      if (recipe && recipe.id === id) {
+        this.recipeData = recipe;
       } else {
-        this.fetchRecipeData(recipeId);
+        this.loadRecipeData(id);
       }
     });
   }
 
-  public navigateToRecipeEditing(recipeId?: number): void {
-    const routeString = recipeId ? `/${AppRoute.RECIPE_EDITING}/${recipeId}` : `/${AppRoute.RECIPE_EDITING}`;
-    this.router.navigate([routeString]);
-  }
-
-  public navigateToProduct(productId: number): void {
-    this.router.navigate([`/${AppRoute.PRODUCT_DETAIL}/${productId}`]);
-  }
-
-  public navigateBack(): void {
-    this.location.back();
-  }
-
-  private fetchRecipeData(recipeId: number): void {
+  private loadRecipeData(id: number): void {
     this.isLoading = true;
-    this.recipeService.getRecipeById(recipeId).subscribe({
+    this.recipeService.getRecipeById(id).subscribe({
       next: (response) => {
         this.recipeData = response;
-        this.recipeStore.dispatch(RecipeAction.set({recipe: response}));
-        OpenSnackBar(this.snackBar, 'Loaded recipe: ' + response.name);
       },
       error: (error) => {
         console.log(error);
         OpenWarnSnackBar(this.snackBar, 'Failed to load recipe: ' + ParseErrorResponse(error));
+        this.location.back();
       }
     }).add(() => {
       this.isLoading = false;
